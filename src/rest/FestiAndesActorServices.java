@@ -2,7 +2,9 @@ package rest;
 
 import javax.servlet.ServletContext;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -17,7 +19,7 @@ import vos.ListaActores;
 import vos.ListaObra;
 import vos.Obra;
 
-public class FestiAndesObraServices {
+public class FestiAndesActorServices {
 	
 	@Context
 	private ServletContext context;
@@ -32,61 +34,83 @@ public class FestiAndesObraServices {
 		 
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response getObras() {
+	public Response getActores() {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
-		ListaObra obras;
+		ListaActores actores;
 		try {
-			obras = tm.darObras();
+			actores = tm.darActores();
 		} 
 		catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
-		return Response.status(200).entity(obras).build();
+		return Response.status(200).entity(actores).build();
 	}
 	
 	@GET
 	@Path("/name/{name}")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response getObrasName(@javax.ws.rs.PathParam("name") String name) {
+	public Response getActorName(@javax.ws.rs.PathParam("name") String name) {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
-		ListaObra obras;
+		ListaActores actores;
 		try {
 			if (name == null || name.length() == 0) throw new Exception("Nombre del video no valido");
-			obras = tm.buscarObraPorNombre(name);
+			actores = tm.buscarActorPorNombre(name);
 		} 
 		catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
-		return Response.status(200).entity(obras).build();
+		return Response.status(200).entity(actores).build();
 	}
 	
 	@PUT
-	@Path("/obra")
+	@Path("/actor")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response addObra(Obra obra) {
+	public Response addActor(Actor actor) {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
 		try {
-			tm.addObra(obra);
+			tm.addActor(actor);
 		} 
 		catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
-		return Response.status(200).entity(obra).build();
+		return Response.status(200).entity(actor).build();
 	}
 	
-	@PUT
-	@Path("/videos")
+	@POST
+	@Path("/actor")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response addVideo(ListaActores videos) {
-		VideoAndesMaster tm = new VideoAndesMaster(getPath());
+	public Response updateVideo(Actor actor) {
+		FestiAndesMaster tm = new FestiAndesMaster(getPath());
 		try {
-			tm.addVideos(videos);
-		} catch (Exception e) {
+			tm.updateActor(actor);
+		} 
+		catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
-		return Response.status(200).entity(videos).build();
+		return Response.status(200).entity(actor).build();
+	}
+	
+    /**
+     * Método que expone servicio REST usando DELETE que actualiza el video que recibe en Json
+     * <b>URL: </b> http://"ip o nombre de host":8080/VideoAndes/rest/videos/video
+     * @param video - video a aliminar. 
+     * @return Json con el video que elimino o Json con el error que se produjo
+     */
+	@DELETE
+	@Path("/actor")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response deleteVideo(Actor actor) {
+		FestiAndesMaster tm = new FestiAndesMaster(getPath());
+		try {
+			tm.deleteActor(actor);
+		} 
+		catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(actor).build();
 	}
 	
 }

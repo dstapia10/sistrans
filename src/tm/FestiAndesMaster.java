@@ -5,7 +5,15 @@ import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Properties;
+
+import dao.DAOTablaActor;
+import dao.DAOTablaFerias;
+import vos.Actor;
+import vos.ListaActores;
+import vos.ListaObra;
+import vos.Obra;
 
 public class FestiAndesMaster {
 	
@@ -57,7 +65,7 @@ public class FestiAndesMaster {
 		initConnectionData();
 	}
 
-	/*
+	/**
 	 * Método que  inicializa los atributos que se usan para la conexion a la base de datos.
 	 * <b>post: </b> Se han inicializado los atributos que se usan par la conexión a la base de datos.
 	 */
@@ -86,6 +94,195 @@ public class FestiAndesMaster {
 	private Connection darConexion() throws SQLException {
 		System.out.println("Connecting to: " + url + " With user: " + user);
 		return DriverManager.getConnection(url, user, password);
+	}
+	
+	
+	// -----------------------------------------------------------------------------------------------------------------------------
+	// Actor -----------------------------------------------------------------------------------------------------------------------
+	// -----------------------------------------------------------------------------------------------------------------------------
+	public ListaActores darActores() throws Exception {
+		
+		ArrayList<Actor> actores;
+		DAOTablaActor daoActor = new DAOTablaActor();
+		try 
+		{
+			//////Transacción
+			this.conn = darConexion();
+			daoActor.setConn(conn);
+			actores = daoActor.darActores();
+
+		} 
+		catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		finally {
+			try {
+				daoActor.cerrarRecursos();
+				if(this.conn!=null) this.conn.close();
+			} 
+			catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return new ListaActores(actores);
+	}
+	
+	public ListaActores buscarActorPorNombre(String nNombre) throws Exception {
+		ArrayList<Actor> actores;
+		DAOTablaActor daoActor = new DAOTablaActor();
+		try 
+		{
+			this.conn = darConexion();
+			daoActor.setConn(conn);
+			actores = daoActor.buscarActorPorName(nNombre);
+		} 
+		catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		finally {
+			try {
+				daoActor.cerrarRecursos();
+				if(this.conn!=null) this.conn.close();
+			} 
+			catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return new ListaActores(actores);
+	}
+	
+	public void addActor(Actor nActor) throws Exception {
+		DAOTablaActor daoActor = new DAOTablaActor();
+		try 
+		{
+			this.conn = darConexion();
+			daoActor.setConn(conn);
+			daoActor.addActor(nActor);
+			conn.commit();
+
+		} 
+		catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		finally {
+			try {
+				daoActor.cerrarRecursos();
+				if(this.conn!=null) this.conn.close();
+			} 
+			catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	public void updateActor(Actor nActor) throws Exception {
+		DAOTablaActor daoActor = new DAOTablaActor();
+		try 
+		{
+			this.conn = darConexion();
+			daoActor.setConn(conn);
+			daoActor.updateActor(nActor);
+
+		} 
+		catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		finally {
+			try {
+				daoActor.cerrarRecursos();
+				if(this.conn!=null) this.conn.close();
+			} 
+			catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	public void deleteActor(Actor nActor) throws Exception {
+		DAOTablaActor daoActor = new DAOTablaActor();
+		try 
+		{
+			this.conn = darConexion();
+			daoActor.setConn(conn);
+			daoActor.deleteActor(nActor);
+
+		} 
+		catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		finally {
+			try {
+				daoActor.cerrarRecursos();
+				if(this.conn!=null) this.conn.close();
+			} catch (SQLException exception) 
+			{
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	
+	
+	
+	
+	// por hacer -------------------------------------------------------------------------------------------------------------------
+	public ListaObra darObras() throws Exception {
+		return null;
+	}
+	
+	// por hacer -------------------------------------------------------------------------------------------------------------------
+	public ListaObra buscarObraPorNombre(String nNombre) throws Exception {
+		return null;
+	}
+	
+	// por hacer -------------------------------------------------------------------------------------------------------------------
+	public Obra addObra(Obra nObra) throws Exception {
+		return null;
 	}
 	
 
