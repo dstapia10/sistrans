@@ -2,21 +2,21 @@ package vos;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 
-public class Ciudad {
+public class Obra {
 	
 	/**
-	 * Id de la ciudad
+	 * Id de la obra
 	 */
 	@JsonProperty(value="id")
 	private int id;
 
 	/**
-	 * Nombre de la ciudad
+	 * Nombre de la obra
 	 */
 	@JsonProperty(value="name")
 	private String name;
-
-	public Ciudad(@JsonProperty(value="id")int id, @JsonProperty(value="name")String name) {
+		
+	public Obra(@JsonProperty(value="id")int id, @JsonProperty(value="name")String name) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -37,5 +37,5 @@ public class Ciudad {
 	public void setName(String name) {
 		this.name = name;
 	}
-
+		
 }
