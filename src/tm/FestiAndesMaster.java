@@ -3,6 +3,8 @@ package tm;
 import java.io.File;
 import java.io.FileInputStream;
 import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.Properties;
 
 public class FestiAndesMaster {
@@ -76,6 +78,15 @@ public class FestiAndesMaster {
 		}
 	}
 	
+	/**
+	 * Método que  retorna la conexión a la base de datos
+	 * @return Connection - la conexión a la base de datos
+	 * @throws SQLException - Cualquier error que se genere durante la conexión a la base de datos
+	 */
+	private Connection darConexion() throws SQLException {
+		System.out.println("Connecting to: " + url + " With user: " + user);
+		return DriverManager.getConnection(url, user, password);
+	}
 	
 
 }
