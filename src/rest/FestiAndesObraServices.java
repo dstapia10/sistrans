@@ -16,7 +16,7 @@ import tm.FestiAndesMaster;
 import vos.ListaObra;
 import vos.Obra;
 
-@Path("obra")
+@Path("obras")
 public class FestiAndesObraServices {
 	
 	@Context
