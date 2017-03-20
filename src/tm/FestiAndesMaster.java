@@ -11,12 +11,15 @@ import java.util.Properties;
 import dao.DAOTablaActor;
 import dao.DAOTablaFuncion;
 import dao.DAOTablaObra;
+import dao.DAOTablaTeatro;
 import vos.Actor;
 import vos.Funcion;
 import vos.ListaActores;
 import vos.ListaFuncion;
 import vos.ListaObra;
+import vos.ListaTeatro;
 import vos.Obra;
+import vos.Teatro;
 
 public class FestiAndesMaster {
 	
@@ -437,11 +440,14 @@ public class FestiAndesMaster {
 	
 	
 	
+
+	
+	
 	// -----------------------------------------------------------------------------------------------------------------------------
 	// Funcion ---------------------------------------------------------------------------------------------------------------------
 	// -----------------------------------------------------------------------------------------------------------------------------
 	
-	public ListaFuncion darFuncion() throws Exception {
+	public ListaFuncion darFunciones() throws Exception {
 		ArrayList<Funcion> funciones;
 		DAOTablaFuncion daoFuncion = new DAOTablaFuncion();
 		try 
@@ -591,6 +597,172 @@ public class FestiAndesMaster {
 		finally {
 			try {
 				daoFuncion.cerrarRecursos();
+				if(this.conn!=null) this.conn.close();
+			} catch (SQLException exception) 
+			{
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	
+	
+	// -----------------------------------------------------------------------------------------------------------------------------
+	// Teatro ----------------------------------------------------------------------------------------------------------------------
+	// -----------------------------------------------------------------------------------------------------------------------------
+	
+	public ListaTeatro darTeatros() throws Exception {
+		ArrayList<Teatro> teatros;
+		DAOTablaTeatro daoTeatro = new DAOTablaTeatro();
+		try 
+		{
+			this.conn = darConexion();
+			daoTeatro.setConn(conn);
+			teatros = daoTeatro.darTeatro();
+		} 
+		catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		finally {
+			try {
+				daoTeatro.cerrarRecursos();
+				if(this.conn!=null) this.conn.close();
+			} 
+			catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return new ListaTeatro(teatros);
+	}
+	
+	public ListaTeatro buscarTeatroPorNombre(String nNombre) throws Exception {
+		ArrayList<Teatro> teatros;
+		DAOTablaTeatro daoTeatro = new DAOTablaTeatro();
+		try 
+		{
+			this.conn = darConexion();
+			daoTeatro.setConn(conn);
+			teatros = daoTeatro.buscarTeatroPorName(nNombre);
+		} 
+		catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		finally {
+			try {
+				daoTeatro.cerrarRecursos();
+				if(this.conn!=null) this.conn.close();
+			} 
+			catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return new ListaTeatro(teatros);
+	}
+	
+	public void addTeatro(Teatro nTeatro) throws Exception {
+		DAOTablaTeatro daoTeatro = new DAOTablaTeatro();
+		try 
+		{
+			this.conn = darConexion();
+			daoTeatro.setConn(conn);
+			daoTeatro.addTeatro(nTeatro);
+			conn.commit();
+		} 
+		catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		finally {
+			try {
+				daoTeatro.cerrarRecursos();
+				if(this.conn!=null) this.conn.close();
+			} 
+			catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	public void updateTeatro(Teatro nTeatro) throws Exception {
+		DAOTablaTeatro daoTeatro = new DAOTablaTeatro();
+		try 
+		{
+			this.conn = darConexion();
+			daoTeatro.setConn(conn);
+			daoTeatro.updateTeatro(nTeatro);
+		} 
+		catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		finally {
+			try {
+				daoTeatro.cerrarRecursos();
+				if(this.conn!=null) this.conn.close();
+			} 
+			catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	public void deleteTeatro(Teatro nTeatro) throws Exception {
+		DAOTablaTeatro daoTeatro = new DAOTablaTeatro();
+		try 
+		{
+			this.conn = darConexion();
+			daoTeatro.setConn(conn);
+			daoTeatro.deleteTeatro(nTeatro);
+		} 
+		catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		finally {
+			try {
+				daoTeatro.cerrarRecursos();
 				if(this.conn!=null) this.conn.close();
 			} catch (SQLException exception) 
 			{

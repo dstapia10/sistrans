@@ -13,10 +13,10 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import tm.FestiAndesMaster;
-import vos.ListaObra;
-import vos.Obra;
+import vos.ListaTeatro;
+import vos.Teatro;
 
-public class FestiAndesObraServices {
+public class FestiAndesTeatroServices {
 	
 	@Context
 	private ServletContext context;
@@ -28,80 +28,80 @@ public class FestiAndesObraServices {
 	private String doErrorMessage(Exception e){
 		return "{ \"ERROR\": \""+ e.getMessage() + "\"}" ;
 	}
-		 
+	
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response getObras() {
+	public Response getTeatros() {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
-		ListaObra obras;
+		ListaTeatro teatros;
 		try {
-			obras = tm.darObras();
+			teatros = tm.darTeatros();
 		} 
 		catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
-		return Response.status(200).entity(obras).build();
+		return Response.status(200).entity(teatros).build();
 	}
 	
 	@GET
 	@Path("/name/{name}")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response getObrasName(@javax.ws.rs.PathParam("name") String name) {
+	public Response getTeatroName(@javax.ws.rs.PathParam("name") String name) {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
-		ListaObra obras;
+		ListaTeatro teatros;
 		try {
-			if (name == null || name.length() == 0) throw new Exception("Nombre de la obra no valido");
-			obras = tm.buscarObraPorNombre(name);
+			if (name == null || name.length() == 0) throw new Exception("Nombre del teatro no valido");
+			teatros = tm.buscarTeatroPorNombre(name);
 		} 
 		catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
-		return Response.status(200).entity(obras).build();
+		return Response.status(200).entity(teatros).build();
 	}
 	
 	@PUT
-	@Path("/obra")
+	@Path("/teatro")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response addObra(Obra obra) {
+	public Response addTeatro(Teatro teatro) {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
 		try {
-			tm.addObra(obra);
+			tm.addTeatro(teatro);
 		} 
 		catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
-		return Response.status(200).entity(obra).build();
+		return Response.status(200).entity(teatro).build();
 	}
 	
 	@POST
-	@Path("/obra")
+	@Path("/teatro")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response updateObra(Obra obra) {
+	public Response updateTeatro(Teatro teatro) {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
 		try {
-			tm.updateObra(obra);
+			tm.updateTeatro(teatro);
 		} 
 		catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
-		return Response.status(200).entity(obra).build();
-	}
-	    
-	@DELETE
-	@Path("/obra")
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response deleteObra(Obra obra) {
-		FestiAndesMaster tm = new FestiAndesMaster(getPath());
-		try {
-			tm.deleteObra(obra);
-		} 
-		catch (Exception e) {
-			return Response.status(500).entity(doErrorMessage(e)).build();
-		}
-		return Response.status(200).entity(obra).build();
+		return Response.status(200).entity(teatro).build();
 	}
 	
+    @DELETE
+	@Path("/teatro")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response deleteTeatro(Teatro teatro) {
+		FestiAndesMaster tm = new FestiAndesMaster(getPath());
+		try {
+			tm.deleteTeatro(teatro);
+		} 
+		catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(teatro).build();
+	}	
+
 }

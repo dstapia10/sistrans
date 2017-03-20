@@ -14,7 +14,6 @@ import javax.ws.rs.core.Response;
 
 import tm.FestiAndesMaster;
 import vos.Funcion;
-import vos.ListaActores;
 import vos.ListaFuncion;
 
 public class FestiAndesFuncionesServices {
@@ -32,16 +31,16 @@ public class FestiAndesFuncionesServices {
 	
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response getActores() {
+	public Response getFunciones() {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
-		ListaActores actores;
+		ListaFuncion funciones;
 		try {
-			actores = tm.darActores();
+			funciones = tm.darFunciones();
 		} 
 		catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
-		return Response.status(200).entity(actores).build();
+		return Response.status(200).entity(funciones).build();
 	}
 	
 	@GET

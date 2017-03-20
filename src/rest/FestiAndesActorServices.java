@@ -50,7 +50,7 @@ public class FestiAndesActorServices {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
 		ListaActores actores;
 		try {
-			if (name == null || name.length() == 0) throw new Exception("Nombre del video no valido");
+			if (name == null || name.length() == 0) throw new Exception("Nombre del actor no valido");
 			actores = tm.buscarActorPorNombre(name);
 		} 
 		catch (Exception e) {
