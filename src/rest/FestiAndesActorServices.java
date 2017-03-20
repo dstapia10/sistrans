@@ -13,11 +13,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import tm.FestiAndesMaster;
-import tm.VideoAndesMaster;
 import vos.Actor;
 import vos.ListaActores;
-import vos.ListaObra;
-import vos.Obra;
 
 public class FestiAndesActorServices {
 	
@@ -81,7 +78,7 @@ public class FestiAndesActorServices {
 	@Path("/actor")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response updateVideo(Actor actor) {
+	public Response updateActor(Actor actor) {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
 		try {
 			tm.updateActor(actor);
@@ -92,17 +89,11 @@ public class FestiAndesActorServices {
 		return Response.status(200).entity(actor).build();
 	}
 	
-    /**
-     * Método que expone servicio REST usando DELETE que actualiza el video que recibe en Json
-     * <b>URL: </b> http://"ip o nombre de host":8080/VideoAndes/rest/videos/video
-     * @param video - video a aliminar. 
-     * @return Json con el video que elimino o Json con el error que se produjo
-     */
-	@DELETE
+    @DELETE
 	@Path("/actor")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response deleteVideo(Actor actor) {
+	public Response deleteFuncion(Actor actor) {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
 		try {
 			tm.deleteActor(actor);
