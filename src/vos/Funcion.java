@@ -1,43 +1,78 @@
+
 package vos;
 
 import java.util.Date;
 
-import org.codehaus.jackson.annotate.JsonProperty;
+import org.codehaus.jackson.annotate.*;
+
 
 public class Funcion {
-	
-	/**
-	 * Id de la funcion
-	 */
-	@JsonProperty(value="id")
+
+	//// Atributos
+
+	@JsonProperty(value="ID")
 	private int id;
 
-	/**
-	 * Fecha de inicio de la funcion
-	 */
-	@JsonProperty(value="fechaInicio")
+
+	@JsonProperty(value="FECHAINICIO")
 	private Date fechaInicio;
 
-	public Funcion(@JsonProperty(value="id")int id, @JsonProperty(value="fechaInicio")Date fechaInicio) {
+
+	@JsonProperty(value="IDTEATRO")
+	private int idTeatro;
+
+	@JsonProperty(value="IDOBRA")
+	private int idObra;
+
+
+	
+	public Funcion(@JsonProperty(value="ID")int id,@JsonProperty(value="FECHAINICIO")Date fechaInicio, @JsonProperty(value="IDTEATRO")int idTeatro,@JsonProperty(value="IDOBRA") int idObra) 
+	{
 		super();
 		this.id = id;
 		this.fechaInicio = fechaInicio;
+		this.idTeatro = idTeatro;
+		this.idObra = idObra;
 	}
 	
+
 	public int getId() {
 		return id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+
+	public void setId(int duration) {
+		this.id = duration;
 	}
-	
+
+
 	public Date getFechaInicio() {
 		return fechaInicio;
 	}
 
-	public void setFechaInicio(Date fechaInicio) {
-		this.fechaInicio = fechaInicio;
+	
+	public void setFechaInicio(Date id) {
+		this.fechaInicio = id;
 	}
+
+	
+	public int getIdTeatro() {
+		return idTeatro;
+	}
+
+	
+	public void setIdTeatro(int name) {
+		this.idTeatro = name;
+	}
+
+	public int getIdObra() {
+		return idObra;
+	}
+
+	
+	public void setIdObra(int name) {
+		this.idObra = name;
+	}
+
 
 }

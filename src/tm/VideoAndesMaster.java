@@ -18,9 +18,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import dao.DAOTablaVideos;
-import vos.Video;
-import vos.ListaVideos;
+import dao.DAOTablaFerias;
+import vos.Actor;
+import vos.ListaActores;
 
 /**
  * Fachada en patron singleton de la aplicación
@@ -118,9 +118,9 @@ public class VideoAndesMaster {
 	 * @return ListaVideos - objeto que modela  un arreglo de videos. este arreglo contiene el resultado de la búsqueda
 	 * @throws Exception -  cualquier error que se genere durante la transacción
 	 */
-	public ListaVideos darVideos() throws Exception {
-		ArrayList<Video> videos;
-		DAOTablaVideos daoVideos = new DAOTablaVideos();
+	public ListaActores darVideos() throws Exception {
+		ArrayList<Actor> videos;
+		DAOTablaFerias daoVideos = new DAOTablaFerias();
 		try 
 		{
 			//////Transacción
@@ -147,7 +147,7 @@ public class VideoAndesMaster {
 				throw exception;
 			}
 		}
-		return new ListaVideos(videos);
+		return new ListaActores(videos);
 	}
 
 	/**
@@ -156,9 +156,9 @@ public class VideoAndesMaster {
 	 * @return ListaVideos - objeto que modela  un arreglo de videos. este arreglo contiene el resultado de la búsqueda
 	 * @throws Exception -  cualquier error que se genere durante la transacción
 	 */
-	public ListaVideos buscarVideosPorName(String name) throws Exception {
-		ArrayList<Video> videos;
-		DAOTablaVideos daoVideos = new DAOTablaVideos();
+	public ListaActores buscarVideosPorName(String name) throws Exception {
+		ArrayList<Actor> videos;
+		DAOTablaFerias daoVideos = new DAOTablaFerias();
 		try 
 		{
 			//////Transacción
@@ -185,7 +185,7 @@ public class VideoAndesMaster {
 				throw exception;
 			}
 		}
-		return new ListaVideos(videos);
+		return new ListaActores(videos);
 	}
 	
 	/**
@@ -194,8 +194,8 @@ public class VideoAndesMaster {
 	 * @param video - el video a agregar. video != null
 	 * @throws Exception - cualquier error que se genera agregando el video
 	 */
-	public void addVideo(Video video) throws Exception {
-		DAOTablaVideos daoVideos = new DAOTablaVideos();
+	public void addVideo(Actor video) throws Exception {
+		DAOTablaFerias daoVideos = new DAOTablaFerias();
 		try 
 		{
 			//////Transacción
@@ -231,15 +231,15 @@ public class VideoAndesMaster {
 	 * @param videos - objeto que modela una lista de videos y se estos se pretenden agregar. videos != null
 	 * @throws Exception - cualquier error que se genera agregando los videos
 	 */
-	public void addVideos(ListaVideos videos) throws Exception {
-		DAOTablaVideos daoVideos = new DAOTablaVideos();
+	public void addVideos(ListaActores videos) throws Exception {
+		DAOTablaFerias daoVideos = new DAOTablaFerias();
 		try 
 		{
 			//////Transacción - ACID Example
 			this.conn = darConexion();
 			conn.setAutoCommit(false);
 			daoVideos.setConn(conn);
-			for(Video video : videos.getVideos())
+			for(Actor video : videos.getVideos())
 				daoVideos.addVideo(video);
 			conn.commit();
 		} catch (SQLException e) {
@@ -271,8 +271,8 @@ public class VideoAndesMaster {
 	 * @param video - Video a actualizar. video != null
 	 * @throws Exception - cualquier error que se genera actualizando los videos
 	 */
-	public void updateVideo(Video video) throws Exception {
-		DAOTablaVideos daoVideos = new DAOTablaVideos();
+	public void updateVideo(Actor video) throws Exception {
+		DAOTablaFerias daoVideos = new DAOTablaFerias();
 		try 
 		{
 			//////Transacción
@@ -307,8 +307,8 @@ public class VideoAndesMaster {
 	 * @param video - Video a eliminar. video != null
 	 * @throws Exception - cualquier error que se genera actualizando los videos
 	 */
-	public void deleteVideo(Video video) throws Exception {
-		DAOTablaVideos daoVideos = new DAOTablaVideos();
+	public void deleteVideo(Actor video) throws Exception {
+		DAOTablaFerias daoVideos = new DAOTablaFerias();
 		try 
 		{
 			//////Transacción
@@ -342,9 +342,9 @@ public class VideoAndesMaster {
 	 * @return ListaVideos - objeto que modela  un arreglo de videos. este arreglo contiene el resultado de la búsqueda
 	 * @throws Exception -  cualquier error que se genere durante la transacción
 	 */
-	public ListaVideos videosMasAlquilados() throws Exception {
-		ArrayList<Video> videos;
-		DAOTablaVideos daoVideos = new DAOTablaVideos();
+	public ListaActores videosMasAlquilados() throws Exception {
+		ArrayList<Actor> videos;
+		DAOTablaFerias daoVideos = new DAOTablaFerias();
 		try 
 		{
 			//////Transacción
@@ -371,7 +371,7 @@ public class VideoAndesMaster {
 				throw exception;
 			}
 		}
-		return new ListaVideos(videos);
+		return new ListaActores(videos);
 	}
 	
 }

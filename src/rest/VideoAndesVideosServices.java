@@ -26,8 +26,8 @@ import javax.ws.rs.core.Response;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import tm.VideoAndesMaster;
-import vos.Video;
-import vos.ListaVideos;
+import vos.Actor;
+import vos.ListaActores;
 
 /**
  * Clase que expone servicios REST con ruta base: http://"ip o nombre de host":8080/VideoAndes/rest/videos/...
@@ -76,7 +76,7 @@ public class VideoAndesVideosServices {
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response getVideos() {
 		VideoAndesMaster tm = new VideoAndesMaster(getPath());
-		ListaVideos videos;
+		ListaActores videos;
 		try {
 			videos = tm.darVideos();
 		} catch (Exception e) {
@@ -98,7 +98,7 @@ public class VideoAndesVideosServices {
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response getVideoName(@javax.ws.rs.PathParam("name") String name) {
 		VideoAndesMaster tm = new VideoAndesMaster(getPath());
-		ListaVideos videos;
+		ListaActores videos;
 		try {
 			if (name == null || name.length() == 0)
 				throw new Exception("Nombre del video no valido");
@@ -120,7 +120,7 @@ public class VideoAndesVideosServices {
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response getVideoMayorAlquilado() {
 		VideoAndesMaster tm = new VideoAndesMaster(getPath());
-		ListaVideos videos;
+		ListaActores videos;
 		try {
 			videos = tm.videosMasAlquilados();
 		} catch (Exception e) {
@@ -140,7 +140,7 @@ public class VideoAndesVideosServices {
 	@Path("/video")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response addVideo(Video video) {
+	public Response addVideo(Actor video) {
 		VideoAndesMaster tm = new VideoAndesMaster(getPath());
 		try {
 			tm.addVideo(video);
@@ -160,7 +160,7 @@ public class VideoAndesVideosServices {
 	@Path("/videos")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response addVideo(ListaVideos videos) {
+	public Response addVideo(ListaActores videos) {
 		VideoAndesMaster tm = new VideoAndesMaster(getPath());
 		try {
 			tm.addVideos(videos);
@@ -180,7 +180,7 @@ public class VideoAndesVideosServices {
 	@Path("/video")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response updateVideo(Video video) {
+	public Response updateVideo(Actor video) {
 		VideoAndesMaster tm = new VideoAndesMaster(getPath());
 		try {
 			tm.updateVideo(video);
@@ -200,7 +200,7 @@ public class VideoAndesVideosServices {
 	@Path("/video")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response deleteVideo(Video video) {
+	public Response deleteVideo(Actor video) {
 		VideoAndesMaster tm = new VideoAndesMaster(getPath());
 		try {
 			tm.deleteVideo(video);

@@ -2,40 +2,49 @@ package vos;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 
-public class Ciudad {
-	
-	/**
-	 * Id de la ciudad
-	 */
-	@JsonProperty(value="id")
+public class Ciudad 
+{
+
+	@JsonProperty(value="ID")
 	private int id;
 
-	/**
-	 * Nombre de la ciudad
-	 */
-	@JsonProperty(value="name")
-	private String name;
 
-	public Ciudad(@JsonProperty(value="id")int id, @JsonProperty(value="name")String name) {
+	@JsonProperty(value="NOMBRE")
+	private String nombre;
+
+
+	
+
+	
+	public Ciudad(@JsonProperty(value="ID")int id,@JsonProperty(value="LETRAFILA")String nombre)
+			
+	{
 		super();
 		this.id = id;
-		this.name = name;
+		this.nombre = nombre;
+		
 	}
 	
+
 	public int getId() {
 		return id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+
+	public void setId(int duration) {
+		this.id = duration;
 	}
+
+
+	public String getNombre() {
+		return nombre;
+	}
+
 	
-	public String getName() {
-		return name;
+	public void setNombre(String id) {
+		this.nombre = id;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
+	
+	
 }
