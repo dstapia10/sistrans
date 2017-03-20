@@ -16,6 +16,7 @@ import tm.FestiAndesMaster;
 import vos.ListaTeatro;
 import vos.Teatro;
 
+@Path("teatro")
 public class FestiAndesTeatroServices {
 	
 	@Context

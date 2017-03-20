@@ -9,12 +9,15 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import dao.DAOTablaActor;
+import dao.DAOTablaCiudad;
 import dao.DAOTablaFuncion;
 import dao.DAOTablaObra;
 import dao.DAOTablaTeatro;
 import vos.Actor;
+import vos.Ciudad;
 import vos.Funcion;
 import vos.ListaActores;
+import vos.ListaCiudad;
 import vos.ListaFuncion;
 import vos.ListaObra;
 import vos.ListaTeatro;
@@ -763,6 +766,172 @@ public class FestiAndesMaster {
 		finally {
 			try {
 				daoTeatro.cerrarRecursos();
+				if(this.conn!=null) this.conn.close();
+			} catch (SQLException exception) 
+			{
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	
+	
+	// -----------------------------------------------------------------------------------------------------------------------------
+	// Ciudad ----------------------------------------------------------------------------------------------------------------------
+	// -----------------------------------------------------------------------------------------------------------------------------
+	
+	public ListaCiudad darCiudades() throws Exception {
+		ArrayList<Ciudad> ciudades;
+		DAOTablaCiudad daoCiudad = new DAOTablaCiudad();
+		try 
+		{
+			this.conn = darConexion();
+			daoCiudad.setConn(conn);
+			ciudades = daoCiudad.darCiudades();
+		} 
+		catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		finally {
+			try {
+				daoCiudad.cerrarRecursos();
+				if(this.conn!=null) this.conn.close();
+			} 
+			catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return new ListaCiudad(ciudades);
+	}
+	
+	public ListaCiudad buscarCiudadPorNombre(String nNombre) throws Exception {
+		ArrayList<Ciudad> Ciudades;
+		DAOTablaCiudad daoCiudad = new DAOTablaCiudad();
+		try 
+		{
+			this.conn = darConexion();
+			daoCiudad.setConn(conn);
+			Ciudades = daoCiudad.buscarCiudadPorName(nNombre);
+		} 
+		catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		finally {
+			try {
+				daoCiudad.cerrarRecursos();
+				if(this.conn!=null) this.conn.close();
+			} 
+			catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return new ListaCiudad(Ciudades);
+	}
+	
+	public void addCiudad(Ciudad nCiudad) throws Exception {
+		DAOTablaCiudad daoCiudad = new DAOTablaCiudad();
+		try 
+		{
+			this.conn = darConexion();
+			daoCiudad.setConn(conn);
+			daoCiudad.addCiudad(nCiudad);
+			conn.commit();
+		} 
+		catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		finally {
+			try {
+				daoCiudad.cerrarRecursos();
+				if(this.conn!=null) this.conn.close();
+			} 
+			catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	public void updateCiudad(Ciudad nCiudad) throws Exception {
+		DAOTablaCiudad daoCiudad = new DAOTablaCiudad();
+		try 
+		{
+			this.conn = darConexion();
+			daoCiudad.setConn(conn);
+			daoCiudad.updateCiudad(nCiudad);
+		} 
+		catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		finally {
+			try {
+				daoCiudad.cerrarRecursos();
+				if(this.conn!=null) this.conn.close();
+			} 
+			catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	public void deleteCiudad(Ciudad nCiudad) throws Exception {
+		DAOTablaCiudad daoCiudad = new DAOTablaCiudad();
+		try 
+		{
+			this.conn = darConexion();
+			daoCiudad.setConn(conn);
+			daoCiudad.deleteCiudad(nCiudad);
+		} 
+		catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		finally {
+			try {
+				daoCiudad.cerrarRecursos();
 				if(this.conn!=null) this.conn.close();
 			} catch (SQLException exception) 
 			{

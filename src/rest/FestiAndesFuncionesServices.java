@@ -16,6 +16,7 @@ import tm.FestiAndesMaster;
 import vos.Funcion;
 import vos.ListaFuncion;
 
+@Path("funcion")
 public class FestiAndesFuncionesServices {
 	
 	@Context
