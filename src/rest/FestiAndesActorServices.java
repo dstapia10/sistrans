@@ -16,6 +16,7 @@ import tm.FestiAndesMaster;
 import vos.Actor;
 import vos.ListaActores;
 
+@Path("actores")
 public class FestiAndesActorServices {
 	
 	@Context
