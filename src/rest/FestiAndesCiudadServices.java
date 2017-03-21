@@ -45,7 +45,7 @@ public class FestiAndesCiudadServices {
 	}
 	
 	@GET
-	@Path("/name/{name}")
+	@Path("/ciudades/{name}")
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response getCiudadName(@javax.ws.rs.PathParam("name") String name) {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());

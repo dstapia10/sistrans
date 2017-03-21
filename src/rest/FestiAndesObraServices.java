@@ -45,7 +45,7 @@ public class FestiAndesObraServices {
 	}
 	
 	@GET
-	@Path("/name/{name}")
+	@Path("/obras/{name}")
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response getObrasName(@javax.ws.rs.PathParam("name") String name) {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
@@ -61,7 +61,7 @@ public class FestiAndesObraServices {
 	}
 	
 	@GET
-	@Path("/id/{id}")
+	@Path("/obras/{id}")
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response getObrasId(@javax.ws.rs.PathParam("id") int id) {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());

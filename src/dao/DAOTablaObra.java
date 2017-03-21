@@ -124,47 +124,50 @@ public class DAOTablaObra {
 
 	public void addObra(Obra obra) throws SQLException, Exception {
 
-//		String sql = "INSERT INTO ACTOR VALUES (";
-//		sql += actor.getCedula() + ",'";
-//		sql += actor.getNombre() + "',";
-//		sql += actor.getIdCompania() + "',";
-//		sql += actor.getNacionalidad()+ ")";
-//
-//		System.out.println("SQL stmt:" + sql);
-//
-//		PreparedStatement prepStmt = conn.prepareStatement(sql);
-//		recursos.add(prepStmt);
-//		prepStmt.executeQuery();
+		String sql = "INSERT INTO OBRA VALUES ('";
+		sql += obra.getId() + "','";
+		sql += obra.getNombre() + "','";
+		sql += obra.getRequerimientos() + "','";
+		sql += obra.getIdioma() + "','";
+		sql += obra.getDescripcion() + "','";
+		sql += obra.getCosto()+ "')";
+
+		System.out.println("SQL stmt:" + sql);
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		prepStmt.executeQuery();
 
 	}
 	
 
 	public void updateObra(Obra obra) throws SQLException, Exception {
 
-//		String sql = "UPDATE ACTOR SET ";
-//		sql += "NOMBRE='" + actor.getCedula() + "',";
-//		sql += "ID_COMPAÑIA='" + actor.getIdCompania() + "',";
-//		sql += "NACIONALIDAD=" + actor.getNacionalidad();
-//		sql += " WHERE CEDULA = " + actor.getCedula();
-//
-//		System.out.println("SQL stmt:" + sql);
-//
-//		PreparedStatement prepStmt = conn.prepareStatement(sql);
-//		recursos.add(prepStmt);
-//		prepStmt.executeQuery();
+		String sql = "UPDATE OBRA SET ";
+		sql += "NOMBRE='" + obra.getNombre() + "',";
+		sql += "REQUERIMIENTOS='" + obra.getRequerimientos() + "',";
+		sql += "IDIOMA='" + obra.getIdioma() + "',";
+		sql += "COSTO=" + obra.getCosto() + "'";
+		sql += " WHERE ID = " + obra.getId();
+
+		System.out.println("SQL stmt:" + sql);
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		prepStmt.executeQuery();
 	}
 
 
 	public void deleteObra(Obra obra) throws SQLException, Exception {
 
-//		String sql = "DELETE FROM ACTOR";
-//		sql += " WHERE id = " + actor.getCedula();
-//
-//		System.out.println("SQL stmt:" + sql);
-//
-//		PreparedStatement prepStmt = conn.prepareStatement(sql);
-//		recursos.add(prepStmt);
-//		prepStmt.executeQuery();
+		String sql = "DELETE FROM OBRA";
+		sql += " WHERE ID = " + obra.getId();
+
+		System.out.println("SQL stmt:" + sql);
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		prepStmt.executeQuery();
 	}
 
 

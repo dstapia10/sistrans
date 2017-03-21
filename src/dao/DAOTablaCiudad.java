@@ -101,47 +101,45 @@ public class DAOTablaCiudad {
 
 	public void addCiudad(Ciudad ciudad) throws SQLException, Exception {
 
-//		String sql = "INSERT INTO ACTOR VALUES (";
-//		sql += actor.getCedula() + ",'";
-//		sql += actor.getNombre() + "',";
-//		sql += actor.getIdCompania() + "',";
-//		sql += actor.getNacionalidad()+ ")";
-//
-//		System.out.println("SQL stmt:" + sql);
-//
-//		PreparedStatement prepStmt = conn.prepareStatement(sql);
-//		recursos.add(prepStmt);
-//		prepStmt.executeQuery();
+		String sql = "INSERT INTO CIUDAD VALUES ('";
+		sql += ciudad.getId() + "','";
+		
+		sql += ciudad.getNombre() + "')";
+
+		System.out.println("SQL stmt:" + sql);
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		prepStmt.executeQuery();
 
 	}
 	
 
 	public void updateCiudad(Ciudad ciudad) throws SQLException, Exception {
 
-//		String sql = "UPDATE ACTOR SET ";
-//		sql += "NOMBRE='" + actor.getCedula() + "',";
-//		sql += "ID_COMPAÑIA='" + actor.getIdCompania() + "',";
-//		sql += "NACIONALIDAD=" + actor.getNacionalidad();
-//		sql += " WHERE CEDULA = " + actor.getCedula();
-//
-//		System.out.println("SQL stmt:" + sql);
-//
-//		PreparedStatement prepStmt = conn.prepareStatement(sql);
-//		recursos.add(prepStmt);
-//		prepStmt.executeQuery();
+		String sql = "UPDATE CIUDAD SET ";
+		sql += "NOMBRE='" + ciudad.getNombre() ;
+		
+		sql += "' WHERE ID= " + ciudad.getId();
+
+		System.out.println("SQL stmt:" + sql);
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		prepStmt.executeQuery();
 	}
 
 
 	public void deleteCiudad(Ciudad ciudad) throws SQLException, Exception {
 
-//		String sql = "DELETE FROM ACTOR";
-//		sql += " WHERE id = " + actor.getCedula();
-//
-//		System.out.println("SQL stmt:" + sql);
-//
-//		PreparedStatement prepStmt = conn.prepareStatement(sql);
-//		recursos.add(prepStmt);
-//		prepStmt.executeQuery();
+		String sql = "DELETE FROM CIUDAD";
+		sql += " WHERE id = " + ciudad.getId();
+
+		System.out.println("SQL stmt:" + sql);
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		prepStmt.executeQuery();
 	}
 	
 }
