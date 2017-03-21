@@ -53,24 +53,23 @@ public class DAOTablaCategoria {
 
 
 	public ArrayList<Categoria> darCategorias() throws SQLException, Exception {
-//		ArrayList<Actor> actores = new ArrayList<Actor>();
-//
-//		String sql = "SELECT * FROM ACTOR";
-//
-//		PreparedStatement prepStmt = conn.prepareStatement(sql);
-//		recursos.add(prepStmt);
-//		ResultSet rs = prepStmt.executeQuery();
-//
-//		while (rs.next()) {
-//			int cedula = Integer.parseInt(rs.getString("CEDULA"));
-//			String nombre = rs.getString("NOMBRE");
-//			int compañia = Integer.parseInt(rs.getString("ID_COMPAÑIA"));
-//			String nacionalidad = rs.getString("NACIONALIDAD");
-//			actores.add(new Actor(cedula, compañia, nombre, nacionalidad));
-//		}
-//		return actores;
+		ArrayList<Categoria> categorias = new ArrayList<Categoria>();
+
+		String sql = "SELECT * FROM CATEGORIA";
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+
+		while (rs.next()) {
+			
+			String nombre = rs.getString("NOMBRE");
+			
+			categorias.add(new Categoria(nombre));
+		}
+		return categorias;
 		
-		return null;
+		
 	}
 
 
