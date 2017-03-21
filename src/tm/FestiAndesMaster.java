@@ -16,6 +16,7 @@ import dao.DAOTablaCompañia;
 import dao.DAOTablaFuncion;
 import dao.DAOTablaObra;
 import dao.DAOTablaTeatro;
+import dao.DAOTablaUsuario;
 import vos.Actor;
 import vos.Boleta;
 import vos.Categoria;
@@ -30,8 +31,10 @@ import vos.ListaCompañia;
 import vos.ListaFuncion;
 import vos.ListaObra;
 import vos.ListaTeatro;
+import vos.ListaUsuario;
 import vos.Obra;
 import vos.Teatro;
+import vos.Usuario;
 
 public class FestiAndesMaster {
 	
@@ -1546,5 +1549,138 @@ public class FestiAndesMaster {
 			}
 		}
 	}
+	
+	
+	
+	// -----------------------------------------------------------------------------------------------------------------------------
+	// Usuario ---------------------------------------------------------------------------------------------------------------------
+	// -----------------------------------------------------------------------------------------------------------------------------
+	
+	public ListaUsuario darUsuarios() throws Exception {
+		ArrayList<Usuario> usuarios;
+		DAOTablaUsuario daoUsuario = new DAOTablaUsuario();
+		try 
+		{
+			this.conn = darConexion();
+			daoUsuario.setConn(conn);
+			usuarios = daoUsuario.darUsuarios();
+		} 
+		catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		finally {
+			try {
+				daoUsuario.cerrarRecursos();
+				if(this.conn!=null) this.conn.close();
+			} 
+			catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return new ListaUsuario(usuarios);
+	}
 		
+	public void addUsuario(Usuario nUsuario) throws Exception {
+		DAOTablaUsuario daoUsuario = new DAOTablaUsuario();
+		try 
+		{
+			this.conn = darConexion();
+			daoUsuario.setConn(conn);
+			daoUsuario.addUsuario(nUsuario);
+			conn.commit();
+		} 
+		catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		finally {
+			try {
+				daoUsuario.cerrarRecursos();
+				if(this.conn!=null) this.conn.close();
+			} 
+			catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	public void updateUsuario(Usuario nUsuario) throws Exception {
+		DAOTablaUsuario daoUsuario = new DAOTablaUsuario();
+		try 
+		{
+			this.conn = darConexion();
+			daoUsuario.setConn(conn);
+			daoUsuario.updateUsuario(nUsuario);
+		} 
+		catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		finally {
+			try {
+				daoUsuario.cerrarRecursos();
+				if(this.conn!=null) this.conn.close();
+			} 
+			catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	public void deleteUsuario(Usuario nUsuario) throws Exception {
+		DAOTablaUsuario daoUsuario = new DAOTablaUsuario();
+		try 
+		{
+			this.conn = darConexion();
+			daoUsuario.setConn(conn);
+			daoUsuario.deleteUsuario(nUsuario);
+		} 
+		catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		finally {
+			try {
+				daoUsuario.cerrarRecursos();
+				if(this.conn!=null) this.conn.close();
+			} catch (SQLException exception) 
+			{
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
 }
