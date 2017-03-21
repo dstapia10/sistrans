@@ -11,16 +11,19 @@ import java.util.Properties;
 import dao.DAOTablaActor;
 import dao.DAOTablaCategoria;
 import dao.DAOTablaCiudad;
+import dao.DAOTablaCompañia;
 import dao.DAOTablaFuncion;
 import dao.DAOTablaObra;
 import dao.DAOTablaTeatro;
 import vos.Actor;
 import vos.Categoria;
 import vos.Ciudad;
+import vos.Compañia;
 import vos.Funcion;
 import vos.ListaActores;
 import vos.ListaCategoria;
 import vos.ListaCiudad;
+import vos.ListaCompañia;
 import vos.ListaFuncion;
 import vos.ListaObra;
 import vos.ListaTeatro;
@@ -1101,6 +1104,172 @@ public class FestiAndesMaster {
 		finally {
 			try {
 				daoCategoria.cerrarRecursos();
+				if(this.conn!=null) this.conn.close();
+			} catch (SQLException exception) 
+			{
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	
+	
+	// -----------------------------------------------------------------------------------------------------------------------------
+	// Compañia --------------------------------------------------------------------------------------------------------------------
+	// -----------------------------------------------------------------------------------------------------------------------------
+	
+	public ListaCompañia darCompañias() throws Exception {
+		ArrayList<Compañia> compañias;
+		DAOTablaCompañia daoCompañia = new DAOTablaCompañia();
+		try 
+		{
+			this.conn = darConexion();
+			daoCompañia.setConn(conn);
+			compañias = daoCompañia.darCompañia();
+		} 
+		catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		finally {
+			try {
+				daoCompañia.cerrarRecursos();
+				if(this.conn!=null) this.conn.close();
+			} 
+			catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return new ListaCompañia(compañias);
+	}
+	
+	public ListaCompañia buscarCompañiaPorNombre(String nNombre) throws Exception {
+		ArrayList<Compañia> compañias;
+		DAOTablaCompañia daoCompañia = new DAOTablaCompañia();
+		try 
+		{
+			this.conn = darConexion();
+			daoCompañia.setConn(conn);
+			compañias = daoCompañia.buscarCompañiaPorName(nNombre);
+		} 
+		catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		finally {
+			try {
+				daoCompañia.cerrarRecursos();
+				if(this.conn!=null) this.conn.close();
+			} 
+			catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return new ListaCompañia(compañias);
+	}
+	
+	public void addCompañia(Compañia nCompañia) throws Exception {
+		DAOTablaCompañia daoCompañia = new DAOTablaCompañia();
+		try 
+		{
+			this.conn = darConexion();
+			daoCompañia.setConn(conn);
+			daoCompañia.addCompañia(nCompañia);
+			conn.commit();
+		} 
+		catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		finally {
+			try {
+				daoCompañia.cerrarRecursos();
+				if(this.conn!=null) this.conn.close();
+			} 
+			catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	public void updateCompañia(Compañia nCompañia) throws Exception {
+		DAOTablaCompañia daoCompañia = new DAOTablaCompañia();
+		try 
+		{
+			this.conn = darConexion();
+			daoCompañia.setConn(conn);
+			daoCompañia.updateCompañia(nCompañia);
+		} 
+		catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		finally {
+			try {
+				daoCompañia.cerrarRecursos();
+				if(this.conn!=null) this.conn.close();
+			} 
+			catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	public void deleteCompañia(Compañia nCompañia) throws Exception {
+		DAOTablaCompañia daoCompañia = new DAOTablaCompañia();
+		try 
+		{
+			this.conn = darConexion();
+			daoCompañia.setConn(conn);
+			daoCompañia.deleteCompañia(nCompañia);
+		} 
+		catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		finally {
+			try {
+				daoCompañia.cerrarRecursos();
 				if(this.conn!=null) this.conn.close();
 			} catch (SQLException exception) 
 			{
