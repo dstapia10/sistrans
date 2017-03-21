@@ -13,6 +13,7 @@ import dao.DAOTablaBoleta;
 import dao.DAOTablaCategoria;
 import dao.DAOTablaCiudad;
 import dao.DAOTablaCompañia;
+import dao.DAOTablaFestival;
 import dao.DAOTablaFuncion;
 import dao.DAOTablaObra;
 import dao.DAOTablaTeatro;
@@ -22,12 +23,14 @@ import vos.Boleta;
 import vos.Categoria;
 import vos.Ciudad;
 import vos.Compañia;
+import vos.Festival;
 import vos.Funcion;
 import vos.ListaActores;
 import vos.ListaBoletas;
 import vos.ListaCategoria;
 import vos.ListaCiudad;
 import vos.ListaCompañia;
+import vos.ListaFestivales;
 import vos.ListaFuncion;
 import vos.ListaObra;
 import vos.ListaTeatro;
@@ -121,6 +124,9 @@ public class FestiAndesMaster {
 	// -----------------------------------------------------------------------------------------------------------------------------
 	// Actor -----------------------------------------------------------------------------------------------------------------------
 	// -----------------------------------------------------------------------------------------------------------------------------
+	private void inicioActor(){
+	}
+	
 	public ListaActores darActores() throws Exception {
 		
 		ArrayList<Actor> actores;
@@ -292,6 +298,8 @@ public class FestiAndesMaster {
 	// -----------------------------------------------------------------------------------------------------------------------------
 	// Obra -----------------------------------------------------------------------------------------------------------------------
 	// -----------------------------------------------------------------------------------------------------------------------------
+	private void inicioObra(){
+	}
 	
 	public ListaObra darObras() throws Exception {
 		ArrayList<Obra> obras;
@@ -494,6 +502,8 @@ public class FestiAndesMaster {
 	// -----------------------------------------------------------------------------------------------------------------------------
 	// Funcion ---------------------------------------------------------------------------------------------------------------------
 	// -----------------------------------------------------------------------------------------------------------------------------
+	private void inicioFuncion(){
+	}
 	
 	public ListaFuncion darFunciones() throws Exception {
 		ArrayList<Funcion> funciones;
@@ -760,6 +770,8 @@ public class FestiAndesMaster {
 	// -----------------------------------------------------------------------------------------------------------------------------
 	// Teatro ----------------------------------------------------------------------------------------------------------------------
 	// -----------------------------------------------------------------------------------------------------------------------------
+	private void inicioTeatro(){
+	}
 	
 	public ListaTeatro darTeatros() throws Exception {
 		ArrayList<Teatro> teatros;
@@ -926,6 +938,8 @@ public class FestiAndesMaster {
 	// -----------------------------------------------------------------------------------------------------------------------------
 	// Ciudad ----------------------------------------------------------------------------------------------------------------------
 	// -----------------------------------------------------------------------------------------------------------------------------
+	private void inicioCiudad(){
+	}
 	
 	public ListaCiudad darCiudades() throws Exception {
 		ArrayList<Ciudad> ciudades;
@@ -1092,6 +1106,8 @@ public class FestiAndesMaster {
 	// -----------------------------------------------------------------------------------------------------------------------------
 	// Categoria -------------------------------------------------------------------------------------------------------------------
 	// -----------------------------------------------------------------------------------------------------------------------------
+	private void inicioCategoria(){
+	}
 	
 	public ListaCategoria darCategorias() throws Exception {
 		ArrayList<Categoria> categorias;
@@ -1258,6 +1274,8 @@ public class FestiAndesMaster {
 	// -----------------------------------------------------------------------------------------------------------------------------
 	// Compañia --------------------------------------------------------------------------------------------------------------------
 	// -----------------------------------------------------------------------------------------------------------------------------
+	private void inicioCompañia(){
+	}
 	
 	public ListaCompañia darCompañias() throws Exception {
 		ArrayList<Compañia> compañias;
@@ -1422,6 +1440,8 @@ public class FestiAndesMaster {
 	// -----------------------------------------------------------------------------------------------------------------------------
 	// Boleta ----------------------------------------------------------------------------------------------------------------------
 	// -----------------------------------------------------------------------------------------------------------------------------
+	private void inicioBoleta(){
+	}
 	
 	public ListaBoletas darBoletas() throws Exception {
 		ArrayList<Boleta> boleta;
@@ -1555,6 +1575,8 @@ public class FestiAndesMaster {
 	// -----------------------------------------------------------------------------------------------------------------------------
 	// Usuario ---------------------------------------------------------------------------------------------------------------------
 	// -----------------------------------------------------------------------------------------------------------------------------
+	private void inicioUsuario(){
+	}
 	
 	public ListaUsuario darUsuarios() throws Exception {
 		ArrayList<Usuario> usuarios;
@@ -1673,6 +1695,174 @@ public class FestiAndesMaster {
 		finally {
 			try {
 				daoUsuario.cerrarRecursos();
+				if(this.conn!=null) this.conn.close();
+			} catch (SQLException exception) 
+			{
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	
+	
+	// -----------------------------------------------------------------------------------------------------------------------------
+	// Festival --------------------------------------------------------------------------------------------------------------------
+	// -----------------------------------------------------------------------------------------------------------------------------
+	private void inicioFestival(){
+	}
+	
+	public ListaFestivales darFestivales() throws Exception {
+		ArrayList<Festival> ferias;
+		DAOTablaFestival daoTeatro = new DAOTablaFestival();
+		try 
+		{
+			this.conn = darConexion();
+			daoTeatro.setConn(conn);
+			ferias = daoTeatro.darFestivales();
+		} 
+		catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		finally {
+			try {
+				daoTeatro.cerrarRecursos();
+				if(this.conn!=null) this.conn.close();
+			} 
+			catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return new ListaFestivales(ferias);
+	}
+	
+	public ListaFestivales buscarFestivalPorNombre(String nNombre) throws Exception {
+		ArrayList<Festival> festival;
+		DAOTablaFestival daoFestival = new DAOTablaFestival();
+		try 
+		{
+			this.conn = darConexion();
+			daoFestival.setConn(conn);
+			festival = daoFestival.buscarFestivalPorName(nNombre);
+		} 
+		catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		finally {
+			try {
+				daoFestival.cerrarRecursos();
+				if(this.conn!=null) this.conn.close();
+			} 
+			catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return new ListaFestivales(festival);
+	}
+	
+	public void addFestival(Festival nFestival) throws Exception {
+		DAOTablaFestival daoTeatro = new DAOTablaFestival();
+		try 
+		{
+			this.conn = darConexion();
+			daoTeatro.setConn(conn);
+			daoTeatro.addFestival(nFestival);
+			conn.commit();
+		} 
+		catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		finally {
+			try {
+				daoTeatro.cerrarRecursos();
+				if(this.conn!=null) this.conn.close();
+			} 
+			catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	public void updateFestival(Festival nFestival) throws Exception {
+		DAOTablaFestival daoFestival = new DAOTablaFestival();
+		try 
+		{
+			this.conn = darConexion();
+			daoFestival.setConn(conn);
+			daoFestival.updateFestival(nFestival);
+		} 
+		catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		finally {
+			try {
+				daoFestival.cerrarRecursos();
+				if(this.conn!=null) this.conn.close();
+			} 
+			catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	public void deleteFestival(Festival nFestival) throws Exception {
+		DAOTablaFestival daoFestival = new DAOTablaFestival();
+		try 
+		{
+			this.conn = darConexion();
+			daoFestival.setConn(conn);
+			daoFestival.deleteFestival(nFestival);
+		} 
+		catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		finally {
+			try {
+				daoFestival.cerrarRecursos();
 				if(this.conn!=null) this.conn.close();
 			} catch (SQLException exception) 
 			{
