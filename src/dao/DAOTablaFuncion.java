@@ -113,8 +113,9 @@ public class DAOTablaFuncion {
 	public void addFuncion(Funcion funcion) throws SQLException, Exception {
 
 		String sql = "INSERT INTO FUNCION VALUES ('";
-		sql += funcion.getId()+ "','";
-		sql += (funcion.getFechaInicio()).toLocaleString()+ "','";
+		sql += funcion.getId()+ "',to_date('";
+		sql += funcion.getFechaInicio() + "',";
+		sql += "'yyyy-MM-dd  hh:mi:ss'),'";
 		sql += funcion.getIdTeatro() + "','";
 		sql += funcion.getIdObra()+ "','";
 		sql += funcion.getTraduccion() + "')";
@@ -131,7 +132,7 @@ public class DAOTablaFuncion {
 	public void updateFuncion(Funcion funcion) throws SQLException, Exception {
 
 		String sql = "UPDATE FUNCION SET ";
-		sql += "FECHAINICIO='" + funcion.getFechaInicio().toLocaleString() + "',";
+		sql += "FECHAINICIO= to_date('" + funcion.getFechaInicio() + "','yyyy-MM-dd hh:mi:ss'),";
 		sql += "IDTEATRO='" +funcion.getIdTeatro()+ "',";
 		sql += "IDOBRA='" + funcion.getIdObra();
 		sql += "' WHERE ID = " + funcion.getId();

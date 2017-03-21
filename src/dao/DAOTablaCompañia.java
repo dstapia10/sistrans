@@ -101,17 +101,23 @@ public class DAOTablaCompañia {
 
 
 	public void addCompañia(Compañia compañia) throws SQLException, Exception {
-//		String sql = "INSERT INTO ACTOR VALUES (";
-//		sql += actor.getCedula() + ",'";
-//		sql += actor.getNombre() + "',";
-//		sql += actor.getIdCompania() + "',";
-//		sql += actor.getNacionalidad()+ ")";
-//
-//		System.out.println("SQL stmt:" + sql);
-//
-//		PreparedStatement prepStmt = conn.prepareStatement(sql);
-//		recursos.add(prepStmt);
-//		prepStmt.executeQuery();
+		String sql = "INSERT INTO COMPAÑIA VALUES ('";
+		sql += compañia.getId() + "','";
+		sql += compañia.getNombre() + "','";
+		sql += compañia.getPaisOrigen() + "','";
+		sql += compañia.getPaginaWeb() + "',to_date('";
+		sql += compañia.getFechaLlegada() + "',";
+		sql += "'yyyy-MM-dd  hh:mi:ss'),to_date('";
+		sql += compañia.getFechaSalida() + "',";
+		sql += "'yyyy-MM-dd  hh:mi:ss'),'";
+		
+		sql += compañia.getRepresentante() + "')";
+
+		System.out.println("SQL stmt:" + sql);
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		prepStmt.executeQuery();
 	}
 	
 
