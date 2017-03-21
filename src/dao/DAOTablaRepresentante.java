@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /**-------------------------------------------------------------------
  * $Id$
  * Universidad de los Andes (Bogotá - Colombia)
@@ -11,11 +12,17 @@ package dao;
 
 
 import java.sql.Connection; 
+=======
+package dao;
+
+import java.sql.Connection;
+>>>>>>> origin/master
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+<<<<<<< HEAD
 import vos.*;
 
 /**
@@ -25,6 +32,13 @@ import vos.*;
 public class DAOTablaRepresentante {
 
 
+=======
+import vos.Actor;
+import vos.Representante;
+
+public class DAOTablaRepresentante {
+	
+>>>>>>> origin/master
 	/**
 	 * Arraylits de recursos que se usan para la ejecución de sentencias SQL
 	 */
@@ -67,8 +81,13 @@ public class DAOTablaRepresentante {
 	}
 
 
+<<<<<<< HEAD
 	public ArrayList<Representante> darActores() throws SQLException, Exception {
 		ArrayList<Representante> actores = new ArrayList<Representante>();
+=======
+	public ArrayList<Representante> darRepresentante() throws SQLException, Exception {
+		ArrayList<Representante> representantes = new ArrayList<Representante>();
+>>>>>>> origin/master
 
 		String sql = "SELECT * FROM REPRESENTANTE";
 
@@ -79,6 +98,7 @@ public class DAOTablaRepresentante {
 		while (rs.next()) {
 			int cedula = Integer.parseInt(rs.getString("CEDULA"));
 			String nombre = rs.getString("NOMBRE");
+<<<<<<< HEAD
 			
 			actores.add(new Representante(cedula, nombre));
 		}
@@ -94,11 +114,24 @@ public class DAOTablaRepresentante {
 		sql += representante.getCedula() + "','";
 		
 		sql += representante.getNombre()+ "')";
+=======
+			representantes.add(new Representante(cedula, nombre));
+		}
+		return representantes;
+	}
+	
+		
+	public ArrayList<Representante> buscarRepresentantePorName(String name) throws SQLException, Exception {
+		ArrayList<Representante> representantes = new ArrayList<Representante>();
+
+		String sql = "SELECT * FROM REPRESENTANTE WHERE NOMBRE ='" + name + "'";
+>>>>>>> origin/master
 
 		System.out.println("SQL stmt:" + sql);
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
+<<<<<<< HEAD
 		prepStmt.executeQuery();
 
 	}
@@ -110,11 +143,30 @@ public class DAOTablaRepresentante {
 		sql += "NOMBRE='" + representante.getNombre() + "'";
 
 		sql += " WHERE CEDULA = " + representante.getCedula();
+=======
+		ResultSet rs = prepStmt.executeQuery();
+
+		while (rs.next()) {
+			int cedula = Integer.parseInt(rs.getString("CEDULA"));
+			String nombre = rs.getString("NOMBRE");
+			representantes.add(new Representante(cedula, nombre));
+		}
+
+		return representantes;
+	}
+	
+	
+	public ArrayList<Representante> buscarRepresentantePorCedula(int nCedula) throws SQLException, Exception {
+		ArrayList<Representante> representantes = new ArrayList<Representante>();
+
+		String sql = "SELECT * FROM REPRESENTANTE WHERE CEDULA ='" + nCedula + "'";
+>>>>>>> origin/master
 
 		System.out.println("SQL stmt:" + sql);
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
+<<<<<<< HEAD
 		prepStmt.executeQuery();
 	}
 
@@ -133,4 +185,61 @@ public class DAOTablaRepresentante {
 
 
 
+=======
+		ResultSet rs = prepStmt.executeQuery();
+
+		while (rs.next()) {
+			int cedula = Integer.parseInt(rs.getString("CEDULA"));
+			String nombre = rs.getString("NOMBRE");
+			representantes.add(new Representante(cedula, nombre));
+		}
+
+		return representantes;
+	}
+
+
+//	public void addRepresentante(Representante representante) throws SQLException, Exception {
+//
+//		String sql = "INSERT INTO REPRESENTANTE VALUES ('";
+//		sql += representante.getCedula() + "','";
+//		sql += representante.getNombre()+ "')";
+//
+//		System.out.println("SQL stmt:" + sql);
+//
+//		PreparedStatement prepStmt = conn.prepareStatement(sql);
+//		recursos.add(prepStmt);
+//		prepStmt.executeQuery();
+//
+//	}
+//	
+//
+//	public void updateActor(Actor actor) throws SQLException, Exception {
+//
+//		String sql = "UPDATE ACTOR SET ";
+//		sql += "NOMBRE='" + actor.getNombre() + "',";
+//		sql += "ID_COMPA�IA='" + actor.getIdCompania() + "',";
+//		sql += "NACIONALIDAD='" + actor.getNacionalidad()+ "'";
+//		sql += " WHERE CEDULA = " + actor.getCedula();
+//
+//		System.out.println("SQL stmt:" + sql);
+//
+//		PreparedStatement prepStmt = conn.prepareStatement(sql);
+//		recursos.add(prepStmt);
+//		prepStmt.executeQuery();
+//	}
+//
+//
+//	public void deleteActor(Actor actor) throws SQLException, Exception {
+//
+//		String sql = "DELETE FROM ACTOR";
+//		sql += " WHERE CEDULA = " + actor.getCedula();
+//
+//		System.out.println("SQL stmt:" + sql);
+//
+//		PreparedStatement prepStmt = conn.prepareStatement(sql);
+//		recursos.add(prepStmt);
+//		prepStmt.executeQuery();
+//	}
+	
+>>>>>>> origin/master
 }
