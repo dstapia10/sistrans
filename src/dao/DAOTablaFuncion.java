@@ -55,7 +55,7 @@ public class DAOTablaFuncion {
 	}
 	
 	
-	public ArrayList<Funcion> darFuncion(Date  fecha1, Date fecha2, Categoria categoria, String idioma, Boolean ordenado, String traduc) throws SQLException, Exception {
+	public ArrayList<Funcion> darFuncion(Date  fecha1, Date fecha2, Categoria categoria, String idioma, Boolean ordenado) throws SQLException, Exception {
 	
 		ArrayList<Funcion> funciones = new ArrayList<Funcion>();
 		String sql = " SELECT * FROM FUNCION f, OBRA b ";
@@ -70,20 +70,12 @@ public class DAOTablaFuncion {
 		
 		if (fecha1 != null && fecha2 != null)
 		{
-			sqlParaWhere+= " AND f.FECHAINICIO BETWEEN '" + fecha1 + "' AND '" + fecha2 + "' "; 
+			sqlParaWhere+= " AND F.FECHAINICIO BETWEEN '" + fecha1 + "' AND '" + fecha2 + "' "; 
 		}
 		
 		if (idioma != null)
 		{
 			sqlParaWhere+= " AND b.IDIOMA ='" + idioma + "' ";
-		}
-		if (traduc.equals("s"))
-		{
-			sqlParaWhere += "AND f.TRADUCCION = 'S' ";
-		}
-		else
-		{
-			sqlParaWhere += "AND f.TRADUCCION = 'N' ";
 		}
 		
 		if (ordenado)
@@ -100,11 +92,10 @@ public class DAOTablaFuncion {
 
 		while (rs.next()) {
 			int id = Integer.parseInt(rs.getString("ID"));
-			java.sql.Date fechaInicio = rs.getDate("FECHAINICIO");
+			Date fechaInicio = rs.getDate("FECHAINICIO");
 			int idTeatro = Integer.parseInt(rs.getString("IDTEATRO"));
 			int idObra = Integer.parseInt(rs.getString("IDOBRA"));
-			String trad = rs.getString("TRADUCCION");
-			funciones.add(new Funcion(id, fechaInicio, idTeatro, idObra, trad));
+			funciones.add(new Funcion(id, fechaInicio, idTeatro, idObra));
 		}
 		
 		return funciones;
@@ -121,12 +112,11 @@ public class DAOTablaFuncion {
 	
 	public void addFuncion(Funcion funcion) throws SQLException, Exception {
 
-		java.sql.Date d = funcion.getFechaInicio();
-		String sql = " INSERT INTO FUNCION VALUES ('";
-		sql += funcion.getId()+ "',";
-		sql += "to_date(" + " '" + d.toString() + "' " + ", 'yyyy-mm-dd')" + ",'";
-		sql += funcion.getIdTeatro() + "','";
-		sql += funcion.getIdObra()+ "')";
+		String sql = "INSERT INTO FUNCION VALUES (";
+		sql += funcion.getId()+ ",'";
+		sql += funcion.getFechaInicio()+ "',";
+		sql += funcion.getIdTeatro() + "',";
+		sql += funcion.getIdObra()+ ")";
 
 		System.out.println("SQL stmt:" + sql);
 

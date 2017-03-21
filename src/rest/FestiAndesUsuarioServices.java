@@ -53,7 +53,7 @@ public class FestiAndesUsuarioServices {
 	public Response addUsuario(Usuario usuuario) {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
 		try {
-			tm.addUsuario(usuuario);
+			tm.updateUsuario(usuuario);
 		} 
 		catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
