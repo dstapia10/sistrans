@@ -15,6 +15,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 
 import vos.*;
 
@@ -22,7 +23,7 @@ import vos.*;
  * Clase DAO que se conecta la base de datos usando JDBC para resolver los requerimientos de la aplicaciÃ³n
  * @author Juan
  */
-public class DAOTablaActor {
+public class DAOTablaFestival {
 
 
 	/**
@@ -39,7 +40,7 @@ public class DAOTablaActor {
 	 * MÃ©todo constructor que crea DAOVideo
 	 * <b>post: </b> Crea la instancia del DAO e inicializa el Arraylist de recursos
 	 */
-	public DAOTablaActor() {
+	public DAOTablaFestival() {
 		recursos = new ArrayList<Object>();
 	}
 
@@ -67,74 +68,57 @@ public class DAOTablaActor {
 	}
 
 
-	public ArrayList<Actor> darActores() throws SQLException, Exception {
-		ArrayList<Actor> actores = new ArrayList<Actor>();
+	public ArrayList<Festival> darFestivales() throws SQLException, Exception {
+		ArrayList<Festival> festivales = new ArrayList<Festival>();
 
-		String sql = "SELECT * FROM ACTOR";
-
-		PreparedStatement prepStmt = conn.prepareStatement(sql);
-		recursos.add(prepStmt);
-		ResultSet rs = prepStmt.executeQuery();
-
-		while (rs.next()) {
-			int cedula = Integer.parseInt(rs.getString("CEDULA"));
-			String nombre = rs.getString("NOMBRE");
-			int compañia = Integer.parseInt(rs.getString("ID_COMPAÑIA"));
-			String nacionalidad = rs.getString("NACIONALIDAD");
-			actores.add(new Actor(cedula, compañia, nombre, nacionalidad));
-		}
-		return actores;
-	}
-
-
-
-	public ArrayList<Actor> buscarActorPorName(int cedula2) throws SQLException, Exception {
-		ArrayList<Actor> actores = new ArrayList<Actor>();
-
-		String sql = "SELECT * FROM ACTOR WHERE CEDULA ='" + cedula2 + "'";
-
-		System.out.println("SQL stmt:" + sql);
+		String sql = "SELECT * FESTIVAL";
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		ResultSet rs = prepStmt.executeQuery();
 
 		while (rs.next()) {
-			int cedula = Integer.parseInt(rs.getString("CEDULA"));
-			String nombre = rs.getString("NOMBRE");
-			int compañia = Integer.parseInt(rs.getString("ID_COMPAÑIA"));
-			String nacionalidad = rs.getString("NACIONALIDAD");
-			actores.add(new Actor(cedula, compañia, nombre, nacionalidad));
+			int id = Integer.parseInt(rs.getString("ID"));
+			int idCiudad = Integer.parseInt(rs.getString("ID_CIUDAD"));
+			Date fechaInicio = rs.getDate("FECHAINICIO");
+			Date fechaFinal = rs.getDate("FECHAINICIO");
+			festivales.add(new Festival(id, idCiudad, fechaInicio, fechaFinal));
 		}
-
-		return actores;
+		return festivales;
 	}
 
 
-	public void addActor(Actor actor) throws SQLException, Exception {
-
-		String sql = "INSERT INTO ACTOR VALUES ('";
-		sql += actor.getCedula() + "','";
-		sql += actor.getNombre() + "','";
-		sql += actor.getIdCompania() + "','";
-		sql += actor.getNacionalidad()+ "')";
-
-		System.out.println("SQL stmt:" + sql);
-
-		PreparedStatement prepStmt = conn.prepareStatement(sql);
-		recursos.add(prepStmt);
-		prepStmt.executeQuery();
-
-	}
 	
+	public ArrayList<Festival> buscarFestivalPorName(String name) throws SQLException, Exception {
+		ArrayList<Festival> festivales = new ArrayList<Festival>();
 
-	public void updateActor(Actor actor) throws SQLException, Exception {
+		String sql = "SELECT * FESTIVAL ='" + name + "'";
 
-		String sql = "UPDATE ACTOR SET ";
-		sql += "NOMBRE='" + actor.getNombre() + "',";
-		sql += "ID_COMPAÑIA='" + actor.getIdCompania() + "',";
-		sql += "NACIONALIDAD='" + actor.getNacionalidad()+ "'";
-		sql += " WHERE CEDULA = " + actor.getCedula();
+		System.out.println("SQL stmt:" + sql);
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+
+		while (rs.next()) {
+			int id = Integer.parseInt(rs.getString("ID"));
+			int idCiudad = Integer.parseInt(rs.getString("ID_CIUDAD"));
+			Date fechaInicio = rs.getDate("FECHAINICIO");
+			Date fechaFinal = rs.getDate("FECHAINICIO");
+			festivales.add(new Festival(id, idCiudad, fechaInicio, fechaFinal));
+		}
+
+		return festivales;
+	}
+
+	
+	public void addFestival(Festival festival) throws SQLException, Exception {
+
+		String sql = "INSERT INTO FESTIVAL VALUES (";
+		sql += festival.getId() + ",'";
+		sql += festival.getIdCiudad() + "',";
+		sql += festival.getFechaInicio() + "',";
+		sql += festival.getFechaFinal() + ")";
 
 		System.out.println("SQL stmt:" + sql);
 
@@ -144,10 +128,13 @@ public class DAOTablaActor {
 	}
 
 
-	public void deleteActor(Actor actor) throws SQLException, Exception {
+	public void updateFestival(Festival festival) throws SQLException, Exception {
 
-		String sql = "DELETE FROM ACTOR";
-		sql += " WHERE CEDULA = " + actor.getCedula();
+		String sql = "UPDATE FESTIVAL SET ";
+		sql += "ID_CIUDAD='" + festival.getIdCiudad() + "',";
+		sql += "FECHAINICIO='" + festival.getFechaInicio() + "',";
+		sql += "FECHAFINAL=" + festival.getFechaFinal();
+		sql += " WHERE id = " + festival.getId();
 
 		System.out.println("SQL stmt:" + sql);
 
@@ -156,6 +143,20 @@ public class DAOTablaActor {
 		prepStmt.executeQuery();
 	}
 
+	
+	public void deleteFestival(Festival festival) throws SQLException, Exception 
+	{
 
+		String sql = "DELETE FROM FESTIVAL";
+		sql += " WHERE id = " + festival.getId();
+
+		System.out.println("SQL stmt:" + sql);
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		prepStmt.executeQuery();
+	}
+
+	
 
 }

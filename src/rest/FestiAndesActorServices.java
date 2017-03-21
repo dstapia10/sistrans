@@ -16,7 +16,7 @@ import tm.FestiAndesMaster;
 import vos.Actor;
 import vos.ListaActores;
 
-@Path("actores")
+@Path("actor")
 public class FestiAndesActorServices {
 	
 	@Context
@@ -45,14 +45,14 @@ public class FestiAndesActorServices {
 	}
 	
 	@GET
-	@Path("/name/{name}")
+	@Path("/actor/{cedula}")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response getActorName(@javax.ws.rs.PathParam("name") String name) {
+	public Response getActorName(@javax.ws.rs.PathParam("cedula") int cedula) {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
 		ListaActores actores;
 		try {
-			if (name == null || name.length() == 0) throw new Exception("Nombre del actor no valido");
-			actores = tm.buscarActorPorNombre(name);
+			
+			actores = tm.buscarActorPorNombre(cedula);
 		} 
 		catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
@@ -67,7 +67,7 @@ public class FestiAndesActorServices {
 	public Response addActor(Actor actor) {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
 		try {
-			tm.addActor(actor);
+			tm.updateActor(actor);
 		} 
 		catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
@@ -82,7 +82,7 @@ public class FestiAndesActorServices {
 	public Response updateActor(Actor actor) {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
 		try {
-			tm.updateActor(actor);
+			tm.addActor(actor);
 		} 
 		catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();

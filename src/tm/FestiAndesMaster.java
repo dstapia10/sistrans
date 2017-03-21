@@ -148,7 +148,7 @@ public class FestiAndesMaster {
 		return new ListaActores(actores);
 	}
 	
-	public ListaActores buscarActorPorNombre(String nNombre) throws Exception {
+	public ListaActores buscarActorPorNombre(int nNombre) throws Exception {
 		ArrayList<Actor> actores;
 		DAOTablaActor daoActor = new DAOTablaActor();
 		try 

@@ -18,7 +18,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import dao.DAOTablaFerias;
+import dao.DAOTablaFestival;
 import vos.Actor;
 import vos.ListaActores;
 
@@ -120,7 +120,7 @@ public class VideoAndesMaster {
 	 */
 	public ListaActores darVideos() throws Exception {
 		ArrayList<Actor> videos;
-		DAOTablaFerias daoVideos = new DAOTablaFerias();
+		DAOTablaFestival daoVideos = new DAOTablaFestival();
 		try 
 		{
 			//////Transacción
@@ -158,7 +158,7 @@ public class VideoAndesMaster {
 	 */
 	public ListaActores buscarVideosPorName(String name) throws Exception {
 		ArrayList<Actor> videos;
-		DAOTablaFerias daoVideos = new DAOTablaFerias();
+		DAOTablaFestival daoVideos = new DAOTablaFestival();
 		try 
 		{
 			//////Transacción
@@ -195,7 +195,7 @@ public class VideoAndesMaster {
 	 * @throws Exception - cualquier error que se genera agregando el video
 	 */
 	public void addVideo(Actor video) throws Exception {
-		DAOTablaFerias daoVideos = new DAOTablaFerias();
+		DAOTablaFestival daoVideos = new DAOTablaFestival();
 		try 
 		{
 			//////Transacción
@@ -232,7 +232,7 @@ public class VideoAndesMaster {
 	 * @throws Exception - cualquier error que se genera agregando los videos
 	 */
 	public void addVideos(ListaActores videos) throws Exception {
-		DAOTablaFerias daoVideos = new DAOTablaFerias();
+		DAOTablaFestival daoVideos = new DAOTablaFestival();
 		try 
 		{
 			//////Transacción - ACID Example
@@ -272,7 +272,7 @@ public class VideoAndesMaster {
 	 * @throws Exception - cualquier error que se genera actualizando los videos
 	 */
 	public void updateVideo(Actor video) throws Exception {
-		DAOTablaFerias daoVideos = new DAOTablaFerias();
+		DAOTablaFestival daoVideos = new DAOTablaFestival();
 		try 
 		{
 			//////Transacción
@@ -308,7 +308,7 @@ public class VideoAndesMaster {
 	 * @throws Exception - cualquier error que se genera actualizando los videos
 	 */
 	public void deleteVideo(Actor video) throws Exception {
-		DAOTablaFerias daoVideos = new DAOTablaFerias();
+		DAOTablaFestival daoVideos = new DAOTablaFestival();
 		try 
 		{
 			//////Transacción
@@ -344,7 +344,7 @@ public class VideoAndesMaster {
 	 */
 	public ListaActores videosMasAlquilados() throws Exception {
 		ArrayList<Actor> videos;
-		DAOTablaFerias daoVideos = new DAOTablaFerias();
+		DAOTablaFestival daoVideos = new DAOTablaFestival();
 		try 
 		{
 			//////Transacción
