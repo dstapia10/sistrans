@@ -113,7 +113,7 @@ public class DAOTablaRepresentante {
 	}
 
 
-//	public void addRepresentante(Representante representante) throws SQLException, Exception {
+	public void addRepresentante(Representante representante) throws SQLException, Exception {
 //
 //		String sql = "INSERT INTO REPRESENTANTE VALUES ('";
 //		sql += representante.getCedula() + "','";
@@ -125,10 +125,10 @@ public class DAOTablaRepresentante {
 //		recursos.add(prepStmt);
 //		prepStmt.executeQuery();
 //
-//	}
-//	
-//
-//	public void updateActor(Actor actor) throws SQLException, Exception {
+	}
+	
+
+	public void updateRepresentante(Representante representante) throws SQLException, Exception {
 //
 //		String sql = "UPDATE ACTOR SET ";
 //		sql += "NOMBRE='" + actor.getNombre() + "',";
@@ -141,10 +141,10 @@ public class DAOTablaRepresentante {
 //		PreparedStatement prepStmt = conn.prepareStatement(sql);
 //		recursos.add(prepStmt);
 //		prepStmt.executeQuery();
-//	}
-//
-//
-//	public void deleteActor(Actor actor) throws SQLException, Exception {
+	}
+
+
+	public void deleteRepresentante(Representante representante) throws SQLException, Exception {
 //
 //		String sql = "DELETE FROM ACTOR";
 //		sql += " WHERE CEDULA = " + actor.getCedula();
@@ -154,6 +154,6 @@ public class DAOTablaRepresentante {
 //		PreparedStatement prepStmt = conn.prepareStatement(sql);
 //		recursos.add(prepStmt);
 //		prepStmt.executeQuery();
-//	}
+	}
 	
 }

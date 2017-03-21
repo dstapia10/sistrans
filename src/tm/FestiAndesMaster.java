@@ -17,6 +17,7 @@ import dao.DAOTablaCompañia;
 import dao.DAOTablaFestival;
 import dao.DAOTablaFuncion;
 import dao.DAOTablaObra;
+import dao.DAOTablaRepresentante;
 import dao.DAOTablaTeatro;
 import dao.DAOTablaUsuario;
 import vos.Actor;
@@ -34,9 +35,11 @@ import vos.ListaCompañia;
 import vos.ListaFestivales;
 import vos.ListaFuncion;
 import vos.ListaObra;
+import vos.ListaRepresentante;
 import vos.ListaTeatro;
 import vos.ListaUsuario;
 import vos.Obra;
+import vos.Representante;
 import vos.Teatro;
 import vos.Usuario;
 
@@ -542,105 +545,105 @@ public class FestiAndesMaster {
 	
 
 	
-	public ListaFuncion buscarFuncnionPorCategoria(String nCategoria) throws Exception {
-		ArrayList<Funcion> funciones;
-		DAOTablaFuncion daoFuncion = new DAOTablaFuncion();
-		try 
-		{
-			this.conn = darConexion();
-			daoFuncion.setConn(conn);
-			funciones = daoFuncion.buscarFuncionPorCategoria(nCategoria);
-		} 
-		catch (SQLException e) {
-			System.err.println("SQLException:" + e.getMessage());
-			e.printStackTrace();
-			throw e;
-		} 
-		catch (Exception e) {
-			System.err.println("GeneralException:" + e.getMessage());
-			e.printStackTrace();
-			throw e;
-		} 
-		finally {
-			try {
-				daoFuncion.cerrarRecursos();
-				if(this.conn!=null) this.conn.close();
-			} 
-			catch (SQLException exception) {
-				System.err.println("SQLException closing resources:" + exception.getMessage());
-				exception.printStackTrace();
-				throw exception;
-			}
-		}
-		return new ListaFuncion(funciones);
-	}
-	
-	public ListaFuncion buscarFuncionPorTeatro(String nTeatro) throws Exception {
-		ArrayList<Funcion> funciones;
-		DAOTablaFuncion daoFuncion = new DAOTablaFuncion();
-		try 
-		{
-			this.conn = darConexion();
-			daoFuncion.setConn(conn);
-			funciones = daoFuncion.buscarFuncionPorTeatro(nTeatro);
-		} 
-		catch (SQLException e) {
-			System.err.println("SQLException:" + e.getMessage());
-			e.printStackTrace();
-			throw e;
-		} 
-		catch (Exception e) {
-			System.err.println("GeneralException:" + e.getMessage());
-			e.printStackTrace();
-			throw e;
-		} 
-		finally {
-			try {
-				daoFuncion.cerrarRecursos();
-				if(this.conn!=null) this.conn.close();
-			} 
-			catch (SQLException exception) {
-				System.err.println("SQLException closing resources:" + exception.getMessage());
-				exception.printStackTrace();
-				throw exception;
-			}
-		}
-		return new ListaFuncion(funciones);
-	}
-	
-	public ListaFuncion buscarFuncionPorId(int nId) throws Exception {
-		ArrayList<Funcion> funciones;
-		DAOTablaFuncion daoFuncion = new DAOTablaFuncion();
-		try 
-		{
-			this.conn = darConexion();
-			daoFuncion.setConn(conn);
-			funciones = daoFuncion.buscarFuncionPorId(nId);
-		} 
-		catch (SQLException e) {
-			System.err.println("SQLException:" + e.getMessage());
-			e.printStackTrace();
-			throw e;
-		} 
-		catch (Exception e) {
-			System.err.println("GeneralException:" + e.getMessage());
-			e.printStackTrace();
-			throw e;
-		} 
-		finally {
-			try {
-				daoFuncion.cerrarRecursos();
-				if(this.conn!=null) this.conn.close();
-			} 
-			catch (SQLException exception) {
-				System.err.println("SQLException closing resources:" + exception.getMessage());
-				exception.printStackTrace();
-				throw exception;
-			}
-		}
-		return new ListaFuncion(funciones);
-	}
-	
+//	public ListaFuncion buscarFuncnionPorCategoria(String nCategoria) throws Exception {
+//		ArrayList<Funcion> funciones;
+//		DAOTablaFuncion daoFuncion = new DAOTablaFuncion();
+//		try 
+//		{
+//			this.conn = darConexion();
+//			daoFuncion.setConn(conn);
+//			funciones = daoFuncion.buscarFuncionPorCategoria(nCategoria);
+//		} 
+//		catch (SQLException e) {
+//			System.err.println("SQLException:" + e.getMessage());
+//			e.printStackTrace();
+//			throw e;
+//		} 
+//		catch (Exception e) {
+//			System.err.println("GeneralException:" + e.getMessage());
+//			e.printStackTrace();
+//			throw e;
+//		} 
+//		finally {
+//			try {
+//				daoFuncion.cerrarRecursos();
+//				if(this.conn!=null) this.conn.close();
+//			} 
+//			catch (SQLException exception) {
+//				System.err.println("SQLException closing resources:" + exception.getMessage());
+//				exception.printStackTrace();
+//				throw exception;
+//			}
+//		}
+//		return new ListaFuncion(funciones);
+//	}
+//	
+//	public ListaFuncion buscarFuncionPorTeatro(String nTeatro) throws Exception {
+//		ArrayList<Funcion> funciones;
+//		DAOTablaFuncion daoFuncion = new DAOTablaFuncion();
+//		try 
+//		{
+//			this.conn = darConexion();
+//			daoFuncion.setConn(conn);
+//			funciones = daoFuncion.buscarFuncionPorTeatro(nTeatro);
+//		} 
+//		catch (SQLException e) {
+//			System.err.println("SQLException:" + e.getMessage());
+//			e.printStackTrace();
+//			throw e;
+//		} 
+//		catch (Exception e) {
+//			System.err.println("GeneralException:" + e.getMessage());
+//			e.printStackTrace();
+//			throw e;
+//		} 
+//		finally {
+//			try {
+//				daoFuncion.cerrarRecursos();
+//				if(this.conn!=null) this.conn.close();
+//			} 
+//			catch (SQLException exception) {
+//				System.err.println("SQLException closing resources:" + exception.getMessage());
+//				exception.printStackTrace();
+//				throw exception;
+//			}
+//		}
+//		return new ListaFuncion(funciones);
+//	}
+//	
+//	public ListaFuncion buscarFuncionPorId(int nId) throws Exception {
+//		ArrayList<Funcion> funciones;
+//		DAOTablaFuncion daoFuncion = new DAOTablaFuncion();
+//		try 
+//		{
+//			this.conn = darConexion();
+//			daoFuncion.setConn(conn);
+//			funciones = daoFuncion.buscarFuncionPorId(nId);
+//		} 
+//		catch (SQLException e) {
+//			System.err.println("SQLException:" + e.getMessage());
+//			e.printStackTrace();
+//			throw e;
+//		} 
+//		catch (Exception e) {
+//			System.err.println("GeneralException:" + e.getMessage());
+//			e.printStackTrace();
+//			throw e;
+//		} 
+//		finally {
+//			try {
+//				daoFuncion.cerrarRecursos();
+//				if(this.conn!=null) this.conn.close();
+//			} 
+//			catch (SQLException exception) {
+//				System.err.println("SQLException closing resources:" + exception.getMessage());
+//				exception.printStackTrace();
+//				throw exception;
+//			}
+//		}
+//		return new ListaFuncion(funciones);
+//	}
+//	
 	
 	public void addFuncion(Funcion nFuncion) throws Exception {
 		DAOTablaFuncion daoFuncion = new DAOTablaFuncion();
@@ -1843,5 +1846,210 @@ public class FestiAndesMaster {
 			}
 		}
 	}
+	
+	
+	
+	// -----------------------------------------------------------------------------------------------------------------------------
+	// Representante -----------------------------------------------------------------------------------------------------------------------
+	// -----------------------------------------------------------------------------------------------------------------------------
+	private void inicioRepresentante(){
+	}
+	
+	public ListaRepresentante darRepresentante() throws Exception {		
+		ArrayList<Representante> representantes;
+		DAOTablaRepresentante daoActor = new DAOTablaRepresentante();
+		try 
+		{
+			this.conn = darConexion();
+			daoActor.setConn(conn);
+			representantes = daoActor.darRepresentante();
+		} 
+		catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		finally {
+			try {
+				daoActor.cerrarRecursos();
+				if(this.conn!=null) this.conn.close();
+			} 
+			catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return new ListaRepresentante(representantes);
+	}
+	
+	public ListaRepresentante buscarRepresentantePorNombre(String nNombre) throws Exception {
+		ArrayList<Representante> representante;
+		DAOTablaRepresentante daoRepresentante = new DAOTablaRepresentante();
+		try 
+		{
+			this.conn = darConexion();
+			daoRepresentante.setConn(conn);
+			representante = daoRepresentante.buscarRepresentantePorName(nNombre);
+		} 
+		catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		finally {
+			try {
+				daoRepresentante.cerrarRecursos();
+				if(this.conn!=null) this.conn.close();
+			} 
+			catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return new ListaRepresentante(representante);
+	}
+	
+	public ListaRepresentante buscarRepresentantePorCedula(int nCedula) throws Exception {
+		ArrayList<Representante> representante;
+		DAOTablaRepresentante daoRepresentante = new DAOTablaRepresentante();
+		try 
+		{
+			this.conn = darConexion();
+			daoRepresentante.setConn(conn);
+			representante = daoRepresentante.buscarRepresentantePorCedula(nCedula);
+		} 
+		catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		finally {
+			try {
+				daoRepresentante.cerrarRecursos();
+				if(this.conn!=null) this.conn.close();
+			} 
+			catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return new ListaRepresentante(representante);
+	}
+	
+	public void addRepresentante(Representante nRepresentante) throws Exception {
+		DAOTablaRepresentante daoRepresentante = new DAOTablaRepresentante();
+		try 
+		{
+			this.conn = darConexion();
+			daoRepresentante.setConn(conn);
+			daoRepresentante.addRepresentante(nRepresentante);
+			conn.commit();
+
+		} 
+		catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		finally {
+			try {
+				daoRepresentante.cerrarRecursos();
+				if(this.conn!=null) this.conn.close();
+			} 
+			catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	public void updateRepresentante(Representante nRepresentante) throws Exception {
+		DAOTablaRepresentante daoRepresentante = new DAOTablaRepresentante();
+		try 
+		{
+			this.conn = darConexion();
+			daoRepresentante.setConn(conn);
+			daoRepresentante.updateRepresentante(nRepresentante);
+
+		} 
+		catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		finally {
+			try {
+				daoRepresentante.cerrarRecursos();
+				if(this.conn!=null) this.conn.close();
+			} 
+			catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	public void deleteRepresentante(Representante nRepresentante) throws Exception {
+		DAOTablaRepresentante daoRepresentante = new DAOTablaRepresentante();
+		try 
+		{
+			this.conn = darConexion();
+			daoRepresentante.setConn(conn);
+			daoRepresentante.deleteRepresentante(nRepresentante);
+
+		} 
+		catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		finally {
+			try {
+				daoRepresentante.cerrarRecursos();
+				if(this.conn!=null) this.conn.close();
+			} catch (SQLException exception) 
+			{
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+		
 	
 }
