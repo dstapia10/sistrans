@@ -97,6 +97,29 @@ public class DAOTablaObra {
 //		return actores;
 		return null;
 	}
+	
+	public ArrayList<Obra> buscarObraPorId(int id) throws SQLException, Exception {
+//		ArrayList<Actor> actores = new ArrayList<Actor>();
+//
+//		String sql = "SELECT * FROM ACTOR WHERE NAME ='" + name + "'";
+//
+//		System.out.println("SQL stmt:" + sql);
+//
+//		PreparedStatement prepStmt = conn.prepareStatement(sql);
+//		recursos.add(prepStmt);
+//		ResultSet rs = prepStmt.executeQuery();
+//
+//		while (rs.next()) {
+//			int cedula = Integer.parseInt(rs.getString("CEDULA"));
+//			String nombre = rs.getString("NOMBRE");
+//			int compañia = Integer.parseInt(rs.getString("ID_COMPAÑIA"));
+//			String nacionalidad = rs.getString("NACIONALIDAD");
+//			actores.add(new Actor(cedula, compañia, nombre, nacionalidad));
+//		}
+//
+//		return actores;
+		return null;
+	}
 
 
 	public void addObra(Obra obra) throws SQLException, Exception {

@@ -13,10 +13,8 @@ public class Funcion {
 	@JsonProperty(value="ID")
 	private int id;
 
-
 	@JsonProperty(value="FECHAINICIO")
 	private Date fechaInicio;
-
 
 	@JsonProperty(value="IDTEATRO")
 	private int idTeatro;

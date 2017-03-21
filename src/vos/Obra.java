@@ -8,10 +8,8 @@ public class Obra
 	@JsonProperty(value="ID")
 	private int id;
 
-
 	@JsonProperty(value="NOMBRE")
 	private String nombre;
-
 
 	@JsonProperty(value="REQUERIMIENTOS")
 	private String requerimientos;

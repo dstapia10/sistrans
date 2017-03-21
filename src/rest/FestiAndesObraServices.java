@@ -60,6 +60,21 @@ public class FestiAndesObraServices {
 		return Response.status(200).entity(obras).build();
 	}
 	
+	@GET
+	@Path("/id/{id}")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getObrasId(@javax.ws.rs.PathParam("id") int id) {
+		FestiAndesMaster tm = new FestiAndesMaster(getPath());
+		ListaObra obras;
+		try {
+			obras = tm.buscarObraPorId(id);
+		} 
+		catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(obras).build();
+	}
+	
 	@POST
 	@Path("/obra")
 	@Consumes(MediaType.APPLICATION_JSON)

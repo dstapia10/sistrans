@@ -356,6 +356,39 @@ public class FestiAndesMaster {
 		return new ListaObra(obras);
 	}
 	
+	public ListaObra buscarObraPorId(int nId) throws Exception {
+		ArrayList<Obra> obras;
+		DAOTablaObra daoObra = new DAOTablaObra();
+		try 
+		{
+			this.conn = darConexion();
+			daoObra.setConn(conn);
+			obras = daoObra.buscarObraPorId(nId);
+		} 
+		catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		finally {
+			try {
+				daoObra.cerrarRecursos();
+				if(this.conn!=null) this.conn.close();
+			} 
+			catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return new ListaObra(obras);
+	}
+	
 	public void addObra(Obra nObra) throws Exception {
 		DAOTablaObra daoObra = new DAOTablaObra();
 		try 
@@ -524,6 +557,106 @@ public class FestiAndesMaster {
 		}
 		return new ListaFuncion(funciones);
 	}
+	
+	public ListaFuncion buscarFuncnionPorCategoria(String nCategoria) throws Exception {
+		ArrayList<Funcion> funciones;
+		DAOTablaFuncion daoFuncion = new DAOTablaFuncion();
+		try 
+		{
+			this.conn = darConexion();
+			daoFuncion.setConn(conn);
+			funciones = daoFuncion.buscarFuncionPorCategoria(nCategoria);
+		} 
+		catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		finally {
+			try {
+				daoFuncion.cerrarRecursos();
+				if(this.conn!=null) this.conn.close();
+			} 
+			catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return new ListaFuncion(funciones);
+	}
+	
+	public ListaFuncion buscarFuncionPorTeatro(String nTeatro) throws Exception {
+		ArrayList<Funcion> funciones;
+		DAOTablaFuncion daoFuncion = new DAOTablaFuncion();
+		try 
+		{
+			this.conn = darConexion();
+			daoFuncion.setConn(conn);
+			funciones = daoFuncion.buscarFuncionPorTeatro(nTeatro);
+		} 
+		catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		finally {
+			try {
+				daoFuncion.cerrarRecursos();
+				if(this.conn!=null) this.conn.close();
+			} 
+			catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return new ListaFuncion(funciones);
+	}
+	
+	public ListaFuncion buscarFuncionPorId(int nId) throws Exception {
+		ArrayList<Funcion> funciones;
+		DAOTablaFuncion daoFuncion = new DAOTablaFuncion();
+		try 
+		{
+			this.conn = darConexion();
+			daoFuncion.setConn(conn);
+			funciones = daoFuncion.buscarFuncionPorId(nId);
+		} 
+		catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		finally {
+			try {
+				daoFuncion.cerrarRecursos();
+				if(this.conn!=null) this.conn.close();
+			} 
+			catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return new ListaFuncion(funciones);
+	}
+	
 	
 	public void addFuncion(Funcion nFuncion) throws Exception {
 		DAOTablaFuncion daoFuncion = new DAOTablaFuncion();

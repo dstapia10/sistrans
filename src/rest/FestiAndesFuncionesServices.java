@@ -60,6 +60,53 @@ public class FestiAndesFuncionesServices {
 		return Response.status(200).entity(funciones).build();
 	}
 	
+	@GET
+	@Path("/categoria/{categoria}")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getFuncionCategoria(@javax.ws.rs.PathParam("categoria") String categoria) {
+		FestiAndesMaster tm = new FestiAndesMaster(getPath());
+		ListaFuncion funciones;
+		try {
+			if (categoria == null || categoria.length() == 0) throw new Exception("Categoria no valido");
+			funciones = tm.buscarFuncnionPorCategoria(categoria);
+		} 
+		catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(funciones).build();
+	}
+	
+	@GET
+	@Path("/teatro/{teatro}")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getFuncionTeatro(@javax.ws.rs.PathParam("teatro") String teatro) {
+		FestiAndesMaster tm = new FestiAndesMaster(getPath());
+		ListaFuncion funciones;
+		try {
+			if (teatro == null || teatro.length() == 0) throw new Exception("Nombre del teatro no valido");
+			funciones = tm.buscarFuncionPorTeatro(teatro);
+		} 
+		catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(funciones).build();
+	}
+	
+	@GET
+	@Path("/id/{id}")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getFuncionId(@javax.ws.rs.PathParam("id") int id) {
+		FestiAndesMaster tm = new FestiAndesMaster(getPath());
+		ListaFuncion funciones;
+		try {
+			funciones = tm.buscarFuncionPorId(id);
+		} 
+		catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(funciones).build();
+	}
+	
 	@POST
 	@Path("/funcion")
 	@Consumes(MediaType.APPLICATION_JSON)
