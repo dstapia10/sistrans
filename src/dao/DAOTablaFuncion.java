@@ -129,30 +129,30 @@ public class DAOTablaFuncion {
 	
 	public void updateFuncion(Funcion funcion) throws SQLException, Exception {
 
-//		String sql = "UPDATE ACTOR SET ";
-//		sql += "NOMBRE='" + actor.getCedula() + "',";
-//		sql += "ID_COMPAÑIA='" + actor.getIdCompania() + "',";
-//		sql += "NACIONALIDAD=" + actor.getNacionalidad();
-//		sql += " WHERE CEDULA = " + actor.getCedula();
-//
-//		System.out.println("SQL stmt:" + sql);
-//
-//		PreparedStatement prepStmt = conn.prepareStatement(sql);
-//		recursos.add(prepStmt);
-//		prepStmt.executeQuery();
+		String sql = "UPDATE FUNCION SET ";
+		sql += "FECHA_INICIO='" + funcion.getFechaInicio() + "',";
+		sql += "IDTEATRO='" +funcion.getIdTeatro()+ "',";
+		sql += "IDOBRA=" + funcion.getIdObra();
+		sql += " WHERE ID = " + funcion.getId();
+
+		System.out.println("SQL stmt:" + sql);
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		prepStmt.executeQuery();
 	}
 
 
 	public void deleteFuncion(Funcion funcion) throws SQLException, Exception {
 
-//		String sql = "DELETE FROM ACTOR";
-//		sql += " WHERE id = " + actor.getCedula();
-//
-//		System.out.println("SQL stmt:" + sql);
-//
-//		PreparedStatement prepStmt = conn.prepareStatement(sql);
-//		recursos.add(prepStmt);
-//		prepStmt.executeQuery();
+		String sql = "DELETE FROM FUNCION";
+		sql += " WHERE ID = " + funcion.getId();
+
+		System.out.println("SQL stmt:" + sql);
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		prepStmt.executeQuery();
 	}
 	
 }
