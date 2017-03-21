@@ -60,7 +60,7 @@ public class FestiAndesFuncionesServices {
 		return Response.status(200).entity(funciones).build();
 	}
 	
-	@PUT
+	@POST
 	@Path("/funcion")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
@@ -75,7 +75,7 @@ public class FestiAndesFuncionesServices {
 		return Response.status(200).entity(funcion).build();
 	}
 	
-	@POST
+	@PUT
 	@Path("/funcion")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)

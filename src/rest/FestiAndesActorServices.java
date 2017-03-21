@@ -60,7 +60,7 @@ public class FestiAndesActorServices {
 		return Response.status(200).entity(actores).build();
 	}
 	
-	@PUT
+	@POST
 	@Path("/actor")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
@@ -75,7 +75,7 @@ public class FestiAndesActorServices {
 		return Response.status(200).entity(actor).build();
 	}
 	
-	@POST
+	@PUT
 	@Path("/actor")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)

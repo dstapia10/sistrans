@@ -60,7 +60,7 @@ public class FestiAndesObraServices {
 		return Response.status(200).entity(obras).build();
 	}
 	
-	@PUT
+	@POST
 	@Path("/obra")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
@@ -75,7 +75,7 @@ public class FestiAndesObraServices {
 		return Response.status(200).entity(obra).build();
 	}
 	
-	@POST
+	@PUT
 	@Path("/obra")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)

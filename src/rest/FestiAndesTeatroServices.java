@@ -60,7 +60,7 @@ public class FestiAndesTeatroServices {
 		return Response.status(200).entity(teatros).build();
 	}
 	
-	@PUT
+	@POST
 	@Path("/teatro")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
@@ -75,7 +75,7 @@ public class FestiAndesTeatroServices {
 		return Response.status(200).entity(teatro).build();
 	}
 	
-	@POST
+	@PUT
 	@Path("/teatro")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)

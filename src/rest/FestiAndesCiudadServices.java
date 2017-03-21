@@ -60,7 +60,7 @@ public class FestiAndesCiudadServices {
 		return Response.status(200).entity(ciudades).build();
 	}
 	
-	@PUT
+	@POST
 	@Path("/ciudad")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
@@ -75,7 +75,7 @@ public class FestiAndesCiudadServices {
 		return Response.status(200).entity(ciudad).build();
 	}
 	
-	@POST
+	@PUT
 	@Path("/ciudad")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
