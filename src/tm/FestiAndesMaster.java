@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import dao.DAOTablaActor;
+import dao.DAOTablaBoleta;
 import dao.DAOTablaCategoria;
 import dao.DAOTablaCiudad;
 import dao.DAOTablaCompañia;
@@ -16,11 +17,13 @@ import dao.DAOTablaFuncion;
 import dao.DAOTablaObra;
 import dao.DAOTablaTeatro;
 import vos.Actor;
+import vos.Boleta;
 import vos.Categoria;
 import vos.Ciudad;
 import vos.Compañia;
 import vos.Funcion;
 import vos.ListaActores;
+import vos.ListaBoletas;
 import vos.ListaCategoria;
 import vos.ListaCiudad;
 import vos.ListaCompañia;
@@ -1127,7 +1130,7 @@ public class FestiAndesMaster {
 		{
 			this.conn = darConexion();
 			daoCompañia.setConn(conn);
-			compañias = daoCompañia.darCompañia();
+			compañias = daoCompañia.darCompañias();
 		} 
 		catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());
@@ -1279,5 +1282,136 @@ public class FestiAndesMaster {
 			}
 		}
 	}
+	
+	// -----------------------------------------------------------------------------------------------------------------------------
+	// Boleta ----------------------------------------------------------------------------------------------------------------------
+	// -----------------------------------------------------------------------------------------------------------------------------
+	
+	public ListaBoletas darBoletas() throws Exception {
+		ArrayList<Boleta> boleta;
+		DAOTablaBoleta daoBoleta = new DAOTablaBoleta();
+		try 
+		{
+			this.conn = darConexion();
+			daoBoleta.setConn(conn);
+			boleta = daoBoleta.darBoletas();
+		} 
+		catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		finally {
+			try {
+				daoBoleta.cerrarRecursos();
+				if(this.conn!=null) this.conn.close();
+			} 
+			catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return new ListaBoletas(boleta);
+	}
+		
+//	public void addCompañia(Compañia nCompañia) throws Exception {
+//		DAOTablaCompañia daoCompañia = new DAOTablaCompañia();
+//		try 
+//		{
+//			this.conn = darConexion();
+//			daoCompañia.setConn(conn);
+//			daoCompañia.addCompañia(nCompañia);
+//			conn.commit();
+//		} 
+//		catch (SQLException e) {
+//			System.err.println("SQLException:" + e.getMessage());
+//			e.printStackTrace();
+//			throw e;
+//		} 
+//		catch (Exception e) {
+//			System.err.println("GeneralException:" + e.getMessage());
+//			e.printStackTrace();
+//			throw e;
+//		} 
+//		finally {
+//			try {
+//				daoCompañia.cerrarRecursos();
+//				if(this.conn!=null) this.conn.close();
+//			} 
+//			catch (SQLException exception) {
+//				System.err.println("SQLException closing resources:" + exception.getMessage());
+//				exception.printStackTrace();
+//				throw exception;
+//			}
+//		}
+//	}
+//	
+//	public void updateCompañia(Compañia nCompañia) throws Exception {
+//		DAOTablaCompañia daoCompañia = new DAOTablaCompañia();
+//		try 
+//		{
+//			this.conn = darConexion();
+//			daoCompañia.setConn(conn);
+//			daoCompañia.updateCompañia(nCompañia);
+//		} 
+//		catch (SQLException e) {
+//			System.err.println("SQLException:" + e.getMessage());
+//			e.printStackTrace();
+//			throw e;
+//		} 
+//		catch (Exception e) {
+//			System.err.println("GeneralException:" + e.getMessage());
+//			e.printStackTrace();
+//			throw e;
+//		} 
+//		finally {
+//			try {
+//				daoCompañia.cerrarRecursos();
+//				if(this.conn!=null) this.conn.close();
+//			} 
+//			catch (SQLException exception) {
+//				System.err.println("SQLException closing resources:" + exception.getMessage());
+//				exception.printStackTrace();
+//				throw exception;
+//			}
+//		}
+//	}
+//	
+//	public void deleteCompañia(Compañia nCompañia) throws Exception {
+//		DAOTablaCompañia daoCompañia = new DAOTablaCompañia();
+//		try 
+//		{
+//			this.conn = darConexion();
+//			daoCompañia.setConn(conn);
+//			daoCompañia.deleteCompañia(nCompañia);
+//		} 
+//		catch (SQLException e) {
+//			System.err.println("SQLException:" + e.getMessage());
+//			e.printStackTrace();
+//			throw e;
+//		} 
+//		catch (Exception e) {
+//			System.err.println("GeneralException:" + e.getMessage());
+//			e.printStackTrace();
+//			throw e;
+//		} 
+//		finally {
+//			try {
+//				daoCompañia.cerrarRecursos();
+//				if(this.conn!=null) this.conn.close();
+//			} catch (SQLException exception) 
+//			{
+//				System.err.println("SQLException closing resources:" + exception.getMessage());
+//				exception.printStackTrace();
+//				throw exception;
+//			}
+//		}
+//	}
 		
 }

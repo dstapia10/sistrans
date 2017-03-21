@@ -6,9 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import vos.Compañia;
+import vos.Boleta;
 
-public class DAOTablaCompañia {
+public class DAOTablaBoleta {
 	
 	/**
 	 * Arraylits de recursos que se usan para la ejecuciÃ³n de sentencias SQL
@@ -24,7 +24,7 @@ public class DAOTablaCompañia {
 	 * MÃ©todo constructor que crea DAOVideo
 	 * <b>post: </b> Crea la instancia del DAO e inicializa el Arraylist de recursos
 	 */
-	public DAOTablaCompañia() {
+	public DAOTablaBoleta() {
 		recursos = new ArrayList<Object>();
 	}
 
@@ -52,7 +52,7 @@ public class DAOTablaCompañia {
 	}
 
 
-	public ArrayList<Compañia> darCompañias() throws SQLException, Exception {
+	public ArrayList<Boleta> darBoletas() throws SQLException, Exception {
 //		ArrayList<Actor> actores = new ArrayList<Actor>();
 //
 //		String sql = "SELECT * FROM ACTOR";
@@ -73,39 +73,13 @@ public class DAOTablaCompañia {
 		return null;
 	}
 
-
-
-	public ArrayList<Compañia> buscarCompañiaPorName(String name) throws SQLException, Exception {
-//		ArrayList<Actor> actores = new ArrayList<Actor>();
-//
-//		String sql = "SELECT * FROM ACTOR WHERE NAME ='" + name + "'";
-//
-//		System.out.println("SQL stmt:" + sql);
-//
-//		PreparedStatement prepStmt = conn.prepareStatement(sql);
-//		recursos.add(prepStmt);
-//		ResultSet rs = prepStmt.executeQuery();
-//
-//		while (rs.next()) {
-//			int cedula = Integer.parseInt(rs.getString("CEDULA"));
-//			String nombre = rs.getString("NOMBRE");
-//			int compañia = Integer.parseInt(rs.getString("ID_COMPAÑIA"));
-//			String nacionalidad = rs.getString("NACIONALIDAD");
-//			actores.add(new Actor(cedula, compañia, nombre, nacionalidad));
-//		}
-//
-//		return actores;
-		
-		return null;
-	}
-
-
-	public void addCompañia(Compañia compañia) throws SQLException, Exception {
-//		String sql = "INSERT INTO ACTOR VALUES (";
-//		sql += actor.getCedula() + ",'";
-//		sql += actor.getNombre() + "',";
-//		sql += actor.getIdCompania() + "',";
-//		sql += actor.getNacionalidad()+ ")";
+	
+	public void addBoleta(Boleta boleta) throws SQLException, Exception {
+//		String sql = "INSERT INTO ACTOR VALUES ('";
+//		sql += actor.getCedula() + "','";
+//		sql += actor.getNombre() + "','";
+//		sql += actor.getIdCompania() + "','";
+//		sql += actor.getNacionalidad()+ "')";
 //
 //		System.out.println("SQL stmt:" + sql);
 //
@@ -115,11 +89,11 @@ public class DAOTablaCompañia {
 	}
 	
 
-	public void updateCompañia(Compañia compañia) throws SQLException, Exception {
+	public void updateBoleta(Boleta boleta) throws SQLException, Exception {
 //		String sql = "UPDATE ACTOR SET ";
-//		sql += "NOMBRE='" + actor.getCedula() + "',";
+//		sql += "NOMBRE='" + actor.getNombre() + "',";
 //		sql += "ID_COMPAÑIA='" + actor.getIdCompania() + "',";
-//		sql += "NACIONALIDAD=" + actor.getNacionalidad();
+//		sql += "NACIONALIDAD='" + actor.getNacionalidad()+ "'";
 //		sql += " WHERE CEDULA = " + actor.getCedula();
 //
 //		System.out.println("SQL stmt:" + sql);
@@ -130,9 +104,9 @@ public class DAOTablaCompañia {
 	}
 
 
-	public void deleteCompañia(Compañia compañia) throws SQLException, Exception {
+	public void deleteBoleta(Boleta boleta) throws SQLException, Exception {
 //		String sql = "DELETE FROM ACTOR";
-//		sql += " WHERE id = " + actor.getCedula();
+//		sql += " WHERE CEDULA = " + actor.getCedula();
 //
 //		System.out.println("SQL stmt:" + sql);
 //
@@ -140,5 +114,5 @@ public class DAOTablaCompañia {
 //		recursos.add(prepStmt);
 //		prepStmt.executeQuery();
 	}
-
+	
 }
