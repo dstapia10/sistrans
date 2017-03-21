@@ -14,10 +14,7 @@ public class Representante {
 
 	@JsonProperty(value="NOMBRE")
 	private String nombre;
-
-
-
-
+	
 	
 	public Representante(@JsonProperty(value="CEDULA")int cedula, @JsonProperty(value="NOMBRE")String nombre) 
 	{
