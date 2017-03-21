@@ -5,8 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 
 import vos.Actor;
+import vos.Categoria;
 import vos.Funcion;
 
 public class DAOTablaFuncion {
@@ -53,50 +55,50 @@ public class DAOTablaFuncion {
 	}
 	
 	
-	public ArrayList<Funcion> darFuncion() throws SQLException, Exception {
-//		ArrayList<Actor> actores = new ArrayList<Actor>();
-//
-//		String sql = "SELECT * FROM ACTOR";
-//
-//		PreparedStatement prepStmt = conn.prepareStatement(sql);
-//		recursos.add(prepStmt);
-//		ResultSet rs = prepStmt.executeQuery();
-//
-//		while (rs.next()) {
-//			int cedula = Integer.parseInt(rs.getString("CEDULA"));
-//			String nombre = rs.getString("NOMBRE");
-//			int compañia = Integer.parseInt(rs.getString("ID_COMPAÑIA"));
-//			String nacionalidad = rs.getString("NACIONALIDAD");
-//			actores.add(new Actor(cedula, compañia, nombre, nacionalidad));
-//		}
-//		return actores;
-		
-		return null;
-	}
-		
+	public ArrayList<Funcion> darFuncion(Date  fecha1, Date fecha2, Categoria categoria, String idioma, Boolean ordenado) throws SQLException, Exception {
 	
-	public ArrayList<Funcion> buscarFuncionPorName(String name) throws SQLException, Exception {
-//		ArrayList<Actor> actores = new ArrayList<Actor>();
-//
-//		String sql = "SELECT * FROM ACTOR WHERE NAME ='" + name + "'";
-//
-//		System.out.println("SQL stmt:" + sql);
-//
-//		PreparedStatement prepStmt = conn.prepareStatement(sql);
-//		recursos.add(prepStmt);
-//		ResultSet rs = prepStmt.executeQuery();
-//
-//		while (rs.next()) {
-//			int cedula = Integer.parseInt(rs.getString("CEDULA"));
-//			String nombre = rs.getString("NOMBRE");
-//			int compañia = Integer.parseInt(rs.getString("ID_COMPAÑIA"));
-//			String nacionalidad = rs.getString("NACIONALIDAD");
-//			actores.add(new Actor(cedula, compañia, nombre, nacionalidad));
-//		}
-//
-//		return actores;
+		ArrayList<Funcion> funciones = new ArrayList<Funcion>();
+		String sql = " SELECT * FROM FUNCION f, OBRA b ";
+		String sqlParaWhere = "WHERE f.ID_OBRA = b.ID";
+		if (categoria !=null)
+		{
+			sql+= ", CATEGORIA c, OBRA_CATEGORIA oc ";
+			sqlParaWhere+= " AND c.NOMBRE = oc.ID_CATEGORIA AND b.ID = oc.ID_OBRA";
+			
+	
+		}
 		
-		return null;
+		if (fecha1 != null && fecha2 != null)
+		{
+			sqlParaWhere+= " AND F.FECHAINICIO BETWEEN '" + fecha1 + "' AND '" + fecha2 + "' "; 
+		}
+		
+		if (idioma != null)
+		{
+			sqlParaWhere+= " AND b.IDIOMA ='" + idioma + "' ";
+		}
+		
+		if (ordenado)
+		{
+			sqlParaWhere+= " ORDER BY ASC";
+		}
+		sql+= sqlParaWhere;
+		
+		System.out.println("SQL stmt:" + sql);
+		
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+
+		while (rs.next()) {
+			int id = Integer.parseInt(rs.getString("ID"));
+			Date fechaInicio = rs.getDate("FECHAINICIO");
+			int idTeatro = Integer.parseInt(rs.getString("IDTEATRO"));
+			int idObra = Integer.parseInt(rs.getString("IDOBRA"));
+			funciones.add(new Funcion(id, fechaInicio, idTeatro, idObra));
+		}
+		
+		return funciones;
 	}
 		
 	public ArrayList<Funcion> buscarFuncionPorCategoria(String categoria) throws SQLException, Exception {
@@ -170,6 +172,9 @@ public class DAOTablaFuncion {
 		
 		return null;
 	}
+	
+	
+	
 	
 	
 	public void addFuncion(Funcion funcion) throws SQLException, Exception {
