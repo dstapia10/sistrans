@@ -18,7 +18,7 @@ import vos.ListaActores;
 import vos.ListaRepresentante;
 import vos.Representante;
 
-@Path("representante")
+@Path("representantes")
 public class FestiAndesRepresentanteServices {
 	
 	@Context
@@ -83,7 +83,7 @@ public class FestiAndesRepresentanteServices {
 	public Response addRepresentante(Representante representante) {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
 		try {
-			tm.updateRepresentante(representante);
+			tm.addRepresentante(representante);
 		} 
 		catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
@@ -98,7 +98,7 @@ public class FestiAndesRepresentanteServices {
 	public Response updateRepresentante(Representante representante) {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
 		try {
-			tm.addRepresentante(representante);
+			tm.updateRepresentante(representante);
 		} 
 		catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();

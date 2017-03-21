@@ -114,46 +114,45 @@ public class DAOTablaRepresentante {
 
 
 	public void addRepresentante(Representante representante) throws SQLException, Exception {
-//
-//		String sql = "INSERT INTO REPRESENTANTE VALUES ('";
-//		sql += representante.getCedula() + "','";
-//		sql += representante.getNombre()+ "')";
-//
-//		System.out.println("SQL stmt:" + sql);
-//
-//		PreparedStatement prepStmt = conn.prepareStatement(sql);
-//		recursos.add(prepStmt);
-//		prepStmt.executeQuery();
-//
+
+		String sql = "INSERT INTO REPRESENTANTE VALUES ('";
+		sql += representante.getCedula() + "','";
+		sql += representante.getNombre()+ "')";
+
+		System.out.println("SQL stmt:" + sql);
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		prepStmt.executeQuery();
+
 	}
 	
 
 	public void updateRepresentante(Representante representante) throws SQLException, Exception {
-//
-//		String sql = "UPDATE ACTOR SET ";
-//		sql += "NOMBRE='" + actor.getNombre() + "',";
-//		sql += "ID_COMPAÑIA='" + actor.getIdCompania() + "',";
-//		sql += "NACIONALIDAD='" + actor.getNacionalidad()+ "'";
-//		sql += " WHERE CEDULA = " + actor.getCedula();
-//
-//		System.out.println("SQL stmt:" + sql);
-//
-//		PreparedStatement prepStmt = conn.prepareStatement(sql);
-//		recursos.add(prepStmt);
-//		prepStmt.executeQuery();
+
+		String sql = "UPDATE REPRESENTANTE SET ";
+		sql += "NOMBRE='" + representante.getNombre() + "'";
+
+		sql += " WHERE CEDULA = " + representante.getCedula();
+
+		System.out.println("SQL stmt:" + sql);
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		prepStmt.executeQuery();
 	}
 
 
 	public void deleteRepresentante(Representante representante) throws SQLException, Exception {
-//
-//		String sql = "DELETE FROM ACTOR";
-//		sql += " WHERE CEDULA = " + actor.getCedula();
-//
-//		System.out.println("SQL stmt:" + sql);
-//
-//		PreparedStatement prepStmt = conn.prepareStatement(sql);
-//		recursos.add(prepStmt);
-//		prepStmt.executeQuery();
+
+		String sql = "DELETE FROM REPRESENTANTE";
+		sql += " WHERE CEDULA = " + representante.getCedula();
+
+		System.out.println("SQL stmt:" + sql);
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		prepStmt.executeQuery();
 	}
 	
 }

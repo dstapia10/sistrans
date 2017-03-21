@@ -55,7 +55,7 @@ public class DAOTablaFuncion {
 	}
 	
 	
-	public ArrayList<Funcion> darFuncion(Date  fecha1, Date fecha2, Categoria categoria, String idioma, Boolean ordenado) throws SQLException, Exception {
+	public ArrayList<Funcion> darFuncion(java.util.Date  f, java.util.Date f2, Categoria categoria, String idioma, Boolean ordenado) throws SQLException, Exception {
 	
 		ArrayList<Funcion> funciones = new ArrayList<Funcion>();
 		String sql = " SELECT * FROM FUNCION f, OBRA b ";
@@ -68,9 +68,9 @@ public class DAOTablaFuncion {
 	
 		}
 		
-		if (fecha1 != null && fecha2 != null)
+		if (f != null && f2 != null)
 		{
-			sqlParaWhere+= " AND F.FECHAINICIO BETWEEN '" + fecha1 + "' AND '" + fecha2 + "' "; 
+			sqlParaWhere+= " AND F.FECHAINICIO BETWEEN '" + f + "' AND '" + f2 + "' "; 
 		}
 		
 		if (idioma != null)
@@ -131,7 +131,7 @@ public class DAOTablaFuncion {
 	public void updateFuncion(Funcion funcion) throws SQLException, Exception {
 
 		String sql = "UPDATE FUNCION SET ";
-		sql += "FECHA_INICIO='" + funcion.getFechaInicio() + "',";
+		sql += "FECHAINICIO='" + funcion.getFechaInicio().toLocaleString() + "',";
 		sql += "IDTEATRO='" +funcion.getIdTeatro()+ "',";
 		sql += "IDOBRA='" + funcion.getIdObra();
 		sql += "' WHERE ID = " + funcion.getId();

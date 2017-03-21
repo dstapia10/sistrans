@@ -127,7 +127,7 @@ public class FestiAndesFuncionesServices {
 	}
 	
     @DELETE
-	@Path("/actor")
+	@Path("/funcion")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response deleteFuncion(Funcion funcion) {
