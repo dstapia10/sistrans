@@ -15,11 +15,9 @@ import javax.ws.rs.core.Response;
 import tm.FestiAndesMaster;
 import vos.Actor;
 import vos.ListaActores;
-import vos.ListaUsuario;
-import vos.Usuario;
 
-@Path("usuario")
-public class FestiAndesUsuarioServices {
+@Path("actor")
+public class FestiAndesRepresentanteServices {
 	
 	@Context
 	private ServletContext context;
@@ -34,61 +32,77 @@ public class FestiAndesUsuarioServices {
 		 
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response getUsuarios() {
+	public Response getActores() {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
-		ListaUsuario usuarios;
+		ListaActores actores;
 		try {
-			usuarios = tm.darUsuarios();
+			actores = tm.darActores();
 		} 
 		catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
-		return Response.status(200).entity(usuarios).build();
+		return Response.status(200).entity(actores).build();
 	}
-		
+	
+	@GET
+	@Path("/actor/{cedula}")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getActorName(@javax.ws.rs.PathParam("cedula") int cedula) {
+		FestiAndesMaster tm = new FestiAndesMaster(getPath());
+		ListaActores actores;
+		try {
+			
+			actores = tm.buscarActorPorNombre(cedula);
+		} 
+		catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(actores).build();
+	}
+	
 	@POST
-	@Path("/usuario")
+	@Path("/actor")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response addUsuario(Usuario usuuario) {
+	public Response addActor(Actor actor) {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
 		try {
-			tm.addUsuario(usuuario);
+			tm.addActor(actor);
 		} 
 		catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
-		return Response.status(200).entity(usuuario).build();
+		return Response.status(200).entity(actor).build();
 	}
 	
 	@PUT
-	@Path("/usuario")
+	@Path("/actor")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response updateUsuario(Usuario usuario) {
+	public Response updateActor(Actor actor) {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
 		try {
-			tm.addUsuario(usuario);
+			tm.updateActor(actor);
 		} 
 		catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
-		return Response.status(200).entity(usuario).build();
+		return Response.status(200).entity(actor).build();
 	}
 	
     @DELETE
-	@Path("/usuario")
+	@Path("/actor")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response deleteUsuario(Usuario usuario) {
+	public Response deleteFuncion(Actor actor) {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
 		try {
-			tm.deleteUsuario(usuario);
+			tm.deleteActor(actor);
 		} 
 		catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
-		return Response.status(200).entity(usuario).build();
+		return Response.status(200).entity(actor).build();
 	}
-
+	
 }

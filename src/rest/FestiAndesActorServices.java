@@ -67,7 +67,7 @@ public class FestiAndesActorServices {
 	public Response addActor(Actor actor) {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
 		try {
-			tm.updateActor(actor);
+			tm.addActor(actor);
 		} 
 		catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
@@ -82,7 +82,7 @@ public class FestiAndesActorServices {
 	public Response updateActor(Actor actor) {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
 		try {
-			tm.addActor(actor);
+			tm.updateActor(actor);
 		} 
 		catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();

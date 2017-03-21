@@ -14,23 +14,28 @@ public class Funcion {
 	private int id;
 
 	@JsonProperty(value="FECHAINICIO")
-	private Date fechaInicio;
+	private java.sql.Date fechaInicio;
 
 	@JsonProperty(value="IDTEATRO")
 	private int idTeatro;
 
 	@JsonProperty(value="IDOBRA")
 	private int idObra;
+	
+	@JsonProperty(value="TRADUCCION")
+	private String traduccion;
 
 
 	
-	public Funcion(@JsonProperty(value="ID")int id,@JsonProperty(value="FECHAINICIO")Date fechaInicio, @JsonProperty(value="IDTEATRO")int idTeatro,@JsonProperty(value="IDOBRA") int idObra) 
+	public Funcion(@JsonProperty(value="ID")int id,@JsonProperty(value="FECHAINICIO")java.sql.Date fechaInicio, 
+			@JsonProperty(value="IDTEATRO")int idTeatro,@JsonProperty(value="IDOBRA") int idObra, @JsonProperty(value="TRADUCCION") String traduccion) 
 	{
 		super();
 		this.id = id;
 		this.fechaInicio = fechaInicio;
 		this.idTeatro = idTeatro;
 		this.idObra = idObra;
+		this.traduccion = traduccion;
 	}
 	
 
@@ -44,12 +49,12 @@ public class Funcion {
 	}
 
 
-	public Date getFechaInicio() {
+	public java.sql.Date getFechaInicio() {
 		return fechaInicio;
 	}
 
 	
-	public void setFechaInicio(Date id) {
+	public void setFechaInicio(java.sql.Date id) {
 		this.fechaInicio = id;
 	}
 
@@ -71,6 +76,16 @@ public class Funcion {
 	public void setIdObra(int name) {
 		this.idObra = name;
 	}
+	
+	public String getTraduccion ()
+	{
+		return traduccion;
+	}
+	
 
+	public void setTraduccion (String trad)
+	{
+		this.traduccion = trad;
+	}
 
 }
