@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Properties;
 
 import dao.DAOTablaActor;
@@ -505,14 +506,14 @@ public class FestiAndesMaster {
 	private void inicioFuncion(){
 	}
 	
-	public ListaFuncion darFunciones() throws Exception {
+	public ListaFuncion darFunciones(Date f, Date f2, Categoria  categoria ,String  idioma, Boolean orden) throws Exception {
 		ArrayList<Funcion> funciones;
 		DAOTablaFuncion daoFuncion = new DAOTablaFuncion();
 		try 
 		{
 			this.conn = darConexion();
 			daoFuncion.setConn(conn);
-			funciones = daoFuncion.darFuncion();
+			funciones = daoFuncion.darFuncion( f,  f2, categoria, idioma, orden);
 		} 
 		catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());
@@ -538,38 +539,8 @@ public class FestiAndesMaster {
 		return new ListaFuncion(funciones);
 	}
 	
-	public ListaFuncion buscarFuncnionPorNombre(String nNombre) throws Exception {
-		ArrayList<Funcion> funciones;
-		DAOTablaFuncion daoFuncion = new DAOTablaFuncion();
-		try 
-		{
-			this.conn = darConexion();
-			daoFuncion.setConn(conn);
-			funciones = daoFuncion.buscarFuncionPorName(nNombre);
-		} 
-		catch (SQLException e) {
-			System.err.println("SQLException:" + e.getMessage());
-			e.printStackTrace();
-			throw e;
-		} 
-		catch (Exception e) {
-			System.err.println("GeneralException:" + e.getMessage());
-			e.printStackTrace();
-			throw e;
-		} 
-		finally {
-			try {
-				daoFuncion.cerrarRecursos();
-				if(this.conn!=null) this.conn.close();
-			} 
-			catch (SQLException exception) {
-				System.err.println("SQLException closing resources:" + exception.getMessage());
-				exception.printStackTrace();
-				throw exception;
-			}
-		}
-		return new ListaFuncion(funciones);
-	}
+	
+
 	
 	public ListaFuncion buscarFuncnionPorCategoria(String nCategoria) throws Exception {
 		ArrayList<Funcion> funciones;

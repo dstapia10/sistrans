@@ -1,5 +1,7 @@
 package rest;
 
+import java.util.Date;
+
 import javax.servlet.ServletContext;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -13,6 +15,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import tm.FestiAndesMaster;
+import vos.Categoria;
 import vos.Funcion;
 import vos.ListaFuncion;
 
@@ -32,11 +35,11 @@ public class FestiAndesFuncionesServices {
 	
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response getFunciones() {
+	public Response getFunciones(Date f, Date f2, Categoria  categoria ,String  idioma, Boolean orden) {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
 		ListaFuncion funciones;
 		try {
-			funciones = tm.darFunciones();
+			funciones = tm.darFunciones(f, f2, categoria, idioma, orden);
 		} 
 		catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
@@ -44,21 +47,7 @@ public class FestiAndesFuncionesServices {
 		return Response.status(200).entity(funciones).build();
 	}
 	
-	@GET
-	@Path("/name/{name}")
-	@Produces({ MediaType.APPLICATION_JSON })
-	public Response getFuncionName(@javax.ws.rs.PathParam("name") String name) {
-		FestiAndesMaster tm = new FestiAndesMaster(getPath());
-		ListaFuncion funciones;
-		try {
-			if (name == null || name.length() == 0) throw new Exception("Nombre de la funcion no valido");
-			funciones = tm.buscarFuncnionPorNombre(name);
-		} 
-		catch (Exception e) {
-			return Response.status(500).entity(doErrorMessage(e)).build();
-		}
-		return Response.status(200).entity(funciones).build();
-	}
+
 	
 	@GET
 	@Path("/categoria/{categoria}")
