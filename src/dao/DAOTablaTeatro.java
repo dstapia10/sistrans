@@ -102,48 +102,50 @@ public class DAOTablaTeatro {
 
 
 	public void addTeatro(Teatro teatro) throws SQLException, Exception {
-//
-//		String sql = "INSERT INTO ACTOR VALUES (";
-//		sql += actor.getCedula() + ",'";
-//		sql += actor.getNombre() + "',";
-//		sql += actor.getIdCompania() + "',";
-//		sql += actor.getNacionalidad()+ ")";
-//
-//		System.out.println("SQL stmt:" + sql);
-//
-//		PreparedStatement prepStmt = conn.prepareStatement(sql);
-//		recursos.add(prepStmt);
-//		prepStmt.executeQuery();
+
+		String sql = "INSERT INTO TEATRO VALUES ('";
+		sql += teatro.getId() + "','";
+		sql += teatro.getIdCiudad() + "','";
+		sql += teatro.getCapacidad() + "','";
+		sql += teatro.getNombre() + "','";
+		sql += teatro.getDireccion() + "')";
+
+		System.out.println("SQL stmt:" + sql);
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		prepStmt.executeQuery();
 
 	}
 	
 
 	public void updateTeatro(Teatro teatro) throws SQLException, Exception {
 
-//		String sql = "UPDATE ACTOR SET ";
-//		sql += "NOMBRE='" + actor.getCedula() + "',";
-//		sql += "ID_COMPAÑIA='" + actor.getIdCompania() + "',";
-//		sql += "NACIONALIDAD=" + actor.getNacionalidad();
-//		sql += " WHERE CEDULA = " + actor.getCedula();
-//
-//		System.out.println("SQL stmt:" + sql);
-//
-//		PreparedStatement prepStmt = conn.prepareStatement(sql);
-//		recursos.add(prepStmt);
-//		prepStmt.executeQuery();
+		String sql = "UPDATE TEATRO SET ";
+		sql += "IDCIUDAD='" +  teatro.getIdCiudad() + "',";
+		sql += "CAPACIDAD='" + teatro.getCapacidad() + "',";
+		sql += "NOMBRE='" + teatro.getNombre()+ "',";
+		sql += "DIRECCION='" + teatro.getDireccion();
+		sql += "' WHERE ID = " + teatro.getId();
+
+		System.out.println("SQL stmt:" + sql);
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		prepStmt.executeQuery();
 	}
 
 
 	public void deleteTeatro(Teatro teatro) throws SQLException, Exception {
 
-//		String sql = "DELETE FROM ACTOR";
-//		sql += " WHERE id = " + actor.getCedula();
-//
-//		System.out.println("SQL stmt:" + sql);
-//
-//		PreparedStatement prepStmt = conn.prepareStatement(sql);
-//		recursos.add(prepStmt);
-//		prepStmt.executeQuery();
+		String sql = "DELETE FROM TEATRO";
+		sql += " WHERE id = " + teatro.getId();
+
+		System.out.println("SQL stmt:" + sql);
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		prepStmt.executeQuery();
 	}
 	
 }

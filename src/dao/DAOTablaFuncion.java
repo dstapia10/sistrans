@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 
 import vos.Actor;
 import vos.Categoria;
@@ -112,11 +112,12 @@ public class DAOTablaFuncion {
 	
 	public void addFuncion(Funcion funcion) throws SQLException, Exception {
 
-		String sql = "INSERT INTO FUNCION VALUES (";
-		sql += funcion.getId()+ ",'";
-		sql += funcion.getFechaInicio()+ "',";
-		sql += funcion.getIdTeatro() + "',";
-		sql += funcion.getIdObra()+ ")";
+		String sql = "INSERT INTO FUNCION VALUES ('";
+		sql += funcion.getId()+ "','";
+		sql += (funcion.getFechaInicio()).toLocaleString()+ "','";
+		sql += funcion.getIdTeatro() + "','";
+		sql += funcion.getIdObra()+ "','";
+		sql += funcion.getTraduccion() + "')";
 
 		System.out.println("SQL stmt:" + sql);
 
@@ -132,8 +133,8 @@ public class DAOTablaFuncion {
 		String sql = "UPDATE FUNCION SET ";
 		sql += "FECHA_INICIO='" + funcion.getFechaInicio() + "',";
 		sql += "IDTEATRO='" +funcion.getIdTeatro()+ "',";
-		sql += "IDOBRA=" + funcion.getIdObra();
-		sql += " WHERE ID = " + funcion.getId();
+		sql += "IDOBRA='" + funcion.getIdObra();
+		sql += "' WHERE ID = " + funcion.getId();
 
 		System.out.println("SQL stmt:" + sql);
 

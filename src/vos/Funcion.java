@@ -1,7 +1,7 @@
 
 package vos;
 
-import java.util.Date;
+import java.sql.Date;
 
 import org.codehaus.jackson.annotate.*;
 
@@ -21,16 +21,24 @@ public class Funcion {
 
 	@JsonProperty(value="IDOBRA")
 	private int idObra;
+	
+	@JsonProperty(value="TRADUCCION")
+	private String traduccion;
+
 
 
 	
-	public Funcion(@JsonProperty(value="ID")int id,@JsonProperty(value="FECHAINICIO")Date fechaInicio, @JsonProperty(value="IDTEATRO")int idTeatro,@JsonProperty(value="IDOBRA") int idObra) 
+	public Funcion(@JsonProperty(value="ID")int id,
+			@JsonProperty(value="FECHAINICIO")Date fechaInicio,
+			@JsonProperty(value="IDTEATRO")int idTeatro,
+			@JsonProperty(value="IDOBRA") int idObra) 
 	{
 		super();
 		this.id = id;
 		this.fechaInicio = fechaInicio;
 		this.idTeatro = idTeatro;
 		this.idObra = idObra;
+		this.traduccion = traduccion;
 	}
 	
 
@@ -72,5 +80,13 @@ public class Funcion {
 		this.idObra = name;
 	}
 
+	public String getTraduccion() {
+		return traduccion;
+	}
+
+	
+	public void setTraduccion(String name) {
+		this.traduccion = name;
+	}
 
 }
