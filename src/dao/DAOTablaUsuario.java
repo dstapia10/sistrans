@@ -6,7 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import vos.Actor;
+import org.codehaus.jackson.annotate.JsonProperty;
+
 import vos.Usuario;
 
 public class DAOTablaUsuario {
@@ -51,98 +52,66 @@ public class DAOTablaUsuario {
 	public void setConn(Connection con){
 		this.conn = con;
 	}
-
-
-	public ArrayList<Usuario> darUsuarios() throws SQLException, Exception {
-//		ArrayList<Actor> actores = new ArrayList<Actor>();
-//
-//		String sql = "SELECT * FROM ACTOR";
-//
-//		PreparedStatement prepStmt = conn.prepareStatement(sql);
-//		recursos.add(prepStmt);
-//		ResultSet rs = prepStmt.executeQuery();
-//
-//		while (rs.next()) {
-//			int cedula = Integer.parseInt(rs.getString("CEDULA"));
-//			String nombre = rs.getString("NOMBRE");
-//			int compañia = Integer.parseInt(rs.getString("ID_COMPAÑIA"));
-//			String nacionalidad = rs.getString("NACIONALIDAD");
-//			actores.add(new Actor(cedula, compañia, nombre, nacionalidad));
-//		}
-//		return actores;
 		
-		return null;
+	public ArrayList<Usuario> darUsuarios() throws SQLException, Exception {
+		ArrayList<Usuario> usuario = new ArrayList<Usuario>();
+
+		String sql = "SELECT * FROM USUARIO";
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+
+		while (rs.next()) {
+			int cedula = Integer.parseInt(rs.getString("CEDULA"));
+			String nombre = rs.getString("NOMBRE");
+			String apellido = rs.getString("APELLIDO");
+			int edad = Integer.parseInt(rs.getString("EDAD"));
+			String rol = rs.getString("ROL");
+			usuario.add(new Usuario(cedula, nombre, apellido, edad, rol));
+		}
+		return usuario;
 	}
-
-
-
-//	public ArrayList<Actor> buscarActorPorName(int cedula2) throws SQLException, Exception {
-//		ArrayList<Actor> actores = new ArrayList<Actor>();
-//
-//		String sql = "SELECT * FROM ACTOR WHERE CEDULA ='" + cedula2 + "'";
-//
-//		System.out.println("SQL stmt:" + sql);
-//
-//		PreparedStatement prepStmt = conn.prepareStatement(sql);
-//		recursos.add(prepStmt);
-//		ResultSet rs = prepStmt.executeQuery();
-//
-//		while (rs.next()) {
-//			int cedula = Integer.parseInt(rs.getString("CEDULA"));
-//			String nombre = rs.getString("NOMBRE");
-//			int compañia = Integer.parseInt(rs.getString("ID_COMPAÑIA"));
-//			String nacionalidad = rs.getString("NACIONALIDAD");
-//			actores.add(new Actor(cedula, compañia, nombre, nacionalidad));
-//		}
-//
-//		return actores;
-//	}
-
 
 	public void addUsuario(Usuario usuario) throws SQLException, Exception {
+		String sql = "INSERT INTO USUARIO VALUES ('";
+		sql += usuario.getCedula() + "','";
+		sql += usuario.getNombre() + "','";
+		sql += usuario.getApellido() + "','";
+		sql += usuario.getEdad() + "','";
+		sql += usuario.getRol()+ "')";
 
-//		String sql = "INSERT INTO ACTOR VALUES ('";
-//		sql += actor.getCedula() + "','";
-//		sql += actor.getNombre() + "','";
-//		sql += actor.getIdCompania() + "','";
-//		sql += actor.getNacionalidad()+ "')";
-//
-//		System.out.println("SQL stmt:" + sql);
-//
-//		PreparedStatement prepStmt = conn.prepareStatement(sql);
-//		recursos.add(prepStmt);
-//		prepStmt.executeQuery();
+		System.out.println("SQL stmt:" + sql);
 
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		prepStmt.executeQuery();
+	}
+		
+	public void updateUsuario(Usuario usuario) throws SQLException, Exception {
+		String sql = "UPDATE USUARIO SET ";
+		sql += "NOMBRE='" + usuario.getNombre() + "',";
+		sql += "APELLIDO='" + usuario.getApellido() + "',";
+		sql += "EDAD='" + usuario.getEdad() + "',";
+		sql += "ROL='" + usuario.getRol()+ "'";
+		sql += " WHERE CEDULA = " + usuario.getCedula();
+
+		System.out.println("SQL stmt:" + sql);
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		prepStmt.executeQuery();
+	}
+		
+	public void deleteUsuario(Usuario usuario) throws SQLException, Exception {
+		String sql = "DELETE FROM USUARIO";
+		sql += " WHERE CEDULA = " + usuario.getCedula();
+
+		System.out.println("SQL stmt:" + sql);
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		prepStmt.executeQuery();
 	}
 	
-
-	public void updateUsuario(Usuario ususario) throws SQLException, Exception {
-
-//		String sql = "UPDATE ACTOR SET ";
-//		sql += "NOMBRE='" + actor.getNombre() + "',";
-//		sql += "ID_COMPAÑIA='" + actor.getIdCompania() + "',";
-//		sql += "NACIONALIDAD='" + actor.getNacionalidad()+ "'";
-//		sql += " WHERE CEDULA = " + actor.getCedula();
-//
-//		System.out.println("SQL stmt:" + sql);
-//
-//		PreparedStatement prepStmt = conn.prepareStatement(sql);
-//		recursos.add(prepStmt);
-//		prepStmt.executeQuery();
-	}
-
-
-	public void deleteUsuario(Usuario usuario) throws SQLException, Exception {
-
-//		String sql = "DELETE FROM ACTOR";
-//		sql += " WHERE CEDULA = " + actor.getCedula();
-//
-//		System.out.println("SQL stmt:" + sql);
-//
-//		PreparedStatement prepStmt = conn.prepareStatement(sql);
-//		recursos.add(prepStmt);
-//		prepStmt.executeQuery();
-	}
-
-
 }

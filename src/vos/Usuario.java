@@ -60,8 +60,8 @@ public class Usuario
 	}
 
 	
-	public void setApellido(String name) {
-		this.apellido = name;
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
 	}
 
 	public int getEdad() {
@@ -69,8 +69,18 @@ public class Usuario
 	}
 
 	
-	public void setEdad(int name) {
-		this.edad = name;
+	public void setEdad(int edad) {
+		this.edad = edad;
+	}
+	
+	
+	public String getRol() {
+		return rol;
+	}
+
+	
+	public void setRol(String rol) {
+		this.rol = rol;
 	}
 		
 }
