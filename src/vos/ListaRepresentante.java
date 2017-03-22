@@ -7,7 +7,6 @@ import org.codehaus.jackson.annotate.JsonProperty;
 	
 public class ListaRepresentante {
 	
-
 	@JsonProperty(value="representantes")
 	private List<Representante> representantes;
 	
