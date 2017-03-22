@@ -15,6 +15,7 @@ import dao.DAOTablaCategoria;
 import dao.DAOTablaCiudad;
 import dao.DAOTablaCompañia;
 import dao.DAOTablaFestival;
+import dao.DAOTablaFestival_Cliente;
 import dao.DAOTablaFuncion;
 import dao.DAOTablaObra;
 import dao.DAOTablaRepresentante;
@@ -26,6 +27,7 @@ import vos.Categoria;
 import vos.Ciudad;
 import vos.Compañia;
 import vos.Festival;
+import vos.Festival_Cliente;
 import vos.Funcion;
 import vos.ListaActores;
 import vos.ListaBoletas;
@@ -33,6 +35,7 @@ import vos.ListaCategoria;
 import vos.ListaCiudad;
 import vos.ListaCompañia;
 import vos.ListaFestivales;
+import vos.ListaFestivales_Clientes;
 import vos.ListaFuncion;
 import vos.ListaObra;
 import vos.ListaRepresentante;
@@ -2220,5 +2223,207 @@ public class FestiAndesMaster {
 			}
 		}
 	}
+	
+	
+	
+	// -----------------------------------------------------------------------------------------------------------------------------
+	// Festival_Cliente ------------------------------------------------------------------------------------------------------------
+	// -----------------------------------------------------------------------------------------------------------------------------
+	private void inicioFestivalCliente(){
+	}
+	
+	public ListaFestivales_Clientes darFestivalClientes() throws Exception {
+		ArrayList<Festival_Cliente> festivalesClientes;
+		DAOTablaFestival_Cliente daoFestivalCliente = new DAOTablaFestival_Cliente();
+		try 
+		{
+			this.conn = darConexion();
+			daoFestivalCliente.setConn(conn);
+			festivalesClientes = daoFestivalCliente.darFestivalClientes();
+		} 
+		catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		finally {
+			try {
+				daoFestivalCliente.cerrarRecursos();
+				if(this.conn!=null) this.conn.close();
+			} 
+			catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return new ListaFestivales_Clientes(festivalesClientes);
+	}
+	
+	public ListaFestivales_Clientes buscarFestivalClientePorCedula(int nCedula) throws Exception {
+		ArrayList<Festival_Cliente> festivalesClientes;
+		DAOTablaFestival_Cliente daoFestivalCliente = new DAOTablaFestival_Cliente();
+		try 
+		{
+			this.conn = darConexion();
+			daoFestivalCliente.setConn(conn);
+			festivalesClientes = daoFestivalCliente.buscarFestivalClientePorCedula(nCedula);
+		} 
+		catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		finally {
+			try {
+				daoFestivalCliente.cerrarRecursos();
+				if(this.conn!=null) this.conn.close();
+			} 
+			catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return new ListaFestivales_Clientes(festivalesClientes);
+	}
+	
+	public ListaFestivales_Clientes buscarFestivalClientePorIdFestival(int nId) throws Exception {
+		ArrayList<Festival_Cliente> festivalesClientes;
+		DAOTablaFestival_Cliente daoFestivalCliente = new DAOTablaFestival_Cliente();
+		try 
+		{
+			this.conn = darConexion();
+			daoFestivalCliente.setConn(conn);
+			festivalesClientes = daoFestivalCliente.buscarFestivalClientePorIdFestival(nId);
+		} 
+		catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		finally {
+			try {
+				daoFestivalCliente.cerrarRecursos();
+				if(this.conn!=null) this.conn.close();
+			} 
+			catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return new ListaFestivales_Clientes(festivalesClientes);
+	}
+	
+	public void addFestivalCliente(Festival_Cliente nFestivalCliente) throws Exception {
+		DAOTablaFestival_Cliente daoFestivalCliente = new DAOTablaFestival_Cliente();
+		try 
+		{
+			this.conn = darConexion();
+			daoFestivalCliente.setConn(conn);
+			daoFestivalCliente.addFestivalCliente(nFestivalCliente);
+			conn.commit();
+		} 
+		catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		finally {
+			try {
+				daoFestivalCliente.cerrarRecursos();
+				if(this.conn!=null) this.conn.close();
+			} 
+			catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	public void updateFestivalCliente(Festival_Cliente nFestivalCliente) throws Exception {
+		DAOTablaFestival_Cliente daoFestivalCliente = new DAOTablaFestival_Cliente();
+		try 
+		{
+			this.conn = darConexion();
+			daoFestivalCliente.setConn(conn);
+			daoFestivalCliente.updateFestivalCliente(nFestivalCliente);
+		} 
+		catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		finally {
+			try {
+				daoFestivalCliente.cerrarRecursos();
+				if(this.conn!=null) this.conn.close();
+			} 
+			catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	public void deleteFestivalCliente(Festival_Cliente nFestivalCliente) throws Exception {
+		DAOTablaFestival_Cliente daoObra = new DAOTablaFestival_Cliente();
+		try 
+		{
+			this.conn = darConexion();
+			daoObra.setConn(conn);
+			daoObra.deleteFestivalCliente(nFestivalCliente);
+		} 
+		catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		finally {
+			try {
+				daoObra.cerrarRecursos();
+				if(this.conn!=null) this.conn.close();
+			} catch (SQLException exception) 
+			{
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+		
 	
 }
