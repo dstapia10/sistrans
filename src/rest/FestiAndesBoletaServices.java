@@ -29,10 +29,14 @@ public class FestiAndesBoletaServices {
 	private String doErrorMessage(Exception e){
 		return "{ \"ERROR\": \""+ e.getMessage() + "\"}" ;
 	}
-		 
+	
+	// --------------------------------------------------------------------------------------------------------------------------------------
+	// getBoletas ---------------------------------------------------------------------------------------------------------------------------
+	// --------------------------------------------------------------------------------------------------------------------------------------
 	@GET
+	@Path("/administrador")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response getBoletas() {
+	public Response getBoletasAdministrador() {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
 		ListaBoletas boletas;
 		try {
@@ -43,12 +47,30 @@ public class FestiAndesBoletaServices {
 		}
 		return Response.status(200).entity(boletas).build();
 	}
-		
+	
+	@GET
+	@Path("/cliente")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getBoletasCliente() {
+		FestiAndesMaster tm = new FestiAndesMaster(getPath());
+		ListaBoletas boletas;
+		try {
+			boletas = tm.darBoletas();
+		} 
+		catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(boletas).build();
+	}
+	
+	// --------------------------------------------------------------------------------------------------------------------------------------
+	// addBoleta ----------------------------------------------------------------------------------------------------------------------------
+	// --------------------------------------------------------------------------------------------------------------------------------------
 	@POST
-	@Path("/boleta")
+	@Path("/administrador/boleta")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response addBoleta(Boleta boleta) {
+	public Response addBoletaAdministrador(Boleta boleta) {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
 		try {
 			tm.updateBoleta(boleta);
@@ -59,11 +81,22 @@ public class FestiAndesBoletaServices {
 		return Response.status(200).entity(boleta).build();
 	}
 	
-	@PUT
-	@Path("/boleta")
+	@POST
+	@Path("/cliente/boleta")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response updateBoleta(Boleta boleta) {
+	public Response addBoletaCliente(Boleta boleta) {
+		return Response.status(500).entity("No puede agregar la infomacion").build();
+	}
+	
+	// --------------------------------------------------------------------------------------------------------------------------------------
+	// updateBoleta -------------------------------------------------------------------------------------------------------------------------
+	// --------------------------------------------------------------------------------------------------------------------------------------
+	@PUT
+	@Path("/administrador/boleta")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response updateBoletaAdministrador(Boleta boleta) {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
 		try {
 			tm.addBoleta(boleta);
@@ -74,11 +107,29 @@ public class FestiAndesBoletaServices {
 		return Response.status(200).entity(boleta).build();
 	}
 	
-    @DELETE
-	@Path("/boleta")
+	@PUT
+	@Path("/cliente/boleta")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response deleteBoleta(Boleta boleta) {
+	public Response updateBoletaCliente(Boleta boleta) {
+		FestiAndesMaster tm = new FestiAndesMaster(getPath());
+		try {
+			tm.addBoleta(boleta);
+		} 
+		catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(boleta).build();
+	}
+	
+	// --------------------------------------------------------------------------------------------------------------------------------------
+	// deleteBoleta -------------------------------------------------------------------------------------------------------------------------
+	// --------------------------------------------------------------------------------------------------------------------------------------
+    @DELETE
+	@Path("/administrador/boleta")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response deleteBoletaAdministrador(Boleta boleta) {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
 		try {
 			tm.deleteBoleta(boleta);
@@ -88,5 +139,13 @@ public class FestiAndesBoletaServices {
 		}
 		return Response.status(200).entity(boleta).build();
 	}
+    
+    @DELETE
+   	@Path("/cliente/boleta")
+   	@Consumes(MediaType.APPLICATION_JSON)
+   	@Produces(MediaType.APPLICATION_JSON)
+   	public Response deleteBoletaCliente(Boleta boleta) {
+    	return Response.status(500).entity("No puede borrar la infomacion").build();
+   	}
 
 }
