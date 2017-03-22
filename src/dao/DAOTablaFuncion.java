@@ -113,15 +113,14 @@ public class DAOTablaFuncion {
 	
 	public void addFuncion(Funcion funcion) throws SQLException, Exception {
 
-//		String sql = "INSERT INTO ISIS2304A261720.FUNCIONES VALUES ('";
-//		sql += funcion.getId()+ "',to_date('";
-//		sql += funcion.getFechaInicio() + "',";
-//		sql += "'yyyy-MM-dd  hh:mi:ss'),'";
-//		sql += funcion.getIdTeatro() + "','";
-//		sql += funcion.getIdObra()+ "','";
-//		sql += funcion.getTraduccion() + "')";
+		String sql = "INSERT INTO ISIS2304A261720.FUNCION VALUES ('";
+		sql += funcion.getId()+ "',to_date('";
+		sql += funcion.getFechaInicio() + "',";
+		sql += "'yyyy-MM-dd  hh:mi:ss'),'";
+		sql += funcion.getIdTeatro() + "','";
+		sql += funcion.getIdObra()+ "','";
+		sql += funcion.getTraduccion() + "')";
 		
-		String sql = "SELECT * FROM  ISIS2304A261720.FUNCIONES";
 
 		System.out.println("SQL stmt:" + sql);
 
@@ -134,7 +133,7 @@ public class DAOTablaFuncion {
 	
 	public void updateFuncion(Funcion funcion) throws SQLException, Exception {
 
-		String sql = "UPDATE ISIS2304A261720.FUNCIONES SET ";
+		String sql = "UPDATE ISIS2304A261720.FUNCION SET ";
 		sql += "FECHAINICIO= to_date('" + funcion.getFechaInicio() + "','yyyy-MM-dd hh:mi:ss'),";
 		sql += "IDTEATRO='" +funcion.getIdTeatro()+ "',";
 		sql += "IDOBRA='" + funcion.getIdObra();
@@ -150,7 +149,7 @@ public class DAOTablaFuncion {
 
 	public void deleteFuncion(Funcion funcion) throws SQLException, Exception {
 
-		String sql = "DELETE FROM ISIS2304A261720.FUNCIONES";
+		String sql = "DELETE FROM ISIS2304A261720.FUNCION";
 		sql += " WHERE ID = " + funcion.getId();
 
 		System.out.println("SQL stmt:" + sql);

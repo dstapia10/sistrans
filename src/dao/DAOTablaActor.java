@@ -70,7 +70,7 @@ public class DAOTablaActor {
 	public ArrayList<Actor> darActores() throws SQLException, Exception {
 		ArrayList<Actor> actores = new ArrayList<Actor>();
 
-		String sql = "SELECT * ISIS2304A261720.FROM ACTOR";
+		String sql = "SELECT * FROM ISIS2304A261720.ACTOR";
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
