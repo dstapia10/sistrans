@@ -102,7 +102,7 @@ public class FestiAndesUsuario_CategoriaServices {
 	public Response addUsuarioCategoriaAdministrador(Usuario_Categoria usuarioCategoria) {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
 		try {
-			tm.updateUsuarioCategoria(usuarioCategoria);
+			tm.addUsuarioCategoria(usuarioCategoria);
 		} 
 		catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
@@ -117,7 +117,7 @@ public class FestiAndesUsuario_CategoriaServices {
 	public Response addusuarioCategoriaCliente(Usuario_Categoria usuarioCategoria) {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
 		try {
-			tm.updateUsuarioCategoria(usuarioCategoria);
+			tm.addUsuarioCategoria(usuarioCategoria);
 		} 
 		catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
@@ -135,7 +135,7 @@ public class FestiAndesUsuario_CategoriaServices {
 	public Response updateUsuarioCategoriaAdministrador(Usuario_Categoria usuarioCategoria) {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
 		try {
-			tm.addUsuarioCategoria(usuarioCategoria);
+			tm.updateUsuarioCategoria(usuarioCategoria);
 		} 
 		catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
@@ -148,7 +148,14 @@ public class FestiAndesUsuario_CategoriaServices {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response updateUsuarioCategoriaCliente(Usuario_Categoria usuarioCategoria) {
-		return Response.status(500).entity("No puede editar la infomacion").build();
+		FestiAndesMaster tm = new FestiAndesMaster(getPath());
+		try {
+			tm.updateUsuarioCategoria(usuarioCategoria);
+		} 
+		catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(usuarioCategoria).build();
 	}
 	
 	// --------------------------------------------------------------------------------------------------------------------------------------
