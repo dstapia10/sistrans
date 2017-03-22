@@ -36,9 +36,8 @@ public class FestiAndesUsuario_CategoriaServices {
 	// Usuario_Categoria ---------------------------------------------------------------------------------------------------------------------------
 	// --------------------------------------------------------------------------------------------------------------------------------------
 	@GET
-	@Path("/administrador")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response getUsuarioCategoriaAdministrador() {
+	public Response getUsuarioCategoria() {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
 		ListaUsuario_Categoria usuarioCategorias;
 		try {
@@ -49,25 +48,17 @@ public class FestiAndesUsuario_CategoriaServices {
 		}
 		return Response.status(200).entity(usuarioCategorias).build();
 	}
-	
-	@GET
-	@Path("/cliente")
-	@Produces({ MediaType.APPLICATION_JSON })
-	public Response getUsuarioCategoriaCliente() {		
-		return Response.status(500).entity("No puede ver la infomacion").build();		
-	}
-	
+		
 	// --------------------------------------------------------------------------------------------------------------------------------------
 	// getUsuarioCategoriasCedula -----------------------------------------------------------------------------------------------------------
 	// --------------------------------------------------------------------------------------------------------------------------------------
 	@GET
-	@Path("/administrador/usuarioCategoria/{cedula}")
+	@Path("/usuario/{cedula}")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response getUsuarioCategoriasCedulaAdministrador(@javax.ws.rs.PathParam("cedula") int cedula) {
+	public Response getUsuarioCategoriasCedula(@javax.ws.rs.PathParam("cedula") int cedula) {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
 		ListaUsuario_Categoria usuarioCategorias;
-		try {
-			
+		try {			
 			usuarioCategorias = tm.buscarUsuarioCategoriaPorCedula(cedula);
 		} 
 		catch (Exception e) {
@@ -75,31 +66,15 @@ public class FestiAndesUsuario_CategoriaServices {
 		}
 		return Response.status(200).entity(usuarioCategorias).build();
 	}
-	
-	@GET
-	@Path("/cliente/usuarioCategoria/{cedula}")
-	@Produces({ MediaType.APPLICATION_JSON })
-	public Response getUsuarioCategoriasCedulaCliente(@javax.ws.rs.PathParam("cedula") int cedula) {
-		FestiAndesMaster tm = new FestiAndesMaster(getPath());
-		ListaUsuario_Categoria usuarioCategorias;
-		try {
-			
-			usuarioCategorias = tm.buscarUsuarioCategoriaPorCedula(cedula);
-		} 
-		catch (Exception e) {
-			return Response.status(500).entity(doErrorMessage(e)).build();
-		}
-		return Response.status(200).entity(usuarioCategorias).build();
-	}
-	
+		
 	// --------------------------------------------------------------------------------------------------------------------------------------
 	// addUsuarioCategoria ------------------------------------------------------------------------------------------------------------------
 	// --------------------------------------------------------------------------------------------------------------------------------------
 	@POST
-	@Path("/administrador/usuarioCategoria")
+	@Path("/usuarioCategoria")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response addUsuarioCategoriaAdministrador(Usuario_Categoria usuarioCategoria) {
+	public Response addUsuarioCategoria(Usuario_Categoria usuarioCategoria) {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
 		try {
 			tm.addUsuarioCategoria(usuarioCategoria);
@@ -109,6 +84,7 @@ public class FestiAndesUsuario_CategoriaServices {
 		}
 		return Response.status(200).entity(usuarioCategoria).build();
 	}
+<<<<<<< HEAD
 	
 	@POST
 	@Path("/cliente/usuarioCategoria")
@@ -125,14 +101,17 @@ public class FestiAndesUsuario_CategoriaServices {
 		return Response.status(200).entity(usuarioCategoria).build();
 	}
 	
+=======
+		
+>>>>>>> origin/master
 	// --------------------------------------------------------------------------------------------------------------------------------------
 	// updateUsuarioCategoria ---------------------------------------------------------------------------------------------------------------
 	// --------------------------------------------------------------------------------------------------------------------------------------
 	@PUT
-	@Path("/administrador/usuarioCategoria")
+	@Path("/usuarioCategoria")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response updateUsuarioCategoriaAdministrador(Usuario_Categoria usuarioCategoria) {
+	public Response updateUsuarioCategoria(Usuario_Categoria usuarioCategoria) {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
 		try {
 			tm.updateUsuarioCategoria(usuarioCategoria);
@@ -142,6 +121,7 @@ public class FestiAndesUsuario_CategoriaServices {
 		}
 		return Response.status(200).entity(usuarioCategoria).build();
 	}
+<<<<<<< HEAD
 	
 	@PUT
 	@Path("/cliente/usuarioCategoria")
@@ -158,14 +138,17 @@ public class FestiAndesUsuario_CategoriaServices {
 		return Response.status(200).entity(usuarioCategoria).build();
 	}
 	
+=======
+		
+>>>>>>> origin/master
 	// --------------------------------------------------------------------------------------------------------------------------------------
 	// addActor -----------------------------------------------------------------------------------------------------------------------------
 	// --------------------------------------------------------------------------------------------------------------------------------------
     @DELETE
-	@Path("/administrador/usuarioCategoria")
+	@Path("/usuarioCategoria")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response deleteUsuarioCategoriaAdministrador(Usuario_Categoria usuarioCategoria) {
+	public Response deleteUsuarioCategoria(Usuario_Categoria usuarioCategoria) {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
 		try {
 			tm.deleteUsuarioCategoria(usuarioCategoria);
@@ -175,13 +158,5 @@ public class FestiAndesUsuario_CategoriaServices {
 		}
 		return Response.status(200).entity(usuarioCategoria).build();
 	}
-    
-    @DELETE
-	@Path("/ciente/usuarioCategoria")
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response deleteUsuarioCategoriaCliente(Usuario_Categoria actor) {
-    	return Response.status(500).entity("No puede borrar la infomacion").build();
-	}
-	
+    	
 }
