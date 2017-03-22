@@ -11,6 +11,7 @@ import java.util.Properties;
 
 import dao.DAOTablaActor;
 import dao.DAOTablaBoleta;
+import dao.DAOTablaBoletasVendidas;
 import dao.DAOTablaCategoria;
 import dao.DAOTablaCiudad;
 import dao.DAOTablaCompañia;
@@ -25,6 +26,7 @@ import dao.DAOTablaUsuario;
 import dao.DAOTablaUsuario_Categoria;
 import vos.Actor;
 import vos.Boleta;
+import vos.BoletasVendidas;
 import vos.Categoria;
 import vos.Ciudad;
 import vos.Compañia;
@@ -33,6 +35,7 @@ import vos.Festival_Cliente;
 import vos.Funcion;
 import vos.ListaActores;
 import vos.ListaBoletas;
+import vos.ListaBoletasVendidas;
 import vos.ListaCategoria;
 import vos.ListaCiudad;
 import vos.ListaCompañia;
@@ -2630,4 +2633,206 @@ public class FestiAndesMaster {
 			}
 		}
 	}
+	
+	
+	
+	// -----------------------------------------------------------------------------------------------------------------------------
+	// BoletasVendidas -------------------------------------------------------------------------------------------------------------
+	// -----------------------------------------------------------------------------------------------------------------------------
+	private void inicioBoletasVendidas(){
+	}
+	
+	public ListaBoletasVendidas darBoletasVendidas() throws Exception {
+		ArrayList<BoletasVendidas> boletasVendidas;
+		DAOTablaBoletasVendidas daoBoletasVendidas = new DAOTablaBoletasVendidas();
+		try 
+		{
+			this.conn = darConexion();
+			daoBoletasVendidas.setConn(conn);
+			boletasVendidas = daoBoletasVendidas.darBoletasVendidas();
+		} 
+		catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		finally {
+			try {
+				daoBoletasVendidas.cerrarRecursos();
+				if(this.conn!=null) this.conn.close();
+			} 
+			catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return new ListaBoletasVendidas(boletasVendidas);
+	}
+	
+	public ListaBoletasVendidas buscarBoletasVendidasPorIdBoleta(int idBoleta) throws Exception {
+		ArrayList<BoletasVendidas> boletasVendidas;
+		DAOTablaBoletasVendidas daoBoletasVendidas = new DAOTablaBoletasVendidas();
+		try 
+		{
+			this.conn = darConexion();
+			daoBoletasVendidas.setConn(conn);
+			boletasVendidas = daoBoletasVendidas.buscarBoletasVendidasPorIdBoleta(idBoleta);
+		} 
+		catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		finally {
+			try {
+				daoBoletasVendidas.cerrarRecursos();
+				if(this.conn!=null) this.conn.close();
+			} 
+			catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return new ListaBoletasVendidas(boletasVendidas);		
+	}
+	
+	public ListaBoletasVendidas buscarBoletasVendidasPorIdCliente(int idCliente) throws Exception {
+		ArrayList<BoletasVendidas> boletasVendidas;
+		DAOTablaBoletasVendidas daoBoletasVendidas = new DAOTablaBoletasVendidas();
+		try 
+		{
+			this.conn = darConexion();
+			daoBoletasVendidas.setConn(conn);
+			boletasVendidas = daoBoletasVendidas.buscarBoletasVendidasPorIdCliente(idCliente);
+		} 
+		catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		finally {
+			try {
+				daoBoletasVendidas.cerrarRecursos();
+				if(this.conn!=null) this.conn.close();
+			} 
+			catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return new ListaBoletasVendidas(boletasVendidas);		
+	}
+				
+	public void addBoletaVendida(BoletasVendidas nBoletaVendida) throws Exception {
+		DAOTablaBoletasVendidas daoBoletasVendidas = new DAOTablaBoletasVendidas();
+		try 
+		{
+			this.conn = darConexion();
+			daoBoletasVendidas.setConn(conn);
+			daoBoletasVendidas.addBoletasVendidas(nBoletaVendida);
+			conn.commit();
+		} 
+		catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		finally {
+			try {
+				daoBoletasVendidas.cerrarRecursos();
+				if(this.conn!=null) this.conn.close();
+			} 
+			catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	public void updateBoletaVendida(BoletasVendidas nBoletaVendida) throws Exception {
+		DAOTablaBoletasVendidas daoBoletasVendidas = new DAOTablaBoletasVendidas();
+		try 
+		{
+			this.conn = darConexion();
+			daoBoletasVendidas.setConn(conn);
+			daoBoletasVendidas.updateBoletasVendidas(nBoletaVendida);
+		} 
+		catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		finally {
+			try {
+				daoBoletasVendidas.cerrarRecursos();
+				if(this.conn!=null) this.conn.close();
+			} 
+			catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	public void deleteBoletaVendida(BoletasVendidas nBoletaVendida) throws Exception {
+		DAOTablaBoletasVendidas daoBoletasVendidas = new DAOTablaBoletasVendidas();
+		try 
+		{
+			this.conn = darConexion();
+			daoBoletasVendidas.setConn(conn);
+			daoBoletasVendidas.deleteBoletasVendidas(nBoletaVendida);
+		} 
+		catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		finally {
+			try {
+				daoBoletasVendidas.cerrarRecursos();
+				if(this.conn!=null) this.conn.close();
+			} catch (SQLException exception) 
+			{
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+		
 }

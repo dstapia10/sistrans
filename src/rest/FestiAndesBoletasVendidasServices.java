@@ -13,11 +13,13 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import tm.FestiAndesMaster;
+import vos.BoletasVendidas;
 import vos.Festival_Cliente;
+import vos.ListaBoletasVendidas;
 import vos.ListaFestivales_Clientes;
 
-@Path("festivalCliente")
-public class FestiAndesFestival_ClienteServices {
+@Path("boletasVendidas")
+public class FestiAndesBoletasVendidasServices {
 	
 	@Context
 	private ServletContext context;
@@ -32,91 +34,91 @@ public class FestiAndesFestival_ClienteServices {
 		 
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response getFestivalesClientes() {
+	public Response getBoletasVendidasClientes() {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
-		ListaFestivales_Clientes festivalesClientes;
+		ListaBoletasVendidas boletasVendidas;
 		try {
-			festivalesClientes = tm.darFestivalClientes();
+			boletasVendidas = tm.darBoletasVendidas();
 		} 
 		catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
-		return Response.status(200).entity(festivalesClientes).build();
+		return Response.status(200).entity(boletasVendidas).build();
 	}
 	
 	@GET
-	@Path("/cedula/{cedula}")
+	@Path("/idBoleta/{id}")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response getFestivalClienteCedula(@javax.ws.rs.PathParam("cedula") int cedula) {
+	public Response getBoletasVendidasIdBoleta(@javax.ws.rs.PathParam("id") int id) {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
-		ListaFestivales_Clientes festivalesClientes;
+		ListaBoletasVendidas boletasVendidas;
 		try {
-			festivalesClientes = tm.buscarFestivalClientePorCedula(cedula);
+			boletasVendidas = tm.buscarBoletasVendidasPorIdBoleta(id);
 		} 
 		catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
-		return Response.status(200).entity(festivalesClientes).build();
+		return Response.status(200).entity(boletasVendidas).build();
 	}
 	
 	@GET
-	@Path("/idFestival/{id}")
+	@Path("/idCliente/{id}")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response getFestivalClienteIdFestival(@javax.ws.rs.PathParam("id") int id) {
+	public Response getBoletasVendidasIdCliente(@javax.ws.rs.PathParam("id") int id) {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
-		ListaFestivales_Clientes festivalesClientes;
+		ListaBoletasVendidas boletasVendidas;
 		try {
-			festivalesClientes = tm.buscarFestivalClientePorIdFestival(id);
+			boletasVendidas = tm.buscarBoletasVendidasPorIdCliente(id);
 		} 
 		catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
-		return Response.status(200).entity(festivalesClientes).build();
+		return Response.status(200).entity(boletasVendidas).build();
 	}
 	
 	@POST
-	@Path("/festivalCliente")
+	@Path("/boletaVendida")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response addFestivalCliente(Festival_Cliente festivalCliente) {
+	public Response addBoletaVendida(BoletasVendidas boletaVendida) {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
 		try {
-			tm.addFestivalCliente(festivalCliente);
+			tm.addBoletaVendida(boletaVendida);
 		} 
 		catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
-		return Response.status(200).entity(festivalCliente).build();
+		return Response.status(200).entity(boletaVendida).build();
 	}
-	
+		
 	@PUT
-	@Path("/festivalCliente")
+	@Path("/boletaVendida")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response updateFestivalCilente(Festival_Cliente festivalCliente) {
+	public Response updateBoletaVendida(BoletasVendidas boletaVendida) {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
 		try {
-			tm.updateFestivalCliente(festivalCliente);
+			tm.updateBoletaVendida(boletaVendida);
 		} 
 		catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
-		return Response.status(200).entity(festivalCliente).build();
+		return Response.status(200).entity(boletaVendida).build();
 	}
 	
     @DELETE
-	@Path("/festivalCliente")
+	@Path("/boletaVendida")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response deleteFestivalCliente(Festival_Cliente festivalCliente) {
+	public Response deleteBoletaVendida(BoletasVendidas boletaVendida) {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
 		try {
-			tm.deleteFestivalCliente(festivalCliente);
+			tm.deleteBoletaVendida(boletaVendida);
 		} 
 		catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
-		return Response.status(200).entity(festivalCliente).build();
+		return Response.status(200).entity(boletaVendida).build();
 	}
-        
+	
 }
