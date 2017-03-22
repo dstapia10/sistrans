@@ -29,10 +29,14 @@ public class FestiAndesActorServices {
 	private String doErrorMessage(Exception e){
 		return "{ \"ERROR\": \""+ e.getMessage() + "\"}" ;
 	}
-		 
+	
+	// --------------------------------------------------------------------------------------------------------------------------------------
+	// getActores ---------------------------------------------------------------------------------------------------------------------------
+	// --------------------------------------------------------------------------------------------------------------------------------------
 	@GET
+	@Path("/administrador")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response getActores() {
+	public Response getActoresAdministrador() {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
 		ListaActores actores;
 		try {
@@ -45,9 +49,27 @@ public class FestiAndesActorServices {
 	}
 	
 	@GET
-	@Path("/actor/{cedula}")
+	@Path("/cliente")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response getActorName(@javax.ws.rs.PathParam("cedula") int cedula) {
+	public Response getActoresCliente() {		
+		FestiAndesMaster tm = new FestiAndesMaster(getPath());
+		ListaActores actores;
+		try {
+			actores = tm.darActores();
+		} 
+		catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(actores).build();		
+	}
+	
+	// --------------------------------------------------------------------------------------------------------------------------------------
+	// getActorName -------------------------------------------------------------------------------------------------------------------------
+	// --------------------------------------------------------------------------------------------------------------------------------------
+	@GET
+	@Path("/administrador/actor/{cedula}")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getActorNameAdministrador(@javax.ws.rs.PathParam("cedula") int cedula) {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
 		ListaActores actores;
 		try {
@@ -60,11 +82,30 @@ public class FestiAndesActorServices {
 		return Response.status(200).entity(actores).build();
 	}
 	
+	@GET
+	@Path("/cliente/actor/{cedula}")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getActorNameCliente(@javax.ws.rs.PathParam("cedula") int cedula) {
+		FestiAndesMaster tm = new FestiAndesMaster(getPath());
+		ListaActores actores;
+		try {
+			
+			actores = tm.buscarActorPorNombre(cedula);
+		} 
+		catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(actores).build();
+	}
+	
+	// --------------------------------------------------------------------------------------------------------------------------------------
+	// addActor -----------------------------------------------------------------------------------------------------------------------------
+	// --------------------------------------------------------------------------------------------------------------------------------------
 	@POST
-	@Path("/actor")
+	@Path("/administrador/actor")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response addActor(Actor actor) {
+	public Response addActorAdministrador(Actor actor) {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
 		try {
 			tm.updateActor(actor);
@@ -75,11 +116,22 @@ public class FestiAndesActorServices {
 		return Response.status(200).entity(actor).build();
 	}
 	
-	@PUT
-	@Path("/actor")
+	@POST
+	@Path("/cliente/actor")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response updateActor(Actor actor) {
+	public Response addActorCliente(Actor actor) {
+		return Response.status(500).entity("No puede agregar la infomacion").build();
+	}
+	
+	// --------------------------------------------------------------------------------------------------------------------------------------
+	// updateActor -----------------------------------------------------------------------------------------------------------------------------
+	// --------------------------------------------------------------------------------------------------------------------------------------
+	@PUT
+	@Path("/administrador/actor")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response updateActorAdministrador(Actor actor) {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
 		try {
 			tm.addActor(actor);
@@ -90,11 +142,22 @@ public class FestiAndesActorServices {
 		return Response.status(200).entity(actor).build();
 	}
 	
-    @DELETE
-	@Path("/actor")
+	@PUT
+	@Path("/cliente/actor")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response deleteFuncion(Actor actor) {
+	public Response updateActorCliente(Actor actor) {
+		return Response.status(500).entity("No puede editar la infomacion").build();
+	}
+	
+	// --------------------------------------------------------------------------------------------------------------------------------------
+	// addActor -----------------------------------------------------------------------------------------------------------------------------
+	// --------------------------------------------------------------------------------------------------------------------------------------
+    @DELETE
+	@Path("/administrador/actor")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response deleteFuncionAdministrador(Actor actor) {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
 		try {
 			tm.deleteActor(actor);
@@ -103,6 +166,14 @@ public class FestiAndesActorServices {
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
 		return Response.status(200).entity(actor).build();
+	}
+    
+    @DELETE
+	@Path("/ciente/actor")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response deleteFuncionCliente(Actor actor) {
+    	return Response.status(500).entity("No puede borrar la infomacion").build();
 	}
 	
 }
