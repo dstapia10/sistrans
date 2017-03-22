@@ -8,6 +8,8 @@ import java.util.ArrayList;
 
 import vos.Actor;
 import vos.Obra;
+import vos.ReporteFuncion;
+import vos.ReporteObra;
 
 public class DAOTablaObra {
 	
@@ -170,5 +172,16 @@ public class DAOTablaObra {
 		prepStmt.executeQuery();
 	}
 
-
+	public ReporteObra darReporteObraPorId(int id) throws SQLException, Exception {
+//		String sql = "DELETE FROM FUNCION";
+//		sql += " WHERE ID = " + funcion.getId();
+//
+//		System.out.println("SQL stmt:" + sql);
+//
+//		PreparedStatement prepStmt = conn.prepareStatement(sql);
+//		recursos.add(prepStmt);
+//		prepStmt.executeQuery();
+		return null;
+	}
+	
 }

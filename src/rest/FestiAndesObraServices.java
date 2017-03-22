@@ -15,6 +15,8 @@ import javax.ws.rs.core.Response;
 import tm.FestiAndesMaster;
 import vos.ListaObra;
 import vos.Obra;
+import vos.ReporteFuncion;
+import vos.ReporteObra;
 
 @Path("obras")
 public class FestiAndesObraServices {
@@ -120,4 +122,19 @@ public class FestiAndesObraServices {
 		return Response.status(200).entity(obra).build();
 	}
 	
+	@GET
+	@Path("/reporte/{id}")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getReporteObraId(@javax.ws.rs.PathParam("id") int id) {
+		FestiAndesMaster tm = new FestiAndesMaster(getPath());
+		ReporteObra reporteObra;
+		try {
+			reporteObra = tm.darReporteObra(id);
+		} 
+		catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(reporteObra).build();
+	}
+
 }
