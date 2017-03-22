@@ -124,7 +124,7 @@ public class DAOTablaObra {
 
 	public void addObra(Obra obra) throws SQLException, Exception {
 
-		String sql = "INSERT INTO OBRA VALUES ('";
+		String sql = "INSERT INTO ISIS2304A261720.OBRA VALUES ('";
 		sql += obra.getId() + "','";
 		sql += obra.getNombre() + "','";
 		sql += obra.getRequerimientos() + "','";
@@ -143,7 +143,7 @@ public class DAOTablaObra {
 
 	public void updateObra(Obra obra) throws SQLException, Exception {
 
-		String sql = "UPDATE OBRA SET ";
+		String sql = "UPDATE ISIS2304A261720.OBRA SET ";
 		sql += "NOMBRE='" + obra.getNombre() + "',";
 		sql += "REQUERIMIENTOS='" + obra.getRequerimientos() + "',";
 		sql += "IDIOMA='" + obra.getIdioma() + "',";
@@ -160,7 +160,7 @@ public class DAOTablaObra {
 
 	public void deleteObra(Obra obra) throws SQLException, Exception {
 
-		String sql = "DELETE FROM OBRA";
+		String sql = "DELETE FROM ISIS2304A261720.OBRA";
 		sql += " WHERE ID = " + obra.getId();
 
 		System.out.println("SQL stmt:" + sql);

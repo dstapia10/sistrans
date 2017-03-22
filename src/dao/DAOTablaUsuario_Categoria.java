@@ -76,7 +76,7 @@ public class DAOTablaUsuario_Categoria {
 
 	
 	public void addUsuario_Categoria(Usuario_Categoria usuca) throws SQLException, Exception {
-		String sql = "INSERT INTO USUARIO_CATEGORIA VALUES ('";
+		String sql = "INSERT INTO ISIS2304A261720.USUARIO_CATEGORIA VALUES ('";
 		sql += usuca.getIdUsuario() + "','";
 		sql += usuca.getIdCategoria() + "')";
 
@@ -90,7 +90,7 @@ public class DAOTablaUsuario_Categoria {
 	
 
 	public void updateUsuario_Categoria(Usuario_Categoria usuca) throws SQLException, Exception {
-		String sql = "UPDATE USUARIO_CATEGORIA SET ";
+		String sql = "UPDATE ISIS2304A261720.USUARIO_CATEGORIA SET ";
 		sql += "ID_CATEGORIA='" + usuca.getIdCategoria() + "'";
 
 		sql += " WHERE ID_USUARIO = " + usuca.getIdUsuario();
@@ -104,7 +104,7 @@ public class DAOTablaUsuario_Categoria {
 
 
 	public void deleteUsuario_Categoria(Usuario_Categoria usuca) throws SQLException, Exception {
-		String sql = "DELETE FROM USUARIO_CATEGORIA";
+		String sql = "DELETE FROM ISIS2304A261720.USUARIO_CATEGORIA";
 		sql += " WHERE ID_USUARIO = " + usuca.getIdUsuario() ;
 		sql += " AND ID_CATEGORIA = " + "'" + usuca.getIdCategoria() + "'";
 		System.out.println("SQL stmt:" + sql);

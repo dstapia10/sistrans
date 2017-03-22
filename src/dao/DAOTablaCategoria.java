@@ -55,7 +55,7 @@ public class DAOTablaCategoria {
 	public ArrayList<Categoria> darCategorias() throws SQLException, Exception {
 		ArrayList<Categoria> categorias = new ArrayList<Categoria>();
 
-		String sql = "SELECT * FROM CATEGORIA";
+		String sql = "SELECT * FROM ISIS2304A261720.CATEGORIA";
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -100,7 +100,7 @@ public class DAOTablaCategoria {
 
 
 	public void addCategoria(Categoria categoria) throws SQLException, Exception {
-		String sql = "INSERT INTO CATEGORIA VALUES ('";
+		String sql = "INSERT INTO ISIS2304A261720.CATEGORIA VALUES ('";
 		
 		sql += categoria.getNombre()+ "')";
 
@@ -128,7 +128,7 @@ public class DAOTablaCategoria {
 
 
 	public void deleteCategoria(Categoria categoria) throws SQLException, Exception {
-		String sql = "DELETE FROM CATEGORIA";
+		String sql = "DELETE FROM ISIS2304A261720.CATEGORIA";
 		sql += " WHERE NOMBRE = " + "'"+categoria.getNombre()+"'";
 
 		System.out.println("SQL stmt:" + sql);

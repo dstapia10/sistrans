@@ -77,7 +77,7 @@ public class DAOTablaBoleta {
 	public void addBoleta(Boleta boleta) throws SQLException, Exception {
 		
 		
-		String sql = "INSERT INTO BOLETA VALUES ('";
+		String sql = "INSERT INTO ISIS2304A261720.BOLETA VALUES ('";
 		sql += boleta.getId() + "','";
 		sql += boleta.getLetraFila() + "','";
 		sql += boleta.getNumeroSilla() + "','";
@@ -109,7 +109,7 @@ public class DAOTablaBoleta {
 
 
 	public void deleteBoleta(Boleta boleta) throws SQLException, Exception {
-		String sql = "DELETE FROM BOLETA";
+		String sql = "DELETE FROM ISIS2304A261720.BOLETA";
 		sql += " WHERE ID = " + boleta.getId();
 
 		System.out.println("SQL stmt:" + sql);

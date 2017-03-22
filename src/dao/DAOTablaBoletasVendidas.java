@@ -55,7 +55,7 @@ public class DAOTablaBoletasVendidas {
 	public ArrayList<BoletasVendidas> darBoletasVendidas() throws SQLException, Exception {
 		ArrayList<BoletasVendidas> boletasVendidas = new ArrayList<BoletasVendidas>();
 
-		String sql = "SELECT * FROM BOLETASVENDIDAS";
+		String sql = "SELECT * FROM ISIS2304A261720.BOLETASVENDIDAS";
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -126,7 +126,7 @@ public class DAOTablaBoletasVendidas {
 
 		if(buscarSiYaEstaVendida(boletas.getIdBoleta()) != true )
 		{
-		String sql = "INSERT INTO BOLETASVENDIDAS VALUES ('";
+		String sql = "INSERT INTO ISIS2304A261720.BOLETASVENDIDAS VALUES ('";
 		sql += boletas.getIdCliente() + "','";
 		
 		sql += boletas.getIdBoleta()+ "')";
@@ -180,7 +180,7 @@ public class DAOTablaBoletasVendidas {
 
 	public void deleteBoletasVendidas(BoletasVendidas boletasVendidas) throws SQLException, Exception {
 
-		String sql = "DELETE FROM BOLETASVENDIDAS";
+		String sql = "DELETE FROM ISIS2304A261720.BOLETASVENDIDAS";
 		sql += " WHERE IDCLIENTE = " +boletasVendidas.getIdCliente();
 		sql += " WHERE IDBOLETA = " + boletasVendidas.getIdBoleta();
 

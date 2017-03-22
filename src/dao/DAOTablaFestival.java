@@ -71,7 +71,7 @@ public class DAOTablaFestival {
 	public ArrayList<Festival> darFestivales() throws SQLException, Exception {
 		ArrayList<Festival> festivales = new ArrayList<Festival>();
 
-		String sql = "SELECT * FESTIVAL";
+		String sql = "SELECT * ISIS2304A261720.FESTIVAL";
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -92,7 +92,7 @@ public class DAOTablaFestival {
 	public ArrayList<Festival> buscarFestivalPorName(String name) throws SQLException, Exception {
 		ArrayList<Festival> festivales = new ArrayList<Festival>();
 
-		String sql = "SELECT * FESTIVAL ='" + name + "'";
+		String sql = "SELECT * ISIS2304A261720.FESTIVAL ='" + name + "'";
 
 		System.out.println("SQL stmt:" + sql);
 
@@ -114,7 +114,7 @@ public class DAOTablaFestival {
 	
 	public void addFestival(Festival festival) throws SQLException, Exception {
 
-		String sql = "INSERT INTO FESTIVAL VALUES (";
+		String sql = "INSERT INTO ISIS2304A261720.FESTIVAL VALUES (";
 		sql += festival.getId() + ",'";
 		sql += festival.getIdCiudad() + "',";
 		sql += festival.getFechaInicio() + "',";
@@ -130,7 +130,7 @@ public class DAOTablaFestival {
 
 	public void updateFestival(Festival festival) throws SQLException, Exception {
 
-		String sql = "UPDATE FESTIVAL SET ";
+		String sql = "UPDATE ISIS2304A261720.FESTIVAL SET ";
 		sql += "ID_CIUDAD='" + festival.getIdCiudad() + "',";
 		sql += "FECHAINICIO='" + festival.getFechaInicio() + "',";
 		sql += "FECHAFINAL=" + festival.getFechaFinal();
@@ -147,7 +147,7 @@ public class DAOTablaFestival {
 	public void deleteFestival(Festival festival) throws SQLException, Exception 
 	{
 
-		String sql = "DELETE FROM FESTIVAL";
+		String sql = "DELETE FROM ISIS2304A261720.FESTIVAL";
 		sql += " WHERE id = " + festival.getId();
 
 		System.out.println("SQL stmt:" + sql);

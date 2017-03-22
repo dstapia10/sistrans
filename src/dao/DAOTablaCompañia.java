@@ -101,7 +101,7 @@ public class DAOTablaCompañia {
 
 
 	public void addCompañia(Compañia compañia) throws SQLException, Exception {
-		String sql = "INSERT INTO COMPAÑIA VALUES ('";
+		String sql = "INSERT INTO ISIS2304A261720.COMPAÑIA VALUES ('";
 		sql += compañia.getId() + "','";
 		sql += compañia.getNombre() + "','";
 		sql += compañia.getPaisOrigen() + "','";

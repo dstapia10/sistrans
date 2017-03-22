@@ -59,7 +59,7 @@ public class DAOTablaFuncion {
 	public ArrayList<Funcion> darFuncion(java.util.Date  f, java.util.Date f2, Categoria categoria, String idioma, Boolean ordenado) throws SQLException, Exception {
 	
 		ArrayList<Funcion> funciones = new ArrayList<Funcion>();
-		String sql = " SELECT * FROM FUNCION f, OBRA b ";
+		String sql = " SELECT * FROM ISIS2304A261720.FUNCIONES f, OBRA b ";
 		String sqlParaWhere = "WHERE f.ID_OBRA = b.ID";
 		if (categoria !=null)
 		{
@@ -113,13 +113,15 @@ public class DAOTablaFuncion {
 	
 	public void addFuncion(Funcion funcion) throws SQLException, Exception {
 
-		String sql = "INSERT INTO FUNCION VALUES ('";
-		sql += funcion.getId()+ "',to_date('";
-		sql += funcion.getFechaInicio() + "',";
-		sql += "'yyyy-MM-dd  hh:mi:ss'),'";
-		sql += funcion.getIdTeatro() + "','";
-		sql += funcion.getIdObra()+ "','";
-		sql += funcion.getTraduccion() + "')";
+//		String sql = "INSERT INTO ISIS2304A261720.FUNCIONES VALUES ('";
+//		sql += funcion.getId()+ "',to_date('";
+//		sql += funcion.getFechaInicio() + "',";
+//		sql += "'yyyy-MM-dd  hh:mi:ss'),'";
+//		sql += funcion.getIdTeatro() + "','";
+//		sql += funcion.getIdObra()+ "','";
+//		sql += funcion.getTraduccion() + "')";
+		
+		String sql = "SELECT * FROM  ISIS2304A261720.FUNCIONES";
 
 		System.out.println("SQL stmt:" + sql);
 
@@ -132,7 +134,7 @@ public class DAOTablaFuncion {
 	
 	public void updateFuncion(Funcion funcion) throws SQLException, Exception {
 
-		String sql = "UPDATE FUNCION SET ";
+		String sql = "UPDATE ISIS2304A261720.FUNCIONES SET ";
 		sql += "FECHAINICIO= to_date('" + funcion.getFechaInicio() + "','yyyy-MM-dd hh:mi:ss'),";
 		sql += "IDTEATRO='" +funcion.getIdTeatro()+ "',";
 		sql += "IDOBRA='" + funcion.getIdObra();
@@ -148,7 +150,7 @@ public class DAOTablaFuncion {
 
 	public void deleteFuncion(Funcion funcion) throws SQLException, Exception {
 
-		String sql = "DELETE FROM FUNCION";
+		String sql = "DELETE FROM ISIS2304A261720.FUNCIONES";
 		sql += " WHERE ID = " + funcion.getId();
 
 		System.out.println("SQL stmt:" + sql);

@@ -56,7 +56,7 @@ public class DAOTablaRepresentante {
 	public ArrayList<Representante> darRepresentante() throws SQLException, Exception {
 		ArrayList<Representante> representantes = new ArrayList<Representante>();
 
-		String sql = "SELECT * FROM REPRESENTANTE";
+		String sql = "SELECT * FROM ISIS2304A261720.REPRESENTANTE";
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -74,7 +74,7 @@ public class DAOTablaRepresentante {
 	public ArrayList<Representante> buscarRepresentantePorName(String name) throws SQLException, Exception {
 		ArrayList<Representante> representantes = new ArrayList<Representante>();
 
-		String sql = "SELECT * FROM REPRESENTANTE WHERE NOMBRE ='" + name + "'";
+		String sql = "SELECT * FROM ISIS2304A261720.REPRESENTANTE WHERE NOMBRE ='" + name + "'";
 
 		System.out.println("SQL stmt:" + sql);
 
@@ -95,7 +95,7 @@ public class DAOTablaRepresentante {
 	public ArrayList<Representante> buscarRepresentantePorCedula(int nCedula) throws SQLException, Exception {
 		ArrayList<Representante> representantes = new ArrayList<Representante>();
 
-		String sql = "SELECT * FROM REPRESENTANTE WHERE CEDULA ='" + nCedula + "'";
+		String sql = "SELECT * FROM ISIS2304A261720.REPRESENTANTE WHERE CEDULA ='" + nCedula + "'";
 
 		System.out.println("SQL stmt:" + sql);
 
@@ -115,7 +115,7 @@ public class DAOTablaRepresentante {
 
 	public void addRepresentante(Representante representante) throws SQLException, Exception {
 
-		String sql = "INSERT INTO REPRESENTANTE VALUES ('";
+		String sql = "INSERT INTO ISIS2304A261720.REPRESENTANTE VALUES ('";
 		sql += representante.getCedula() + "','";
 		sql += representante.getNombre()+ "')";
 
@@ -130,7 +130,7 @@ public class DAOTablaRepresentante {
 
 	public void updateRepresentante(Representante representante) throws SQLException, Exception {
 
-		String sql = "UPDATE REPRESENTANTE SET ";
+		String sql = "UPDATE ISIS2304A261720.REPRESENTANTE SET ";
 		sql += "NOMBRE='" + representante.getNombre() + "'";
 
 		sql += " WHERE CEDULA = " + representante.getCedula();
@@ -145,7 +145,7 @@ public class DAOTablaRepresentante {
 
 	public void deleteRepresentante(Representante representante) throws SQLException, Exception {
 
-		String sql = "DELETE FROM REPRESENTANTE";
+		String sql = "DELETE FROM ISIS2304A261720.REPRESENTANTE";
 		sql += " WHERE CEDULA = " + representante.getCedula();
 
 		System.out.println("SQL stmt:" + sql);

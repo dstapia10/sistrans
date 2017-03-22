@@ -70,7 +70,7 @@ public class DAOTablaActor {
 	public ArrayList<Actor> darActores() throws SQLException, Exception {
 		ArrayList<Actor> actores = new ArrayList<Actor>();
 
-		String sql = "SELECT * FROM ACTOR";
+		String sql = "SELECT * ISIS2304A261720.FROM ACTOR";
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -91,7 +91,7 @@ public class DAOTablaActor {
 	public ArrayList<Actor> buscarActorPorName(int cedula2) throws SQLException, Exception {
 		ArrayList<Actor> actores = new ArrayList<Actor>();
 
-		String sql = "SELECT * FROM ACTOR WHERE CEDULA ='" + cedula2 + "'";
+		String sql = "SELECT * FROM ISIS2304A261720.ACTOR WHERE CEDULA ='" + cedula2 + "'";
 
 		System.out.println("SQL stmt:" + sql);
 
@@ -113,7 +113,7 @@ public class DAOTablaActor {
 
 	public void addActor(Actor actor) throws SQLException, Exception {
 
-		String sql = "INSERT INTO ACTOR VALUES ('";
+		String sql = "INSERT INTO ISIS2304A261720.ACTOR VALUES ('";
 		sql += actor.getCedula() + "','";
 		sql += actor.getNombre() + "','";
 		sql += actor.getIdCompania() + "','";
@@ -130,7 +130,7 @@ public class DAOTablaActor {
 
 	public void updateActor(Actor actor) throws SQLException, Exception {
 
-		String sql = "UPDATE ACTOR SET ";
+		String sql = "UPDATE ISIS2304A261720.ACTOR SET ";
 		sql += "NOMBRE='" + actor.getNombre() + "',";
 		sql += "ID_COMPAÑIA='" + actor.getIdCompania() + "',";
 		sql += "NACIONALIDAD='" + actor.getNacionalidad()+ "'";
@@ -146,7 +146,7 @@ public class DAOTablaActor {
 
 	public void deleteActor(Actor actor) throws SQLException, Exception {
 
-		String sql = "DELETE FROM ACTOR";
+		String sql = "DELETE FROM ISIS2304A261720.ACTOR";
 		sql += " WHERE CEDULA = " + actor.getCedula();
 
 		System.out.println("SQL stmt:" + sql);

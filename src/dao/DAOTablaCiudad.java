@@ -101,7 +101,7 @@ public class DAOTablaCiudad {
 
 	public void addCiudad(Ciudad ciudad) throws SQLException, Exception {
 
-		String sql = "INSERT INTO CIUDAD VALUES ('";
+		String sql = "INSERT INTO ISIS2304A261720.CIUDAD VALUES ('";
 		sql += ciudad.getId() + "','";
 		
 		sql += ciudad.getNombre() + "')";
@@ -117,7 +117,7 @@ public class DAOTablaCiudad {
 
 	public void updateCiudad(Ciudad ciudad) throws SQLException, Exception {
 
-		String sql = "UPDATE CIUDAD SET ";
+		String sql = "UPDATE ISIS2304A261720.CIUDAD SET ";
 		sql += "NOMBRE='" + ciudad.getNombre() ;
 		
 		sql += "' WHERE ID= " + ciudad.getId();
@@ -132,7 +132,7 @@ public class DAOTablaCiudad {
 
 	public void deleteCiudad(Ciudad ciudad) throws SQLException, Exception {
 
-		String sql = "DELETE FROM CIUDAD";
+		String sql = "DELETE FROM ISIS2304A261720.CIUDAD";
 		sql += " WHERE id = " + ciudad.getId();
 
 		System.out.println("SQL stmt:" + sql);

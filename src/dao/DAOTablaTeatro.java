@@ -103,7 +103,7 @@ public class DAOTablaTeatro {
 
 	public void addTeatro(Teatro teatro) throws SQLException, Exception {
 
-		String sql = "INSERT INTO TEATRO VALUES ('";
+		String sql = "INSERT INTO ISIS2304A261720.TEATRO VALUES ('";
 		sql += teatro.getId() + "','";
 		sql += teatro.getIdCiudad() + "','";
 		sql += teatro.getCapacidad() + "','";
@@ -121,7 +121,7 @@ public class DAOTablaTeatro {
 
 	public void updateTeatro(Teatro teatro) throws SQLException, Exception {
 
-		String sql = "UPDATE TEATRO SET ";
+		String sql = "UPDATE ISIS2304A261720.TEATRO SET ";
 		sql += "IDCIUDAD='" +  teatro.getIdCiudad() + "',";
 		sql += "CAPACIDAD='" + teatro.getCapacidad() + "',";
 		sql += "NOMBRE='" + teatro.getNombre()+ "',";
@@ -138,7 +138,7 @@ public class DAOTablaTeatro {
 
 	public void deleteTeatro(Teatro teatro) throws SQLException, Exception {
 
-		String sql = "DELETE FROM TEATRO";
+		String sql = "DELETE FROM ISIS2304A261720.TEATRO";
 		sql += " WHERE id = " + teatro.getId();
 
 		System.out.println("SQL stmt:" + sql);

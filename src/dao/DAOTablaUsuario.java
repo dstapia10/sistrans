@@ -56,7 +56,7 @@ public class DAOTablaUsuario {
 	public ArrayList<Usuario> darUsuarios() throws SQLException, Exception {
 		ArrayList<Usuario> usuario = new ArrayList<Usuario>();
 
-		String sql = "SELECT * FROM USUARIO";
+		String sql = "SELECT * FROM ISIS2304A261720.USUARIO";
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -74,7 +74,7 @@ public class DAOTablaUsuario {
 	}
 
 	public void addUsuario(Usuario usuario) throws SQLException, Exception {
-		String sql = "INSERT INTO USUARIO VALUES ('";
+		String sql = "INSERT INTO  ISIS2304A261720.USUARIO VALUES ('";
 		sql += usuario.getCedula() + "','";
 		sql += usuario.getNombre() + "','";
 		sql += usuario.getApellido() + "','";
@@ -89,7 +89,7 @@ public class DAOTablaUsuario {
 	}
 		
 	public void updateUsuario(Usuario usuario) throws SQLException, Exception {
-		String sql = "UPDATE USUARIO SET ";
+		String sql = "UPDATE  ISIS2304A261720.USUARIO SET ";
 		sql += "NOMBRE='" + usuario.getNombre() + "',";
 		sql += "APELLIDO='" + usuario.getApellido() + "',";
 		sql += "EDAD='" + usuario.getEdad() + "',";
@@ -104,7 +104,7 @@ public class DAOTablaUsuario {
 	}
 		
 	public void deleteUsuario(Usuario usuario) throws SQLException, Exception {
-		String sql = "DELETE FROM USUARIO";
+		String sql = "ISIS2304A261720.DELETE FROM USUARIO";
 		sql += " WHERE CEDULA = " + usuario.getCedula();
 
 		System.out.println("SQL stmt:" + sql);
