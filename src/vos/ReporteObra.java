@@ -2,7 +2,7 @@ package vos;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 
-public class ReporteFuncion {
+public class ReporteObra {
 	
 	@JsonProperty(value="LOCALIDADES")
 	private String localidades;
@@ -30,12 +30,28 @@ public class ReporteFuncion {
 	//ingresoUsuarios1(cliente);ingresoUsuario2(anonimo)
 	
 	
-	public ReporteFuncion(@JsonProperty(value="LOCALIDADES") String localidades,
+	@JsonProperty(value="FUNCIONES")
+	private String funciones;
+	//funcion1;funcion2;funcion3
+	
+	@JsonProperty(value="BOLETASVENDIDASFUNCION")
+	private String boletasVendidasFunciones;
+	//bolteasVendidasFuncion1;bolteasVendidasFuncion2;bolteasVendidasFuncion3
+	
+	@JsonProperty(value="INGRESOSUSUARIOS")
+	private String ingresosFunciones;
+	//ingresoFuncion1;ingresoFuncion2;ingresoFuncion3
+	
+	
+	public ReporteObra(@JsonProperty(value="LOCALIDADES") String localidades,
 			@JsonProperty(value="BOLETASVENDIDASLOCALIDADES") String boletasVendidasLocalidades,
 			@JsonProperty(value="INGRESOSLOSCALIDADES") String ingresosLocalidades,
 			@JsonProperty(value="USUARIOS") String usuarios,
 			@JsonProperty(value="BOLETASVENDIDASUSUARIOS") String boletasVendidasUsuarios,
-			@JsonProperty(value="INGRESOSUSUARIOS") String ingresosUsuarios) {
+			@JsonProperty(value="INGRESOSUSUARIOS") String ingresosUsuarios,
+			@JsonProperty(value="FUNCIONES") String funciones,
+			@JsonProperty(value="BOLETASVENDIDASFUNCION") String boletasVendidasFunciones,
+			@JsonProperty(value="INGRESOSUSUARIOS") String ingresosFunciones) {
 		super();
 		this.localidades = localidades;
 		this.boletasVendidasLocalidades = boletasVendidasLocalidades;
@@ -43,6 +59,9 @@ public class ReporteFuncion {
 		this.usuarios = usuarios;
 		this.boletasVendidasUsuarios = boletasVendidasUsuarios;
 		this.ingresosUsuarios = ingresosUsuarios;
+		this.funciones = funciones;
+		this.boletasVendidasFunciones = boletasVendidasFunciones;
+		this.ingresosFunciones = ingresosFunciones;
 	}
 	
 
@@ -99,4 +118,4 @@ public class ReporteFuncion {
 		this.ingresosUsuarios = ingresosUsuarios;
 	}
 	
-}
+}	
