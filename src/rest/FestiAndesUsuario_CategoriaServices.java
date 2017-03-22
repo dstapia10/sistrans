@@ -15,9 +15,11 @@ import javax.ws.rs.core.Response;
 import tm.FestiAndesMaster;
 import vos.Actor;
 import vos.ListaActores;
+import vos.ListaUsuario_Categoria;
+import vos.Usuario_Categoria;
 
-@Path("actor")
-public class FestiAndesActorServices {
+@Path("usuarioCategoria")
+public class FestiAndesUsuario_CategoriaServices {
 	
 	@Context
 	private ServletContext context;
@@ -31,148 +33,147 @@ public class FestiAndesActorServices {
 	}
 	
 	// --------------------------------------------------------------------------------------------------------------------------------------
-	// getActores ---------------------------------------------------------------------------------------------------------------------------
+	// Usuario_Categoria ---------------------------------------------------------------------------------------------------------------------------
 	// --------------------------------------------------------------------------------------------------------------------------------------
 	@GET
 	@Path("/administrador")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response getActoresAdministrador() {
+	public Response getUsuarioCategoriaAdministrador() {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
-		ListaActores actores;
+		ListaUsuario_Categoria usuarioCategorias;
 		try {
-			actores = tm.darActores();
+			usuarioCategorias = tm.darUsuarioCategoria();
 		} 
 		catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
-		return Response.status(200).entity(actores).build();
+		return Response.status(200).entity(usuarioCategorias).build();
 	}
 	
 	@GET
 	@Path("/cliente")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response getActoresCliente() {		
-		FestiAndesMaster tm = new FestiAndesMaster(getPath());
-		ListaActores actores;
-		try {
-			actores = tm.darActores();
-		} 
-		catch (Exception e) {
-			return Response.status(500).entity(doErrorMessage(e)).build();
-		}
-		return Response.status(200).entity(actores).build();		
+	public Response getUsuarioCategoriaCliente() {		
+		return Response.status(500).entity("No puede ver la infomacion").build();		
 	}
 	
 	// --------------------------------------------------------------------------------------------------------------------------------------
-	// getActorName -------------------------------------------------------------------------------------------------------------------------
+	// getUsuarioCategoriasCedula -----------------------------------------------------------------------------------------------------------
 	// --------------------------------------------------------------------------------------------------------------------------------------
 	@GET
-	@Path("/administrador/actor/{cedula}")
+	@Path("/administrador/usuarioCategoria/{cedula}")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response getActorNameAdministrador(@javax.ws.rs.PathParam("cedula") int cedula) {
+	public Response getUsuarioCategoriasCedulaAdministrador(@javax.ws.rs.PathParam("cedula") int cedula) {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
-		ListaActores actores;
+		ListaUsuario_Categoria usuarioCategorias;
 		try {
 			
-			actores = tm.buscarActorPorNombre(cedula);
+			usuarioCategorias = tm.buscarUsuarioCategoriaPorCedula(cedula);
 		} 
 		catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
-		return Response.status(200).entity(actores).build();
+		return Response.status(200).entity(usuarioCategorias).build();
 	}
 	
 	@GET
-	@Path("/cliente/actor/{cedula}")
+	@Path("/cliente/usuarioCategoria/{cedula}")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response getActorNameCliente(@javax.ws.rs.PathParam("cedula") int cedula) {
+	public Response getUsuarioCategoriasCedulaCliente(@javax.ws.rs.PathParam("cedula") int cedula) {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
-		ListaActores actores;
+		ListaUsuario_Categoria usuarioCategorias;
 		try {
 			
-			actores = tm.buscarActorPorNombre(cedula);
+			usuarioCategorias = tm.buscarUsuarioCategoriaPorCedula(cedula);
 		} 
 		catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
-		return Response.status(200).entity(actores).build();
+		return Response.status(200).entity(usuarioCategorias).build();
+	}
+	
+	// --------------------------------------------------------------------------------------------------------------------------------------
+	// addUsuarioCategoria ------------------------------------------------------------------------------------------------------------------
+	// --------------------------------------------------------------------------------------------------------------------------------------
+	@POST
+	@Path("/administrador/usuarioCategoria")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response addUsuarioCategoriaAdministrador(Usuario_Categoria usuarioCategoria) {
+		FestiAndesMaster tm = new FestiAndesMaster(getPath());
+		try {
+			tm.updateUsuarioCategoria(usuarioCategoria);
+		} 
+		catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(usuarioCategoria).build();
+	}
+	
+	@POST
+	@Path("/cliente/usuarioCategoria")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response addusuarioCategoriaCliente(Usuario_Categoria usuarioCategoria) {
+		FestiAndesMaster tm = new FestiAndesMaster(getPath());
+		try {
+			tm.updateUsuarioCategoria(usuarioCategoria);
+		} 
+		catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(usuarioCategoria).build();
+	}
+	
+	// --------------------------------------------------------------------------------------------------------------------------------------
+	// updateUsuarioCategoria ---------------------------------------------------------------------------------------------------------------
+	// --------------------------------------------------------------------------------------------------------------------------------------
+	@PUT
+	@Path("/administrador/usuarioCategoria")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response updateUsuarioCategoriaAdministrador(Usuario_Categoria usuarioCategoria) {
+		FestiAndesMaster tm = new FestiAndesMaster(getPath());
+		try {
+			tm.addUsuarioCategoria(usuarioCategoria);
+		} 
+		catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(usuarioCategoria).build();
+	}
+	
+	@PUT
+	@Path("/cliente/usuarioCategoria")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response updateUsuarioCategoriaCliente(Usuario_Categoria usuarioCategoria) {
+		return Response.status(500).entity("No puede editar la infomacion").build();
 	}
 	
 	// --------------------------------------------------------------------------------------------------------------------------------------
 	// addActor -----------------------------------------------------------------------------------------------------------------------------
 	// --------------------------------------------------------------------------------------------------------------------------------------
-	@POST
-	@Path("/administrador/actor")
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response addActorAdministrador(Actor actor) {
-		FestiAndesMaster tm = new FestiAndesMaster(getPath());
-		try {
-			tm.updateActor(actor);
-		} 
-		catch (Exception e) {
-			return Response.status(500).entity(doErrorMessage(e)).build();
-		}
-		return Response.status(200).entity(actor).build();
-	}
-	
-	@POST
-	@Path("/cliente/actor")
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response addActorCliente(Actor actor) {
-		return Response.status(500).entity("No puede agregar la infomacion").build();
-	}
-	
-	// --------------------------------------------------------------------------------------------------------------------------------------
-	// updateActor -----------------------------------------------------------------------------------------------------------------------------
-	// --------------------------------------------------------------------------------------------------------------------------------------
-	@PUT
-	@Path("/administrador/actor")
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response updateActorAdministrador(Actor actor) {
-		FestiAndesMaster tm = new FestiAndesMaster(getPath());
-		try {
-			tm.addActor(actor);
-		} 
-		catch (Exception e) {
-			return Response.status(500).entity(doErrorMessage(e)).build();
-		}
-		return Response.status(200).entity(actor).build();
-	}
-	
-	@PUT
-	@Path("/cliente/actor")
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response updateActorCliente(Actor actor) {
-		return Response.status(500).entity("No puede editar la infomacion").build();
-	}
-	
-	// --------------------------------------------------------------------------------------------------------------------------------------
-	// deleteActor -----------------------------------------------------------------------------------------------------------------------------
-	// --------------------------------------------------------------------------------------------------------------------------------------
     @DELETE
-	@Path("/administrador/actor")
+	@Path("/administrador/usuarioCategoria")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response deleteFuncionAdministrador(Actor actor) {
+	public Response deleteUsuarioCategoriaAdministrador(Usuario_Categoria usuarioCategoria) {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
 		try {
-			tm.deleteActor(actor);
+			tm.deleteUsuarioCategoria(usuarioCategoria);
 		} 
 		catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
-		return Response.status(200).entity(actor).build();
+		return Response.status(200).entity(usuarioCategoria).build();
 	}
     
     @DELETE
-	@Path("/ciente/actor")
+	@Path("/ciente/usuarioCategoria")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response deleteFuncionCliente(Actor actor) {
+	public Response deleteUsuarioCategoriaCliente(Usuario_Categoria actor) {
     	return Response.status(500).entity("No puede borrar la infomacion").build();
 	}
 	
