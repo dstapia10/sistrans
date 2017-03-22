@@ -2,6 +2,7 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -52,24 +53,21 @@ public class DAOTablaBoletasVendidas {
 
 
 	public ArrayList<BoletasVendidas> darBoletasVendidas() throws SQLException, Exception {
-//		ArrayList<Actor> actores = new ArrayList<Actor>();
-//
-//		String sql = "SELECT * FROM ACTOR";
-//
-//		PreparedStatement prepStmt = conn.prepareStatement(sql);
-//		recursos.add(prepStmt);
-//		ResultSet rs = prepStmt.executeQuery();
-//
-//		while (rs.next()) {
-//			int cedula = Integer.parseInt(rs.getString("CEDULA"));
-//			String nombre = rs.getString("NOMBRE");
-//			int compañia = Integer.parseInt(rs.getString("ID_COMPAÑIA"));
-//			String nacionalidad = rs.getString("NACIONALIDAD");
-//			actores.add(new Actor(cedula, compañia, nombre, nacionalidad));
-//		}
-//		return actores;
-		
-		return null;
+		ArrayList<BoletasVendidas> boletasVendidas = new ArrayList<BoletasVendidas>();
+
+		String sql = "SELECT * FROM BOLETASVENDIDAS";
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+
+		while (rs.next()) {
+			int idCliente = Integer.parseInt(rs.getString("IDCLIENTE"));
+			int idBoleta = Integer.parseInt(rs.getString("IDBOLETA"));
+			boletasVendidas.add(new BoletasVendidas(idCliente, idBoleta));
+		}
+		System.out.println("saliendo de metodo darBoletasVendidas");
+		return boletasVendidas;
 	}
 
 
@@ -125,6 +123,9 @@ public class DAOTablaBoletasVendidas {
 
 	public void addBoletasVendidas(BoletasVendidas boletas) throws SQLException, Exception {
 
+
+		if(buscarSiYaEstaVendida(boletas.getIdBoleta()) != true )
+		{
 		String sql = "INSERT INTO BOLETASVENDIDAS VALUES ('";
 		sql += boletas.getIdCliente() + "','";
 		
@@ -135,9 +136,32 @@ public class DAOTablaBoletasVendidas {
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		prepStmt.executeQuery();
+		}
+		
+		else
+		{
+			throw new Exception("Boleta no disponible");
+		}
 
 	}
 	
+
+	private Boolean buscarSiYaEstaVendida(int id) throws Exception {
+
+		ArrayList<BoletasVendidas> bo = darBoletasVendidas();
+		Boolean rpta = false;
+		for (int i = 0; i < bo.size() && !rpta; i++) 
+		{
+			if (bo.get(i).getIdBoleta() == id)
+			{
+				rpta = true;
+			}
+		}
+		
+
+		return rpta;
+		
+	}
 
 	public void updateBoletasVendidas(BoletasVendidas boletasVendidas) throws SQLException, Exception {
 

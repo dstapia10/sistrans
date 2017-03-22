@@ -16,8 +16,7 @@ public class Boleta
 	@JsonProperty(value="NUMEROSILLA")
 	private int numeroSilla;
 
-	@JsonProperty(value="IDCLIENTE")
-	private int idcliente;
+
 
 	@JsonProperty(value="PRECIO")
 	private int precio;
@@ -27,14 +26,14 @@ public class Boleta
 
 	
 	public Boleta(@JsonProperty(value="ID")int id,@JsonProperty(value="LETRAFILA")String letrafila,
-			@JsonProperty(value="NUMEROSILLA")int numerosilla,@JsonProperty(value="IDCLIENTE") int idcliente,
+			@JsonProperty(value="NUMEROSILLA")int numerosilla,
 			@JsonProperty(value="PRECIO") int precio, @JsonProperty(value="IDFUNCION") int idfuncion) 
 	{
 		super();
 		this.id = id;
 		this.letrafila = letrafila;
 		this.numeroSilla = numerosilla;
-		this.idcliente = idcliente;
+		
 		this.precio = precio;
 		this.idfuncion = idfuncion;
 	}
@@ -69,14 +68,6 @@ public class Boleta
 		this.numeroSilla = name;
 	}
 
-	public int getIdCliente() {
-		return idcliente;
-	}
-
-	
-	public void setIdCliente(int name) {
-		this.idcliente = name;
-	}
 	
 	
 	public int getPrecio() {

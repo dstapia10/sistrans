@@ -75,11 +75,13 @@ public class DAOTablaBoleta {
 
 	
 	public void addBoleta(Boleta boleta) throws SQLException, Exception {
+		
+		
 		String sql = "INSERT INTO BOLETA VALUES ('";
 		sql += boleta.getId() + "','";
 		sql += boleta.getLetraFila() + "','";
 		sql += boleta.getNumeroSilla() + "','";
-		sql += boleta.getIdCliente() + "','";
+	
 		sql += boleta.getPrecio() + "','";
 		sql += boleta.getIdFuncion() + "')";
 
