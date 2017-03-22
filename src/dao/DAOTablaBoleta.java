@@ -75,17 +75,19 @@ public class DAOTablaBoleta {
 
 	
 	public void addBoleta(Boleta boleta) throws SQLException, Exception {
-//		String sql = "INSERT INTO ACTOR VALUES ('";
-//		sql += actor.getCedula() + "','";
-//		sql += actor.getNombre() + "','";
-//		sql += actor.getIdCompania() + "','";
-//		sql += actor.getNacionalidad()+ "')";
-//
-//		System.out.println("SQL stmt:" + sql);
-//
-//		PreparedStatement prepStmt = conn.prepareStatement(sql);
-//		recursos.add(prepStmt);
-//		prepStmt.executeQuery();
+		String sql = "INSERT INTO BOLETA VALUES ('";
+		sql += boleta.getId() + "','";
+		sql += boleta.getLetraFila() + "','";
+		sql += boleta.getNumeroSilla() + "','";
+		sql += boleta.getIdCliente() + "','";
+		sql += boleta.getPrecio() + "','";
+		sql += boleta.getIdFuncion() + "')";
+
+		System.out.println("SQL stmt:" + sql);
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		prepStmt.executeQuery();
 	}
 	
 
@@ -105,14 +107,14 @@ public class DAOTablaBoleta {
 
 
 	public void deleteBoleta(Boleta boleta) throws SQLException, Exception {
-//		String sql = "DELETE FROM ACTOR";
-//		sql += " WHERE CEDULA = " + actor.getCedula();
-//
-//		System.out.println("SQL stmt:" + sql);
-//
-//		PreparedStatement prepStmt = conn.prepareStatement(sql);
-//		recursos.add(prepStmt);
-//		prepStmt.executeQuery();
+		String sql = "DELETE FROM BOLETA";
+		sql += " WHERE ID = " + boleta.getId();
+
+		System.out.println("SQL stmt:" + sql);
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		prepStmt.executeQuery();
 	}
 	
 }

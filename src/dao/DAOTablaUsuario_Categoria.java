@@ -53,7 +53,7 @@ public class DAOTablaUsuario_Categoria {
 	}
 
 
-	public ArrayList<Boleta> darBoletas() throws SQLException, Exception {
+	public ArrayList<Usuario_Categoria> darUsuario_Categoria() throws SQLException, Exception {
 //		ArrayList<Actor> actores = new ArrayList<Actor>();
 //
 //		String sql = "SELECT * FROM ACTOR";
@@ -75,10 +75,10 @@ public class DAOTablaUsuario_Categoria {
 	}
 
 	
-	public void addPreferencia(Usuario_Categoria usuca) throws SQLException, Exception {
+	public void addUsuario_Categoria(Usuario_Categoria usuca) throws SQLException, Exception {
 		String sql = "INSERT INTO USUARIO_CATEGORIA VALUES ('";
-		sql += usuca.getIdCategoria() + "','";
-		sql += usuca.getIdUsuario() + "')";
+		sql += usuca.getIdUsuario() + "','";
+		sql += usuca.getIdCategoria() + "')";
 
 
 		System.out.println("SQL stmt:" + sql);
@@ -89,11 +89,11 @@ public class DAOTablaUsuario_Categoria {
 	}
 	
 
-	public void updateUsuarioCategoria(Usuario_Categoria usuca) throws SQLException, Exception {
+	public void updateUsuario_Categoria(Usuario_Categoria usuca) throws SQLException, Exception {
 		String sql = "UPDATE USUARIO_CATEGORIA SET ";
 		sql += "ID_CATEGORIA='" + usuca.getIdCategoria() + "'";
 
-		sql += " WHERE ID_CATEGORIA = " + usuca.getIdUsuario();
+		sql += " WHERE ID_USUARIO = " + usuca.getIdUsuario();
 
 		System.out.println("SQL stmt:" + sql);
 
@@ -103,15 +103,20 @@ public class DAOTablaUsuario_Categoria {
 	}
 
 
-	public void deleteBoleta(Usuario_Categoria usuca) throws SQLException, Exception {
+	public void deleteUsuario_Categoria(Usuario_Categoria usuca) throws SQLException, Exception {
 		String sql = "DELETE FROM USUARIO_CATEGORIA";
-		sql += " WHERE ID_CATEGORIA = " + usuca.getIdUsuario() ;
-
+		sql += " WHERE ID_USUARIO = " + usuca.getIdUsuario() ;
+		sql += " AND ID_CATEGORIA = " + "'" + usuca.getIdCategoria() + "'";
 		System.out.println("SQL stmt:" + sql);
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		prepStmt.executeQuery();
+	}
+
+	public ArrayList<Usuario_Categoria> buscarUsuarioCategoriaPorCedula(int nCedula) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

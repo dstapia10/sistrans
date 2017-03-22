@@ -2,13 +2,13 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import vos.Categoria;
+import vos.BoletasVendidas;
+import vos.Ciudad;
 
-public class DAOTablaCategoria {
+public class DAOTablaBoletasVendidas {
 	
 	/**
 	 * Arraylits de recursos que se usan para la ejecuciÃ³n de sentencias SQL
@@ -24,7 +24,7 @@ public class DAOTablaCategoria {
 	 * MÃ©todo constructor que crea DAOVideo
 	 * <b>post: </b> Crea la instancia del DAO e inicializa el Arraylist de recursos
 	 */
-	public DAOTablaCategoria() {
+	public DAOTablaBoletasVendidas() {
 		recursos = new ArrayList<Object>();
 	}
 
@@ -52,29 +52,30 @@ public class DAOTablaCategoria {
 	}
 
 
-	public ArrayList<Categoria> darCategorias() throws SQLException, Exception {
-		ArrayList<Categoria> categorias = new ArrayList<Categoria>();
-
-		String sql = "SELECT * FROM CATEGORIA";
-
-		PreparedStatement prepStmt = conn.prepareStatement(sql);
-		recursos.add(prepStmt);
-		ResultSet rs = prepStmt.executeQuery();
-
-		while (rs.next()) {
-			
-			String nombre = rs.getString("NOMBRE");
-			
-			categorias.add(new Categoria(nombre));
-		}
-		return categorias;
+	public ArrayList<Ciudad> darCiudades() throws SQLException, Exception {
+//		ArrayList<Actor> actores = new ArrayList<Actor>();
+//
+//		String sql = "SELECT * FROM ACTOR";
+//
+//		PreparedStatement prepStmt = conn.prepareStatement(sql);
+//		recursos.add(prepStmt);
+//		ResultSet rs = prepStmt.executeQuery();
+//
+//		while (rs.next()) {
+//			int cedula = Integer.parseInt(rs.getString("CEDULA"));
+//			String nombre = rs.getString("NOMBRE");
+//			int compañia = Integer.parseInt(rs.getString("ID_COMPAÑIA"));
+//			String nacionalidad = rs.getString("NACIONALIDAD");
+//			actores.add(new Actor(cedula, compañia, nombre, nacionalidad));
+//		}
+//		return actores;
 		
-		
+		return null;
 	}
 
 
 
-	public ArrayList<Categoria> buscarCategoriaPorName(String name) throws SQLException, Exception {
+	public ArrayList<Ciudad> buscarCiudadPorName(String name) throws SQLException, Exception {
 //		ArrayList<Actor> actores = new ArrayList<Actor>();
 //
 //		String sql = "SELECT * FROM ACTOR WHERE NAME ='" + name + "'";
@@ -99,25 +100,28 @@ public class DAOTablaCategoria {
 	}
 
 
-	public void addCategoria(Categoria categoria) throws SQLException, Exception {
-		String sql = "INSERT INTO CATEGORIA VALUES ('";
+	public void addBoletasVendidas(BoletasVendidas boletas) throws SQLException, Exception {
+
+		String sql = "INSERT INTO BOLETASVENDIDAS VALUES ('";
+		sql += boletas.getIdCliente() + "','";
 		
-		sql += categoria.getNombre()+ "')";
+		sql += boletas.getIdBoleta()+ "')";
 
 		System.out.println("SQL stmt:" + sql);
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		prepStmt.executeQuery();
+
 	}
 	
 
-	public void updateCategoria(Categoria categoria) throws SQLException, Exception {
-//		String sql = "UPDATE ACTOR SET ";
-//		sql += "NOMBRE='" + actor.getCedula() + "',";
-//		sql += "ID_COMPAÑIA='" + actor.getIdCompania() + "',";
-//		sql += "NACIONALIDAD=" + actor.getNacionalidad();
-//		sql += " WHERE CEDULA = " + actor.getCedula();
+	public void updateBoletasVendidas(BoletasVendidas boletasVendidas) throws SQLException, Exception {
+
+//		String sql = "UPDATE BOLETASVENDIDAS SET ";
+//		sql += "NOMBRE='" + bol.getNombre() ;
+//		
+//		sql += "' WHERE ID= " + ciudad.getId();
 //
 //		System.out.println("SQL stmt:" + sql);
 //
@@ -127,9 +131,11 @@ public class DAOTablaCategoria {
 	}
 
 
-	public void deleteCategoria(Categoria categoria) throws SQLException, Exception {
-		String sql = "DELETE FROM CATEGORIA";
-		sql += " WHERE NOMBRE = " + "'"+categoria.getNombre()+"'";
+	public void deleteBoletasVendidas(BoletasVendidas boletasVendidas) throws SQLException, Exception {
+
+		String sql = "DELETE FROM BOLETASVENDIDAS";
+		sql += " WHERE IDCLIENTE = " +boletasVendidas.getIdCliente();
+		sql += " WHERE IDBOLETA = " + boletasVendidas.getIdBoleta();
 
 		System.out.println("SQL stmt:" + sql);
 
@@ -137,6 +143,5 @@ public class DAOTablaCategoria {
 		recursos.add(prepStmt);
 		prepStmt.executeQuery();
 	}
-
 	
 }

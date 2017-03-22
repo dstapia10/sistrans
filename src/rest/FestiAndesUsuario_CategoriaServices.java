@@ -84,26 +84,7 @@ public class FestiAndesUsuario_CategoriaServices {
 		}
 		return Response.status(200).entity(usuarioCategoria).build();
 	}
-<<<<<<< HEAD
-	
-	@POST
-	@Path("/cliente/usuarioCategoria")
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response addusuarioCategoriaCliente(Usuario_Categoria usuarioCategoria) {
-		FestiAndesMaster tm = new FestiAndesMaster(getPath());
-		try {
-			tm.addUsuarioCategoria(usuarioCategoria);
-		} 
-		catch (Exception e) {
-			return Response.status(500).entity(doErrorMessage(e)).build();
-		}
-		return Response.status(200).entity(usuarioCategoria).build();
-	}
-	
-=======
-		
->>>>>>> origin/master
+
 	// --------------------------------------------------------------------------------------------------------------------------------------
 	// updateUsuarioCategoria ---------------------------------------------------------------------------------------------------------------
 	// --------------------------------------------------------------------------------------------------------------------------------------
@@ -121,26 +102,7 @@ public class FestiAndesUsuario_CategoriaServices {
 		}
 		return Response.status(200).entity(usuarioCategoria).build();
 	}
-<<<<<<< HEAD
-	
-	@PUT
-	@Path("/cliente/usuarioCategoria")
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response updateUsuarioCategoriaCliente(Usuario_Categoria usuarioCategoria) {
-		FestiAndesMaster tm = new FestiAndesMaster(getPath());
-		try {
-			tm.updateUsuarioCategoria(usuarioCategoria);
-		} 
-		catch (Exception e) {
-			return Response.status(500).entity(doErrorMessage(e)).build();
-		}
-		return Response.status(200).entity(usuarioCategoria).build();
-	}
-	
-=======
-		
->>>>>>> origin/master
+
 	// --------------------------------------------------------------------------------------------------------------------------------------
 	// addActor -----------------------------------------------------------------------------------------------------------------------------
 	// --------------------------------------------------------------------------------------------------------------------------------------

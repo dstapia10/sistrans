@@ -21,6 +21,7 @@ import dao.DAOTablaObra;
 import dao.DAOTablaRepresentante;
 import dao.DAOTablaTeatro;
 import dao.DAOTablaUsuario;
+import dao.DAOTablaUsuario_Categoria;
 import vos.Actor;
 import vos.Boleta;
 import vos.Categoria;

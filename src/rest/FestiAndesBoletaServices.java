@@ -73,7 +73,7 @@ public class FestiAndesBoletaServices {
 	public Response addBoletaAdministrador(Boleta boleta) {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
 		try {
-			tm.updateBoleta(boleta);
+			tm.addBoleta(boleta);
 		} 
 		catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
