@@ -13,8 +13,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import tm.FestiAndesMaster;
-import vos.Actor;
-import vos.ListaActores;
 import vos.ListaUsuario_Categoria;
 import vos.Usuario_Categoria;
 

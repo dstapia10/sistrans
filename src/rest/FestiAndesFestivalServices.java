@@ -13,9 +13,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import tm.FestiAndesMaster;
-import vos.Actor;
 import vos.Festival;
-import vos.ListaActores;
 import vos.ListaFestivales;
 
 @Path("festival")
@@ -69,7 +67,7 @@ public class FestiAndesFestivalServices {
 	public Response addFestival(Festival festival) {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
 		try {
-			tm.updateFestival(festival);
+			tm.addFestival(festival);
 		} 
 		catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
@@ -84,7 +82,7 @@ public class FestiAndesFestivalServices {
 	public Response updateFestival(Festival festival) {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
 		try {
-			tm.addFestival(festival);
+			tm.updateFestival(festival);
 		} 
 		catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();

@@ -13,8 +13,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import tm.FestiAndesMaster;
-import vos.Actor;
-import vos.ListaActores;
 import vos.ListaUsuario;
 import vos.Usuario;
 
@@ -53,7 +51,7 @@ public class FestiAndesUsuarioServices {
 	public Response addUsuario(Usuario usuuario) {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
 		try {
-			tm.updateUsuario(usuuario);
+			tm.addUsuario(usuuario);
 		} 
 		catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
@@ -68,7 +66,7 @@ public class FestiAndesUsuarioServices {
 	public Response updateUsuario(Usuario usuario) {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
 		try {
-			tm.addUsuario(usuario);
+			tm.updateUsuario(usuario);
 		} 
 		catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();

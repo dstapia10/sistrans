@@ -99,7 +99,7 @@ public class FestiAndesBoletaServices {
 	public Response updateBoletaAdministrador(Boleta boleta) {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
 		try {
-			tm.addBoleta(boleta);
+			tm.updateBoleta(boleta);
 		} 
 		catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
@@ -112,14 +112,7 @@ public class FestiAndesBoletaServices {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response updateBoletaCliente(Boleta boleta) {
-		FestiAndesMaster tm = new FestiAndesMaster(getPath());
-		try {
-			tm.addBoleta(boleta);
-		} 
-		catch (Exception e) {
-			return Response.status(500).entity(doErrorMessage(e)).build();
-		}
-		return Response.status(200).entity(boleta).build();
+		return Response.status(500).entity("No puede editar la infomacion").build();
 	}
 	
 	// --------------------------------------------------------------------------------------------------------------------------------------

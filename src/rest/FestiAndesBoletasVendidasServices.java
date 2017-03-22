@@ -14,9 +14,7 @@ import javax.ws.rs.core.Response;
 
 import tm.FestiAndesMaster;
 import vos.BoletasVendidas;
-import vos.Festival_Cliente;
 import vos.ListaBoletasVendidas;
-import vos.ListaFestivales_Clientes;
 
 @Path("boletasVendidas")
 public class FestiAndesBoletasVendidasServices {
