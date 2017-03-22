@@ -10,6 +10,7 @@ import java.sql.Date;
 import vos.Actor;
 import vos.Categoria;
 import vos.Funcion;
+import vos.ReporteFuncion;
 
 public class DAOTablaFuncion {
 	
@@ -157,4 +158,15 @@ public class DAOTablaFuncion {
 		prepStmt.executeQuery();
 	}
 	
+	public ReporteFuncion darReporteFuncionPorId(int id) throws SQLException, Exception {
+//		String sql = "DELETE FROM FUNCION";
+//		sql += " WHERE ID = " + funcion.getId();
+//
+//		System.out.println("SQL stmt:" + sql);
+//
+//		PreparedStatement prepStmt = conn.prepareStatement(sql);
+//		recursos.add(prepStmt);
+//		prepStmt.executeQuery();
+		return null;
+	}
 }

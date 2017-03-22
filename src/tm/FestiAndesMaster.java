@@ -53,6 +53,7 @@ import vos.ListaUsuario;
 import vos.ListaUsuario_Categoria;
 import vos.Obra;
 import vos.Obra_Categoria;
+import vos.ReporteFuncion;
 import vos.Representante;
 import vos.Teatro;
 import vos.Usuario;
@@ -754,6 +755,39 @@ public class FestiAndesMaster {
 		}
 	}
 	
+	public ReporteFuncion darReporteFuncion(int id) throws Exception {
+		ReporteFuncion reporteFuncion;
+		DAOTablaFuncion daoFuncion = new DAOTablaFuncion();
+		try 
+		{
+			this.conn = darConexion();
+			daoFuncion.setConn(conn);
+			reporteFuncion = daoFuncion.darReporteFuncionPorId(id);
+		} 
+		catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		finally {
+			try {
+				daoFuncion.cerrarRecursos();
+				if(this.conn!=null) this.conn.close();
+			} 
+			catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return reporteFuncion;
+	}
+		
 	
 	
 	// -----------------------------------------------------------------------------------------------------------------------------
