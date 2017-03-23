@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import vos.Boleta;
+import vos.BoletaGet;
 
 public class DAOTablaBoleta {
 	
@@ -52,25 +53,28 @@ public class DAOTablaBoleta {
 	}
 
 
-	public ArrayList<Boleta> darBoletas() throws SQLException, Exception {
-//		ArrayList<Actor> actores = new ArrayList<Actor>();
-//
-//		String sql = "SELECT * FROM ACTOR";
-//
-//		PreparedStatement prepStmt = conn.prepareStatement(sql);
-//		recursos.add(prepStmt);
-//		ResultSet rs = prepStmt.executeQuery();
-//
-//		while (rs.next()) {
-//			int cedula = Integer.parseInt(rs.getString("CEDULA"));
-//			String nombre = rs.getString("NOMBRE");
-//			int compañia = Integer.parseInt(rs.getString("ID_COMPAÑIA"));
-//			String nacionalidad = rs.getString("NACIONALIDAD");
-//			actores.add(new Actor(cedula, compañia, nombre, nacionalidad));
-//		}
-//		return actores;
+	public ArrayList<BoletaGet> darBoletas() throws SQLException, Exception {
+		ArrayList<BoletaGet> boletas = new ArrayList<BoletaGet>();
+
+		String sql = "SELECT f.ID as idFuncion, SUM(b.precio) as ganancia FROM ISIS2304A261720.FUNCION f, ISIS2304A261720.BOLETASVENDIDAS bv, ISIS2304A261720.BOLETA b"
++" Where f.ID=b.IDFUNCION AND b.ID=bv.IDBOLETA GROUP BY f.ID";
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+
 		
-		return null;
+		while (rs.next()) {
+			int idFuncion = Integer.parseInt(rs.getString("IDFUNCION"));
+			System.out.println(idFuncion);
+			int ganancia =  Integer.parseInt(rs.getString("GANANCIA"));
+			System.out.println(ganancia);
+			boletas.add(new BoletaGet(idFuncion, ganancia));
+			
+		}
+		return boletas;
+		
+		
 	}
 
 	

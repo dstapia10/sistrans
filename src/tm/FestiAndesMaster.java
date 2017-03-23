@@ -27,6 +27,7 @@ import dao.DAOTablaUsuario;
 import dao.DAOTablaUsuario_Categoria;
 import vos.Actor;
 import vos.Boleta;
+import vos.BoletaGet;
 import vos.BoletasVendidas;
 import vos.Categoria;
 import vos.Ciudad;
@@ -58,6 +59,7 @@ import vos.ReporteFuncion;
 import vos.ReporteObra;
 import vos.Representante;
 import vos.Teatro;
+import vos.TeatroGet;
 import vos.Usuario;
 import vos.Usuario_Categoria;
 
@@ -838,7 +840,7 @@ public class FestiAndesMaster {
 	}
 	
 	public ListaTeatro darTeatros() throws Exception {
-		ArrayList<Teatro> teatros;
+		ArrayList<TeatroGet> teatros;
 		DAOTablaTeatro daoTeatro = new DAOTablaTeatro();
 		try 
 		{
@@ -871,7 +873,7 @@ public class FestiAndesMaster {
 	}
 	
 	public ListaTeatro buscarTeatroPorNombre(String nNombre) throws Exception {
-		ArrayList<Teatro> teatros;
+		ArrayList<TeatroGet> teatros;
 		DAOTablaTeatro daoTeatro = new DAOTablaTeatro();
 		try 
 		{
@@ -1508,7 +1510,7 @@ public class FestiAndesMaster {
 	}
 	
 	public ListaBoletas darBoletas() throws Exception {
-		ArrayList<Boleta> boleta;
+		ArrayList<BoletaGet> boleta;
 		DAOTablaBoleta daoBoleta = new DAOTablaBoleta();
 		try 
 		{

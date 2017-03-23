@@ -56,12 +56,12 @@ public class DAOTablaTeatro {
 	}
 
 
-	public ArrayList<Teatro> darTeatro() throws SQLException, Exception {
-		ArrayList<Teatro> teatros = new ArrayList<Teatro>();
+	public ArrayList<TeatroGet> darTeatro() throws SQLException, Exception {
+		ArrayList<TeatroGet> teatros = new ArrayList<TeatroGet>();
 		String sql = "SELECT t.ID as IDTEATRO, ci.NOMBRE as CIUDAD, t.CAPACIDAD as CAPACIDAD, t.NOMBRE as TEATRO, "
 				+ "t.DIRECCION as DIRECCION, f.FECHAINICIO AS FECHA,"
 				+ " o.NOMBRE as OBRA, f.TRADUCCION AS TRADUCCION, b.LETRAFILA AS LETRAFILA, b.NUMEROSILLA AS NUMEROSILLA,b.PRECIO AS PRECIO"
-				+ "FROM ISIS2304A261720.TEATRO t, ISIS2304A261720.FUNCION f, ISIS2304A261720.BOLETA  b, ISIS2304A261720.CIUDAD ci ,"
+				+ " FROM ISIS2304A261720.TEATRO t, ISIS2304A261720.FUNCION f, ISIS2304A261720.BOLETA  b, ISIS2304A261720.CIUDAD ci ,"
 				+ " ISIS2304A261720.OBRA o WHERE f.IDTEATRO = t.ID AND b.IDFUNCION = f.ID AND ci.ID = t.IDCIUDAD AND f.IDOBRA = o.ID";
 				
 		
@@ -97,7 +97,7 @@ public class DAOTablaTeatro {
 
 
 
-	public ArrayList<Teatro> buscarTeatroPorName(String name) throws SQLException, Exception {
+	public ArrayList<TeatroGet> buscarTeatroPorName(String name) throws SQLException, Exception {
 //		ArrayList<Actor> actores = new ArrayList<Actor>();
 //
 //		String sql = "SELECT * FROM ACTOR WHERE NAME ='" + name + "'";
