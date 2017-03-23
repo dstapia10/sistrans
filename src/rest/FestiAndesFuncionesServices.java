@@ -18,6 +18,7 @@ import tm.FestiAndesMaster;
 import vos.Categoria;
 import vos.Funcion;
 import vos.ListaFuncion;
+import vos.ParametrosGetFunciones;
 import vos.ReporteFuncion;
 
 @Path("funciones")
@@ -39,11 +40,11 @@ public class FestiAndesFuncionesServices {
 	// --------------------------------------------------------------------------------------------------------------------------------------
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response getFunciones(Date f, Date f2, Categoria  categoria ,String  idioma, Boolean orden) {
+	public Response getFunciones(ParametrosGetFunciones param) {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
 		ListaFuncion funciones;
 		try {
-			funciones = tm.darFunciones(f, f2, categoria, idioma, orden);
+			funciones = tm.darFunciones(param);
 		} 
 		catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();

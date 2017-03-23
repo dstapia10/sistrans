@@ -53,6 +53,7 @@ import vos.ListaUsuario;
 import vos.ListaUsuario_Categoria;
 import vos.Obra;
 import vos.Obra_Categoria;
+import vos.ParametrosGetFunciones;
 import vos.ReporteFuncion;
 import vos.ReporteObra;
 import vos.Representante;
@@ -557,14 +558,17 @@ public class FestiAndesMaster {
 	private void inicioFuncion(){
 	}
 	
-	public ListaFuncion darFunciones(Date f, Date f2, Categoria  categoria ,String  idioma, Boolean orden) throws Exception {
+	public ListaFuncion darFunciones(ParametrosGetFunciones param) throws Exception {
 		ArrayList<Funcion> funciones;
 		DAOTablaFuncion daoFuncion = new DAOTablaFuncion();
 		try 
 		{
 			this.conn = darConexion();
 			daoFuncion.setConn(conn);
-			funciones = daoFuncion.darFuncion( f,  f2, categoria, idioma, orden);
+			
+			Categoria cate = new Categoria(param.getCategoria());
+			
+			funciones = daoFuncion.darFuncion( param.getDate1(),  param.getDate2(), cate, param.getIdioma(), param.getOrdenado());
 		} 
 		catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());
