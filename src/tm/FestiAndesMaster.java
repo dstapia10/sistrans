@@ -558,15 +558,21 @@ public class FestiAndesMaster {
 	private void inicioFuncion(){
 	}
 	
-	public ListaFuncion darFunciones(Date f, Date f2, Categoria  categoria ,String  idioma, Boolean orden) throws Exception {
-		System.out.println("entra a darFunciones festiandes");
+	public ListaFuncion darFunciones(ParametrosGetFunciones param) throws Exception {
 		ArrayList<Funcion> funciones;
 		DAOTablaFuncion daoFuncion = new DAOTablaFuncion();
 		try 
 		{
 			this.conn = darConexion();
 			daoFuncion.setConn(conn);
-			funciones = daoFuncion.darFuncion( f,  f2, categoria, idioma, orden);
+			
+			Date d1 = (Date) param.getDate1();
+			Date d2 = (Date) param.getDate2();
+			Categoria cate = new Categoria(param.getCategoria());
+			String idiom = param.getIdioma();
+			Boolean orden = param.getOrdenado();
+			
+			funciones = daoFuncion.darFuncion(d1,d2,cate,idiom,orden);
 		} 
 		catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());
@@ -590,6 +596,7 @@ public class FestiAndesMaster {
 			}
 		}
 		return new ListaFuncion(funciones);
+
 	}
 	
 	

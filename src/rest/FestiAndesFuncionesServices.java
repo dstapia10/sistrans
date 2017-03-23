@@ -42,18 +42,18 @@ public class FestiAndesFuncionesServices {
 	@GET
 	@Path("/funcion")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response getFunciones(Date f, Date f2, Categoria  categoria ,String  idioma, Boolean orden) {
-		System.out.println("entra a getFunciones");
+	public Response getFunciones(ParametrosGetFunciones param) {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
 		ListaFuncion funciones;
 		try {
-			funciones = tm.darFunciones(f, f2, categoria, idioma, orden);
+			funciones = tm.darFunciones(param);
 		} 
 		catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
 		return Response.status(200).entity(funciones).build();
 	}
+
 	
 
 	
