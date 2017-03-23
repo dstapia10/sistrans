@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import vos.Actor;
 import vos.Funcion;
 import vos.Teatro;
+import vos.TeatroGet;
 
 public class DAOTablaTeatro {
 	
@@ -73,11 +74,19 @@ public class DAOTablaTeatro {
 		ResultSet rs = prepStmt.executeQuery();
 
 		while (rs.next()) {
-			int id = Integer.parseInt(rs.getString("ID"));
-			Date fechaInicio = rs.getDate("FECHAINICIO");
 			int idTeatro = Integer.parseInt(rs.getString("IDTEATRO"));
-			int idObra = Integer.parseInt(rs.getString("IDOBRA"));
-			teatros.add(new TeatroGet(id, fechaInicio, idTeatro, idObra));
+			String ciudad =  rs.getString("CIUDAD");
+			int capacidad = Integer.parseInt(rs.getString("CAPACIDAD"));
+			String teatro =  rs.getString("TEATRO");
+			String direccion =  rs.getString("DIRECCION");
+			
+			String obra =  rs.getString("OBRA");
+			String traduccion =  rs.getString("TRADUCCION");
+			String letrafila =  rs.getString("LETRAFILA");
+			int numeroSilla = Integer.parseInt(rs.getString("NUMEROSILLA"));
+			int precio = Integer.parseInt(rs.getString("PRECIO"));
+			
+			teatros.add(new TeatroGet(idTeatro, ciudad, capacidad, teatro, direccion, obra , traduccion, letrafila, numeroSilla, precio));
 		}
 		
 		return teatros;
