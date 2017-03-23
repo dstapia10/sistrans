@@ -172,15 +172,26 @@ public class DAOTablaObra {
 		prepStmt.executeQuery();
 	}
 
-	public ReporteObra darReporteObraPorId(int id) throws SQLException, Exception {
-//		String sql = "DELETE FROM FUNCION";
-//		sql += " WHERE ID = " + funcion.getId();
-//
-//		System.out.println("SQL stmt:" + sql);
-//
-//		PreparedStatement prepStmt = conn.prepareStatement(sql);
-//		recursos.add(prepStmt);
-//		prepStmt.executeQuery();
+	public ReporteObra darReporteObraPorId(int nId) throws SQLException, Exception {
+		ArrayList<Obra> obras = new ArrayList<Obra>();
+
+		String sql = "SELECT * FROM OBRA, FUNCION WHERE OBRA.ID=FUNCION.IDOBRA AND OBRA:ID=";
+		sql += nId;
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+		
+		
+		
+		while (rs.next()) {
+			int idFuncion = Integer.parseInt(rs.getString("FUNCION.ID"));
+			
+			
+		}
+		
+		
+		
 		return null;
 	}
 	
