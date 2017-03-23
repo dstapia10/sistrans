@@ -4,10 +4,10 @@ import org.codehaus.jackson.annotate.JsonProperty;
 
 public class FuncionRealizada {
 	
-	@JsonProperty(value="ID_FUNCION")
+	@JsonProperty(value="IDFUNCION")
 	private int idFuncion;
 	
-	public FuncionRealizada(@JsonProperty(value="ID_FUNCION")int idFuncion) 
+	public FuncionRealizada(@JsonProperty(value="IDFUNCION")int idFuncion) 
 	{
 		super();
 		this.idFuncion = idFuncion;

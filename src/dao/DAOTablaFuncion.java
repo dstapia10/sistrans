@@ -56,15 +56,16 @@ public class DAOTablaFuncion {
 	}
 	
 	
-	public ArrayList<Funcion> darFuncion(java.util.Date  f, java.util.Date f2, Categoria categoria, String idioma, Boolean ordenado) throws SQLException, Exception {
-	
+	public ArrayList<Funcion> darFuncion(Date  f, Date f2, Categoria categoria, String idioma, Boolean ordenado) throws SQLException, Exception {
+	System.out.println("entra a darFuncion");
 		ArrayList<Funcion> funciones = new ArrayList<Funcion>();
-		String sql = " SELECT * FROM ISIS2304A261720.FUNCIONES f, OBRA b ";
-		String sqlParaWhere = "WHERE f.ID_OBRA = b.ID";
+		String sql = " SELECT f.ID, f.FECHAINICIO, t.NOMBRE as TEATRO, b.NOMBRE as OBRA"
+				+ " FROM ISIS2304A261720.FUNCION f, FROM ISIS2304A261720.OBRA b, FROM ISIS2304A261720.TEATRO t ";
+		String sqlParaWhere = "WHERE f.IDOBRA = b.ID AND AND f.IDTEATRO = t.ID";
 		if (categoria !=null)
 		{
 			sql+= ", CATEGORIA c, OBRA_CATEGORIA oc ";
-			sqlParaWhere+= " AND c.NOMBRE = oc.ID_CATEGORIA AND b.ID = oc.ID_OBRA";
+			sqlParaWhere+= " AND c.NOMBRE = oc.ID_CATEGORIA AND b.ID = oc.ID_OBRA AND c.NOMBRE='" + categoria.getNombre() +"'";
 			
 	
 		}

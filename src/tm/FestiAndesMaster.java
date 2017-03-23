@@ -6,7 +6,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 import java.util.Properties;
 
 import dao.DAOTablaActor;
@@ -558,17 +558,15 @@ public class FestiAndesMaster {
 	private void inicioFuncion(){
 	}
 	
-	public ListaFuncion darFunciones(ParametrosGetFunciones param) throws Exception {
+	public ListaFuncion darFunciones(Date f, Date f2, Categoria  categoria ,String  idioma, Boolean orden) throws Exception {
+		System.out.println("entra a darFunciones festiandes");
 		ArrayList<Funcion> funciones;
 		DAOTablaFuncion daoFuncion = new DAOTablaFuncion();
 		try 
 		{
 			this.conn = darConexion();
 			daoFuncion.setConn(conn);
-			
-			Categoria cate = new Categoria(param.getCategoria());
-			
-			funciones = daoFuncion.darFuncion( param.getDate1(),  param.getDate2(), cate, param.getIdioma(), param.getOrdenado());
+			funciones = daoFuncion.darFuncion( f,  f2, categoria, idioma, orden);
 		} 
 		catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());

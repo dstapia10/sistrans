@@ -1,6 +1,6 @@
 package rest;
 
-import java.util.Date;
+import java.sql.Date;
 
 import javax.servlet.ServletContext;
 import javax.ws.rs.Consumes;
@@ -28,6 +28,7 @@ public class FestiAndesFuncionesServices {
 	private ServletContext context;
 	
 	private String getPath() {
+		System.out.println("entra a getPath");
 		return context.getRealPath("WEB-INF/ConnectionData");
 	}
 		
@@ -39,12 +40,14 @@ public class FestiAndesFuncionesServices {
 	// getFunciones -------------------------------------------------------------------------------------------------------------------------
 	// --------------------------------------------------------------------------------------------------------------------------------------
 	@GET
+	@Path("/funcion")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response getFunciones(ParametrosGetFunciones param) {
+	public Response getFunciones(Date f, Date f2, Categoria  categoria ,String  idioma, Boolean orden) {
+		System.out.println("entra a getFunciones");
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
 		ListaFuncion funciones;
 		try {
-			funciones = tm.darFunciones(param);
+			funciones = tm.darFunciones(f, f2, categoria, idioma, orden);
 		} 
 		catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
