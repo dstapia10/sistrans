@@ -15,7 +15,6 @@ import javax.ws.rs.core.Response;
 import tm.FestiAndesMaster;
 import vos.ListaObra;
 import vos.Obra;
-import vos.ReporteFuncion;
 import vos.ReporteObra;
 
 @Path("obras")
@@ -31,7 +30,10 @@ public class FestiAndesObraServices {
 	private String doErrorMessage(Exception e){
 		return "{ \"ERROR\": \""+ e.getMessage() + "\"}" ;
 	}
-		 
+	
+	// --------------------------------------------------------------------------------------------------------------------------------------
+	// getObras -----------------------------------------------------------------------------------------------------------------------------
+	// --------------------------------------------------------------------------------------------------------------------------------------
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response getObras() {
@@ -46,6 +48,9 @@ public class FestiAndesObraServices {
 		return Response.status(200).entity(obras).build();
 	}
 	
+	// --------------------------------------------------------------------------------------------------------------------------------------
+	// getObrasName -------------------------------------------------------------------------------------------------------------------------
+	// --------------------------------------------------------------------------------------------------------------------------------------
 	@GET
 	@Path("/obras/{name}")
 	@Produces({ MediaType.APPLICATION_JSON })
@@ -62,6 +67,9 @@ public class FestiAndesObraServices {
 		return Response.status(200).entity(obras).build();
 	}
 	
+	// --------------------------------------------------------------------------------------------------------------------------------------
+	// getObrasId ---------------------------------------------------------------------------------------------------------------------------
+	// --------------------------------------------------------------------------------------------------------------------------------------
 	@GET
 	@Path("/obras/{id}")
 	@Produces({ MediaType.APPLICATION_JSON })
@@ -77,11 +85,14 @@ public class FestiAndesObraServices {
 		return Response.status(200).entity(obras).build();
 	}
 	
+	// --------------------------------------------------------------------------------------------------------------------------------------
+	// addObra ------------------------------------------------------------------------------------------------------------------------------
+	// --------------------------------------------------------------------------------------------------------------------------------------
 	@POST
-	@Path("/obra")
+	@Path("/admin/obra")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response addObra(Obra obra) {
+	public Response addObraAdmin(Obra obra) {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
 		try {
 			tm.addObra(obra);
@@ -92,6 +103,25 @@ public class FestiAndesObraServices {
 		return Response.status(200).entity(obra).build();
 	}
 	
+	@POST
+	@Path("/cliente/obra")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response addObraCliente(Obra obra) {
+		return Response.status(500).entity("No puede editar la infomacion").build();
+	}
+	
+	@POST
+	@Path("/anonimo/obra")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response addObraAnonimo(Obra obra) {
+		return Response.status(500).entity("No puede editar la infomacion").build();
+	}
+	
+	// --------------------------------------------------------------------------------------------------------------------------------------
+	// updateObra ---------------------------------------------------------------------------------------------------------------------------
+	// --------------------------------------------------------------------------------------------------------------------------------------
 	@PUT
 	@Path("/obra")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -106,7 +136,10 @@ public class FestiAndesObraServices {
 		}
 		return Response.status(200).entity(obra).build();
 	}
-	    
+	 
+	// --------------------------------------------------------------------------------------------------------------------------------------
+	// deleteObra ---------------------------------------------------------------------------------------------------------------------------
+	// --------------------------------------------------------------------------------------------------------------------------------------
 	@DELETE
 	@Path("/obra")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -122,6 +155,9 @@ public class FestiAndesObraServices {
 		return Response.status(200).entity(obra).build();
 	}
 	
+	// --------------------------------------------------------------------------------------------------------------------------------------
+	// getReporteObraId ---------------------------------------------------------------------------------------------------------------------
+	// --------------------------------------------------------------------------------------------------------------------------------------
 	@GET
 	@Path("/reporte/{id}")
 	@Produces({ MediaType.APPLICATION_JSON })

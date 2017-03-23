@@ -29,7 +29,10 @@ public class FestiAndesUsuarioServices {
 	private String doErrorMessage(Exception e){
 		return "{ \"ERROR\": \""+ e.getMessage() + "\"}" ;
 	}
-		 
+	
+	// --------------------------------------------------------------------------------------------------------------------------------------
+	// getUsuarios --------------------------------------------------------------------------------------------------------------------------
+	// --------------------------------------------------------------------------------------------------------------------------------------
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response getUsuarios() {
@@ -43,22 +46,44 @@ public class FestiAndesUsuarioServices {
 		}
 		return Response.status(200).entity(usuarios).build();
 	}
-		
+	
+	// --------------------------------------------------------------------------------------------------------------------------------------
+	// addUsuario ---------------------------------------------------------------------------------------------------------------------------
+	// --------------------------------------------------------------------------------------------------------------------------------------
 	@POST
-	@Path("/usuario")
+	@Path("/admin/usuario")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response addUsuario(Usuario usuuario) {
+	public Response addUsuarioAdmin(Usuario usuario) {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
 		try {
-			tm.addUsuario(usuuario);
+			tm.addUsuario(usuario);
 		} 
 		catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
-		return Response.status(200).entity(usuuario).build();
+		return Response.status(200).entity(usuario).build();
 	}
 	
+	@POST
+	@Path("/cliente/usuario")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response addUsuarioCliente(Usuario usuuario) {
+		return Response.status(500).entity("No puede agregar la infomacion").build();
+	}
+	
+	@POST
+	@Path("/anonimo/usuario")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response addUsuarioAnonimo(Usuario usuuario) {
+		return Response.status(500).entity("No puede agregar la infomacion").build();
+	}
+	
+	// --------------------------------------------------------------------------------------------------------------------------------------
+	// updateUsuario ------------------------------------------------------------------------------------------------------------------------
+	// --------------------------------------------------------------------------------------------------------------------------------------
 	@PUT
 	@Path("/usuario")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -74,6 +99,9 @@ public class FestiAndesUsuarioServices {
 		return Response.status(200).entity(usuario).build();
 	}
 	
+	// --------------------------------------------------------------------------------------------------------------------------------------
+	// deleteUsuario ------------------------------------------------------------------------------------------------------------------------
+	// --------------------------------------------------------------------------------------------------------------------------------------
     @DELETE
 	@Path("/usuario")
 	@Consumes(MediaType.APPLICATION_JSON)

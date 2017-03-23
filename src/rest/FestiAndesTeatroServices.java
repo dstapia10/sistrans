@@ -30,6 +30,9 @@ public class FestiAndesTeatroServices {
 		return "{ \"ERROR\": \""+ e.getMessage() + "\"}" ;
 	}
 	
+	// --------------------------------------------------------------------------------------------------------------------------------------
+	// getTeatros ---------------------------------------------------------------------------------------------------------------------------
+	// --------------------------------------------------------------------------------------------------------------------------------------
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response getTeatros() {
@@ -44,6 +47,9 @@ public class FestiAndesTeatroServices {
 		return Response.status(200).entity(teatros).build();
 	}
 	
+	// --------------------------------------------------------------------------------------------------------------------------------------
+	// getTeatroName ------------------------------------------------------------------------------------------------------------------------
+	// --------------------------------------------------------------------------------------------------------------------------------------
 	@GET
 	@Path("/name/{name}")
 	@Produces({ MediaType.APPLICATION_JSON })
@@ -60,11 +66,14 @@ public class FestiAndesTeatroServices {
 		return Response.status(200).entity(teatros).build();
 	}
 	
+	// --------------------------------------------------------------------------------------------------------------------------------------
+	// addTeatro ----------------------------------------------------------------------------------------------------------------------------
+	// --------------------------------------------------------------------------------------------------------------------------------------
 	@POST
-	@Path("/teatro")
+	@Path("/admin/teatro")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response addTeatro(Teatro teatro) {
+	public Response addTeatroAdmin(Teatro teatro) {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
 		try {
 			tm.addTeatro(teatro);
@@ -75,6 +84,25 @@ public class FestiAndesTeatroServices {
 		return Response.status(200).entity(teatro).build();
 	}
 	
+	@POST
+	@Path("/cliente/teatro")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response addTeatroCliente(Teatro teatro) {
+		return Response.status(500).entity("No puede editar la infomacion").build();
+	}
+	
+	@POST
+	@Path("/anonimo/teatro")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response addTeatro(Teatro teatro) {
+		return Response.status(500).entity("No puede editar la infomacion").build();
+	}
+	
+	// --------------------------------------------------------------------------------------------------------------------------------------
+	// updateTeatro -------------------------------------------------------------------------------------------------------------------------
+	// --------------------------------------------------------------------------------------------------------------------------------------
 	@PUT
 	@Path("/teatro")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -90,6 +118,9 @@ public class FestiAndesTeatroServices {
 		return Response.status(200).entity(teatro).build();
 	}
 	
+	// --------------------------------------------------------------------------------------------------------------------------------------
+	// deleteTeatro -------------------------------------------------------------------------------------------------------------------------
+	// --------------------------------------------------------------------------------------------------------------------------------------
     @DELETE
 	@Path("/teatro")
 	@Consumes(MediaType.APPLICATION_JSON)

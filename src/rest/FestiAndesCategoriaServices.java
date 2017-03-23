@@ -29,10 +29,13 @@ public class FestiAndesCategoriaServices {
 	private String doErrorMessage(Exception e){
 		return "{ \"ERROR\": \""+ e.getMessage() + "\"}" ;
 	}
-		 
+	
+	// --------------------------------------------------------------------------------------------------------------------------------------
+	// getCategorias ------------------------------------------------------------------------------------------------------------------------
+	// --------------------------------------------------------------------------------------------------------------------------------------
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response getActores() {
+	public Response getCategorias() {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
 		ListaCategoria categorias;
 		try {
@@ -44,10 +47,13 @@ public class FestiAndesCategoriaServices {
 		return Response.status(200).entity(categorias).build();
 	}
 	
+	// --------------------------------------------------------------------------------------------------------------------------------------
+	// getCategoriaName ---------------------------------------------------------------------------------------------------------------------
+	// --------------------------------------------------------------------------------------------------------------------------------------
 	@GET
 	@Path("/name/{name}")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response getActorName(@javax.ws.rs.PathParam("name") String name) {
+	public Response getCategoriaName(@javax.ws.rs.PathParam("name") String name) {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
 		ListaCategoria categorias;
 		try {
@@ -60,6 +66,9 @@ public class FestiAndesCategoriaServices {
 		return Response.status(200).entity(categorias).build();
 	}
 	
+	// --------------------------------------------------------------------------------------------------------------------------------------
+	// addCategoria -------------------------------------------------------------------------------------------------------------------------
+	// --------------------------------------------------------------------------------------------------------------------------------------
 	@POST
 	@Path("/categoria")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -75,6 +84,9 @@ public class FestiAndesCategoriaServices {
 		return Response.status(200).entity(categoria).build();
 	}
 	
+	// --------------------------------------------------------------------------------------------------------------------------------------
+	// updateCategoria ----------------------------------------------------------------------------------------------------------------------
+	// --------------------------------------------------------------------------------------------------------------------------------------
 	@PUT
 	@Path("/categoria")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -90,6 +102,9 @@ public class FestiAndesCategoriaServices {
 		return Response.status(200).entity(categoria).build();
 	}
 	
+	// --------------------------------------------------------------------------------------------------------------------------------------
+	// deleteCategoria ----------------------------------------------------------------------------------------------------------------------
+	// --------------------------------------------------------------------------------------------------------------------------------------
     @DELETE
 	@Path("/categoria")
 	@Consumes(MediaType.APPLICATION_JSON)

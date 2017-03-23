@@ -29,7 +29,10 @@ public class FestiAndesCompañiaServices {
 	private String doErrorMessage(Exception e){
 		return "{ \"ERROR\": \""+ e.getMessage() + "\"}" ;
 	}
-		 
+	
+	// --------------------------------------------------------------------------------------------------------------------------------------
+	// getCompañia --------------------------------------------------------------------------------------------------------------------------
+	// --------------------------------------------------------------------------------------------------------------------------------------
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response getCompañia() {
@@ -44,6 +47,9 @@ public class FestiAndesCompañiaServices {
 		return Response.status(200).entity(compañia).build();
 	}
 	
+	// --------------------------------------------------------------------------------------------------------------------------------------
+	// getCompañiaName ----------------------------------------------------------------------------------------------------------------------
+	// --------------------------------------------------------------------------------------------------------------------------------------
 	@GET
 	@Path("/name/{name}")
 	@Produces({ MediaType.APPLICATION_JSON })
@@ -60,11 +66,14 @@ public class FestiAndesCompañiaServices {
 		return Response.status(200).entity(compañias).build();
 	}
 	
+	// --------------------------------------------------------------------------------------------------------------------------------------
+	// addCompañia --------------------------------------------------------------------------------------------------------------------------
+	// --------------------------------------------------------------------------------------------------------------------------------------
 	@POST
-	@Path("/compañia")
+	@Path("/admin/compañia")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response addCompañia(Compañia compañia) {
+	public Response addCompañiaAdmin(Compañia compañia) {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
 		try {
 			tm.addCompañia(compañia);
@@ -75,6 +84,25 @@ public class FestiAndesCompañiaServices {
 		return Response.status(200).entity(compañia).build();
 	}
 	
+	@POST
+	@Path("/cliente/compañia")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response addCompañiaCliente(Compañia compañia) {
+		return Response.status(500).entity("No puede editar la infomacion").build();
+	}
+	
+	@POST
+	@Path("/anonimo/compañia")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response addCompañiaAnonimo(Compañia compañia) {
+		return Response.status(500).entity("No puede editar la infomacion").build();
+	}
+	
+	// --------------------------------------------------------------------------------------------------------------------------------------
+	// updateCompañia -----------------------------------------------------------------------------------------------------------------------
+	// --------------------------------------------------------------------------------------------------------------------------------------
 	@PUT
 	@Path("/compañia")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -90,11 +118,14 @@ public class FestiAndesCompañiaServices {
 		return Response.status(200).entity(compañia).build();
 	}
 	
+	// --------------------------------------------------------------------------------------------------------------------------------------
+	// deleteCompañia -----------------------------------------------------------------------------------------------------------------------
+	// --------------------------------------------------------------------------------------------------------------------------------------
     @DELETE
 	@Path("/compañia")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response deleteFuncion(Compañia compañia) {
+	public Response deleteCompañia(Compañia compañia) {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
 		try {
 			tm.deleteCompañia(compañia);

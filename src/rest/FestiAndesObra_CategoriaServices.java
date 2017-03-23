@@ -13,8 +13,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import tm.FestiAndesMaster;
-import vos.Festival_Cliente;
-import vos.ListaFestivales_Clientes;
 import vos.ListaObras_Categorias;
 import vos.Obra_Categoria;
 
@@ -31,7 +29,10 @@ public class FestiAndesObra_CategoriaServices {
 	private String doErrorMessage(Exception e){
 		return "{ \"ERROR\": \""+ e.getMessage() + "\"}" ;
 	}
-		 
+	
+	// --------------------------------------------------------------------------------------------------------------------------------------
+	// getObrasCategorias -------------------------------------------------------------------------------------------------------------------
+	// --------------------------------------------------------------------------------------------------------------------------------------
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response getObrasCategorias() {
@@ -46,6 +47,9 @@ public class FestiAndesObra_CategoriaServices {
 		return Response.status(200).entity(obrasCategorias).build();
 	}
 	
+	// --------------------------------------------------------------------------------------------------------------------------------------
+	// getObrasCategoriasIdCategoria --------------------------------------------------------------------------------------------------------
+	// --------------------------------------------------------------------------------------------------------------------------------------
 	@GET
 	@Path("/idCategoria/{id}")
 	@Produces({ MediaType.APPLICATION_JSON })
@@ -61,6 +65,9 @@ public class FestiAndesObra_CategoriaServices {
 		return Response.status(200).entity(obrasCategorias).build();
 	}
 	
+	// --------------------------------------------------------------------------------------------------------------------------------------
+	// getObrasCategoriasIdObra -------------------------------------------------------------------------------------------------------------
+	// --------------------------------------------------------------------------------------------------------------------------------------
 	@GET
 	@Path("/idObra/{id}")
 	@Produces({ MediaType.APPLICATION_JSON })
@@ -76,6 +83,9 @@ public class FestiAndesObra_CategoriaServices {
 		return Response.status(200).entity(obrasCategorias).build();
 	}
 	
+	// --------------------------------------------------------------------------------------------------------------------------------------
+	// addObraCategoria ---------------------------------------------------------------------------------------------------------------------
+	// --------------------------------------------------------------------------------------------------------------------------------------
 	@POST
 	@Path("/obraCategoria")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -91,6 +101,9 @@ public class FestiAndesObra_CategoriaServices {
 		return Response.status(200).entity(obraCategoria).build();
 	}
 	
+	// --------------------------------------------------------------------------------------------------------------------------------------
+	// updateObraCategoria ------------------------------------------------------------------------------------------------------------------
+	// --------------------------------------------------------------------------------------------------------------------------------------
 	@PUT
 	@Path("/obraCategoria")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -106,6 +119,9 @@ public class FestiAndesObra_CategoriaServices {
 		return Response.status(200).entity(obraCategoria).build();
 	}
 	
+	// --------------------------------------------------------------------------------------------------------------------------------------
+	// deleteObraCategoria ------------------------------------------------------------------------------------------------------------------
+	// --------------------------------------------------------------------------------------------------------------------------------------
     @DELETE
 	@Path("/obraCategoria")
 	@Consumes(MediaType.APPLICATION_JSON)

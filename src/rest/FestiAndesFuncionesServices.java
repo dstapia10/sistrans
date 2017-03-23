@@ -34,6 +34,9 @@ public class FestiAndesFuncionesServices {
 		return "{ \"ERROR\": \""+ e.getMessage() + "\"}" ;
 	}
 	
+	// --------------------------------------------------------------------------------------------------------------------------------------
+	// getFunciones -------------------------------------------------------------------------------------------------------------------------
+	// --------------------------------------------------------------------------------------------------------------------------------------
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response getFunciones(Date f, Date f2, Categoria  categoria ,String  idioma, Boolean orden) {
@@ -97,11 +100,15 @@ public class FestiAndesFuncionesServices {
 //		return Response.status(200).entity(funciones).build();
 //	}
 	
+	
+	// --------------------------------------------------------------------------------------------------------------------------------------
+	// addFuncion ---------------------------------------------------------------------------------------------------------------------------
+	// --------------------------------------------------------------------------------------------------------------------------------------
 	@POST
-	@Path("/funcion")
+	@Path("/admin/funcion")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response addFuncion(Funcion funcion) {
+	public Response addFuncionAdmin(Funcion funcion) {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
 		try {
 			tm.addFuncion(funcion);
@@ -112,6 +119,25 @@ public class FestiAndesFuncionesServices {
 		return Response.status(200).entity(funcion).build();
 	}
 	
+	@POST
+	@Path("/cliente/funcion")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response addFuncionCliente(Funcion funcion) {
+		return Response.status(500).entity("No puede editar la infomacion").build();
+	}
+	
+	@POST
+	@Path("/anonimo/funcion")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response addFuncionAnonimo(Funcion funcion) {
+		return Response.status(500).entity("No puede editar la infomacion").build();
+	}
+	
+	// --------------------------------------------------------------------------------------------------------------------------------------
+	// updateFuncion ------------------------------------------------------------------------------------------------------------------------
+	// --------------------------------------------------------------------------------------------------------------------------------------
 	@PUT
 	@Path("/funcion")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -127,6 +153,9 @@ public class FestiAndesFuncionesServices {
 		return Response.status(200).entity(funcion).build();
 	}
 	
+	// --------------------------------------------------------------------------------------------------------------------------------------
+	// deleteFuncion ------------------------------------------------------------------------------------------------------------------------
+	// --------------------------------------------------------------------------------------------------------------------------------------
     @DELETE
 	@Path("/funcion")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -142,6 +171,9 @@ public class FestiAndesFuncionesServices {
 		return Response.status(200).entity(funcion).build();
 	}	
     
+	// --------------------------------------------------------------------------------------------------------------------------------------
+	// getReporteFuncionId ------------------------------------------------------------------------------------------------------------------
+	// --------------------------------------------------------------------------------------------------------------------------------------
     @GET
 	@Path("/reporte/{id}")
 	@Produces({ MediaType.APPLICATION_JSON })
