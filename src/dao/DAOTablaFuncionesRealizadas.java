@@ -56,7 +56,7 @@ public class DAOTablaFuncionesRealizadas {
 	public ArrayList<FuncionRealizada> darFuncionesRealizadas() throws SQLException, Exception {
 		ArrayList<FuncionRealizada> funcionesRealizadas = new ArrayList<FuncionRealizada>();
 
-		String sql = "SELECT * FROM FUNCIONREALIZADA";
+		String sql = "SELECT * FROM ISIS2304A261720.FUNCIONESREALIZADAS";
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -97,7 +97,7 @@ public class DAOTablaFuncionesRealizadas {
 
 
 	public void addFuncionRealizada(FuncionRealizada FuncionRealizada) throws SQLException, Exception {
-		String sql = "INSERT INTO FUNCIONREALIZADA VALUES ('";
+		String sql = "INSERT INTO ISIS2304A261720.FUNCIONESREALIZADAS VALUES ('";
 		sql += FuncionRealizada.getIdFuncion()+ "')";
 
 		System.out.println("SQL stmt:" + sql);
@@ -109,7 +109,7 @@ public class DAOTablaFuncionesRealizadas {
 	
 	public void deleteFuncionRealizada(FuncionRealizada funcionRealizada) throws SQLException, Exception {
 
-		String sql = "DELETE FROM FUNCIONREALIZADA";
+		String sql = "DELETE FROM ISIS2304A261720.FUNCIONESREALIZADAS";
 		sql += " WHERE ID_FUNCION = " + funcionRealizada.getIdFuncion();
 
 		System.out.println("SQL stmt:" + sql);
