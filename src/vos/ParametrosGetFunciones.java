@@ -6,61 +6,48 @@ import org.codehaus.jackson.annotate.JsonProperty;
 
 public class ParametrosGetFunciones {
 	
-	@JsonProperty(value="DATE1")
-	private Date date1;
-	
-	@JsonProperty(value="DATE2")
-	private Date date2;
+	@JsonProperty(value="ID")
+	private int date1;
 
-	@JsonProperty(value="Categoria")
-	private String categoria;
+	@JsonProperty(value="FECHA")
+	private Date categoria;
 	
-	@JsonProperty(value="IDIOMA")
+	@JsonProperty(value="TEATRO")
 	private String idioma;
 	
-	@JsonProperty(value="OREDNADO")
-	private Boolean ordenado;
+	@JsonProperty(value="OBRA")
+	private String ordenado;
 	
-	public ParametrosGetFunciones(@JsonProperty(value="DATE1") Date date1,
-			@JsonProperty(value="DATE2") Date date2,
-			@JsonProperty(value="Categoria") String categoria,
-			@JsonProperty(value="IDIOMA") String idioma,
-			@JsonProperty(value="OREDNADO") Boolean ordenado) {
+	public ParametrosGetFunciones(@JsonProperty(value="ID") int date1,
+			@JsonProperty(value="FECHA") Date categoria,
+			@JsonProperty(value="TEATRO") String idioma,
+			@JsonProperty(value="OBRA") String ordenado) {
 		super();
 		this.date1 = date1;
-		this.date2 = date2;
+		
 		this.categoria = categoria;
 		this.idioma = idioma;		
 		this.ordenado = ordenado;
 	}
 	
 	
-	public Date getDate1() {
+	public int getDate1() {
 		return date1;
 	}
 
 
-	public void setDate1(Date date1) {
+	public void setDate1(int date1) {
 		this.date1 = date1;
 	}
 	
 	
-	public Date getDate2() {
-		return date2;
-	}
-
-
-	public void setDate2(Date date1) {
-		this.date1 = date1;
-	}
 	
-	
-	public String getCategoria() {
+	public Date getCategoria() {
 		return categoria;
 	}
 
 
-	public void setCategoria(String categoria) {
+	public void setCategoria(Date categoria) {
 		this.categoria = categoria;
 	}
 	
@@ -74,12 +61,12 @@ public class ParametrosGetFunciones {
 		this.idioma = idioma;
 	}
 	
-	public Boolean getOrdenado() {
+	public String getOrdenado() {
 		return ordenado;
 	}
 
 
-	public void setOrdenado(Boolean ordenado) {
+	public void setOrdenado(String ordenado) {
 		this.ordenado = ordenado;
 	}
 	

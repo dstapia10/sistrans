@@ -564,20 +564,21 @@ public class FestiAndesMaster {
 	}
 	
 	public ListaFuncion darFunciones(ParametrosGetFunciones param) throws Exception {
-		ArrayList<Funcion> funciones;
+		ArrayList<ParametrosGetFunciones> funciones;
 		DAOTablaFuncion daoFuncion = new DAOTablaFuncion();
 		try 
 		{
 			this.conn = darConexion();
 			daoFuncion.setConn(conn);
 			
-			Date d1 = (Date) param.getDate1();
-			Date d2 = (Date) param.getDate2();
-			Categoria cate = new Categoria(param.getCategoria());
-			String idiom = param.getIdioma();
-			Boolean orden = param.getOrdenado();
+			int d1 = param.getDate1();
+		
+			Date cate = (Date) param.getCategoria();
 			
-			funciones = daoFuncion.darFuncion(d1,d2,cate,idiom,orden);
+			String idiom = param.getIdioma();
+			String orden = param.getOrdenado();
+			
+			funciones = daoFuncion.darFuncion();
 		} 
 		catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());

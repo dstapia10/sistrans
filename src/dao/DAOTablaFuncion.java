@@ -10,6 +10,7 @@ import java.sql.Date;
 import vos.Actor;
 import vos.Categoria;
 import vos.Funcion;
+import vos.ParametrosGetFunciones;
 import vos.ReporteFuncion;
 
 public class DAOTablaFuncion {
@@ -56,34 +57,13 @@ public class DAOTablaFuncion {
 	}
 	
 	
-	public ArrayList<Funcion> darFuncion(Date  f, Date f2, Categoria categoria, String idioma, Boolean ordenado) throws SQLException, Exception {
+	public ArrayList<ParametrosGetFunciones> darFuncion() throws SQLException, Exception {
 	System.out.println("entra a darFuncion");
-		ArrayList<Funcion> funciones = new ArrayList<Funcion>();
-		String sql = " SELECT f.ID, f.FECHAINICIO, t.NOMBRE as TEATRO, b.NOMBRE as OBRA"
+		ArrayList<ParametrosGetFunciones> funciones = new ArrayList<ParametrosGetFunciones>();
+		String sql = " SELECT f.ID as ID, f.FECHAINICIO as FECHA, t.NOMBRE as TEATRO, b.NOMBRE as OBRA"
 				+ " FROM ISIS2304A261720.FUNCION f, FROM ISIS2304A261720.OBRA b, FROM ISIS2304A261720.TEATRO t ";
 		String sqlParaWhere = "WHERE f.IDOBRA = b.ID AND AND f.IDTEATRO = t.ID";
-		if (categoria !=null)
-		{
-			sql+= ", CATEGORIA c, OBRA_CATEGORIA oc ";
-			sqlParaWhere+= " AND c.NOMBRE = oc.ID_CATEGORIA AND b.ID = oc.ID_OBRA AND c.NOMBRE='" + categoria.getNombre() +"'";
-			
-	
-		}
 		
-		if (f != null && f2 != null)
-		{
-			sqlParaWhere+= " AND F.FECHAINICIO BETWEEN '" + f + "' AND '" + f2 + "' "; 
-		}
-		
-		if (idioma != null)
-		{
-			sqlParaWhere+= " AND b.IDIOMA ='" + idioma + "' ";
-		}
-		
-		if (ordenado)
-		{
-			sqlParaWhere+= " ORDER BY ASC";
-		}
 		sql+= sqlParaWhere;
 		
 		System.out.println("SQL stmt:" + sql);
@@ -94,10 +74,10 @@ public class DAOTablaFuncion {
 
 		while (rs.next()) {
 			int id = Integer.parseInt(rs.getString("ID"));
-			Date fechaInicio = rs.getDate("FECHAINICIO");
-			int idTeatro = Integer.parseInt(rs.getString("IDTEATRO"));
-			int idObra = Integer.parseInt(rs.getString("IDOBRA"));
-			funciones.add(new Funcion(id, fechaInicio, idTeatro, idObra));
+			Date fechaInicio = rs.getDate("FECHA");
+			String idTeatro = rs.getString("TEATRO");
+			String idObra = rs.getString("OBRA");
+			funciones.add(new ParametrosGetFunciones(id, fechaInicio, idTeatro, idObra));
 		}
 		
 		return funciones;

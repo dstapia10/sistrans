@@ -39,8 +39,7 @@ public class FestiAndesFuncionesServices {
 	// --------------------------------------------------------------------------------------------------------------------------------------
 	// getFunciones -------------------------------------------------------------------------------------------------------------------------
 	// --------------------------------------------------------------------------------------------------------------------------------------
-	@GET
-	@Path("/funcion")	
+	@GET	
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response getFunciones(ParametrosGetFunciones param) {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
