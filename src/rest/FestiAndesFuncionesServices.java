@@ -55,7 +55,7 @@ public class FestiAndesFuncionesServices {
 	}
 	
 	@GET
-	@Path("/funcionn/{date1}7{date2}/{categoria}/{idioma}/{orden}")
+	@Path("/funcionn/{date1}/{date2}/{categoria}/{idioma}/{orden}")
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response getFunciones(@javax.ws.rs.PathParam("date1") Date d1,
 			@javax.ws.rs.PathParam("date2") Date d2, 
