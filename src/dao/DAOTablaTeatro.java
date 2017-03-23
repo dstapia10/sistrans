@@ -1,12 +1,14 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import vos.Actor;
+import vos.Funcion;
 import vos.Teatro;
 
 public class DAOTablaTeatro {
@@ -54,24 +56,34 @@ public class DAOTablaTeatro {
 
 
 	public ArrayList<Teatro> darTeatro() throws SQLException, Exception {
-//		ArrayList<Actor> actores = new ArrayList<Actor>();
-//
-//		String sql = "SELECT * FROM ACTOR";
-//
-//		PreparedStatement prepStmt = conn.prepareStatement(sql);
-//		recursos.add(prepStmt);
-//		ResultSet rs = prepStmt.executeQuery();
-//
-//		while (rs.next()) {
-//			int cedula = Integer.parseInt(rs.getString("CEDULA"));
-//			String nombre = rs.getString("NOMBRE");
-//			int compañia = Integer.parseInt(rs.getString("ID_COMPAÑIA"));
-//			String nacionalidad = rs.getString("NACIONALIDAD");
-//			actores.add(new Actor(cedula, compañia, nombre, nacionalidad));
-//		}
-//		return actores;
+		ArrayList<Teatro> teatros = new ArrayList<Teatro>();
+		String sql = "SELECT t.ID as IDTEATRO, ci.NOMBRE as CIUDAD, t.CAPACIDAD as CAPACIDAD, t.NOMBRE as TEATRO, "
+				+ "t.DIRECCION as DIRECCION, f.FECHAINICIO AS FECHA,"
+				+ " o.NOMBRE as OBRA, f.TRADUCCION AS TRADUCCION, b.LETRAFILA AS LETRAFILA, b.NUMEROSILLA AS NUMEROSILLA,b.PRECIO AS PRECIO"
+				+ "FROM ISIS2304A261720.TEATRO t, ISIS2304A261720.FUNCION f, ISIS2304A261720.BOLETA  b, ISIS2304A261720.CIUDAD ci ,"
+				+ " ISIS2304A261720.OBRA o WHERE f.IDTEATRO = t.ID AND b.IDFUNCION = f.ID AND ci.ID = t.IDCIUDAD AND f.IDOBRA = o.ID";
+				
 		
-		return null;
+		
+		
+		System.out.println("SQL stmt:" + sql);
+		
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+
+		while (rs.next()) {
+			int id = Integer.parseInt(rs.getString("ID"));
+			Date fechaInicio = rs.getDate("FECHAINICIO");
+			int idTeatro = Integer.parseInt(rs.getString("IDTEATRO"));
+			int idObra = Integer.parseInt(rs.getString("IDOBRA"));
+			teatros.add(new TeatroGet(id, fechaInicio, idTeatro, idObra));
+		}
+		
+		return teatros;
+	
+		
+		
 	}
 
 
