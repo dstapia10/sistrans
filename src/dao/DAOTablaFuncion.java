@@ -66,6 +66,7 @@ public class DAOTablaFuncion {
 		
 		sql+= sqlParaWhere;
 		
+		
 		System.out.println("SQL stmt:" + sql);
 		
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
