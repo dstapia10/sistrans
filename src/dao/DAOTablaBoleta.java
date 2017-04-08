@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import vos.Actor;
 import vos.Boleta;
 import vos.BoletaGet;
 import vos.BoletasVendidas;
@@ -172,5 +173,87 @@ public class DAOTablaBoleta {
 		recursos.add(prepStmt);
 		prepStmt.executeQuery();
 	}
+	
+	
+	private Boolean buscarSiYaEstanEnMismaFila(List<BoletasVendidas> boletasVendidas) throws Exception {
+		
+		ArrayList<Boleta> boletasARevisar = new ArrayList<Boleta>();		
+		ArrayList<Boleta> bo = darBoletasTodaInfo();		
+		Boolean rpta = false;
+		
+		
+		for (int i = 0; i < bo.size(); i++) 
+		{
+			for (int j = 0; j < boletasVendidas.size(); j++) 
+			{
+				if (bo.get(i).getId() == boletasVendidas.get(j).getIdBoleta())
+				{
+					boletasARevisar.add(bo.get(i));
+				}
+			}
+		}
+		
+		
+		if(boletasARevisar.isEmpty()==false)
+		{
+			rpta = true;
+			String letraFilaIni=boletasARevisar.get(0).getLetraFila();
+			for (int i = 0; i < boletasARevisar.size() && rpta; i++) 
+			{
+				if (!boletasARevisar.get(i).getLetraFila().equals(letraFilaIni))
+				{
+					rpta = false;
+				}
+			}
+		}
+			
+		
+		return rpta;
+		
+	}
+	
+	
+	private Boolean buscarSiYaEstaVendida(int id) throws Exception {
+
+		ArrayList<Boleta> bo = darBoletasTodaInfo();
+		Boolean rpta = false;
+		for (int i = 0; i < bo.size() && !rpta; i++) 
+		{
+			if (bo.get(i).getId() == id)
+			{
+				rpta = true;
+			}
+		}
+		
+
+		return rpta;
+		
+	}
+	
+	
+	private ArrayList<Boleta> darBoletasTodaInfo() throws SQLException, Exception {
+		ArrayList<Boleta> boletas = new ArrayList<Boleta>();
+
+		String sql = "SELECT * FROM ISIS2304A261720.BOLETA";
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+
+		while (rs.next()) {
+			int id = Integer.parseInt(rs.getString("ID"));
+			String letrafila = rs.getString("LETRAFILA");
+			int numeroSilla = Integer.parseInt(rs.getString("NUMEROSILLA"));
+			int precio = Integer.parseInt(rs.getString("PRECIO"));
+			int idfuncion = Integer.parseInt(rs.getString("IDFUNCION"));
+			int idUsuario = Integer.parseInt(rs.getString("ID_USUARIO"));
+			
+			boletas.add(new Boleta(id,letrafila,numeroSilla,precio,idfuncion,idUsuario));
+		}
+		return boletas;
+	}
+
+	
+	
 	
 }

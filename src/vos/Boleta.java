@@ -8,26 +8,26 @@ public class Boleta
 	@JsonProperty(value="ID")
 	private int id;
 
-
 	@JsonProperty(value="LETRAFILA")
 	private String letrafila;
 
-
 	@JsonProperty(value="NUMEROSILLA")
 	private int numeroSilla;
-
-
 
 	@JsonProperty(value="PRECIO")
 	private int precio;
 
 	@JsonProperty(value="IDFUNCION")
 	private int idfuncion;
-
+	
+	@JsonProperty(value="ID_USUARIO")
+	private int idUsuario;
 	
 	public Boleta(@JsonProperty(value="ID")int id,@JsonProperty(value="LETRAFILA")String letrafila,
 			@JsonProperty(value="NUMEROSILLA")int numerosilla,
-			@JsonProperty(value="PRECIO") int precio, @JsonProperty(value="IDFUNCION") int idfuncion) 
+			@JsonProperty(value="PRECIO") int precio, 
+			@JsonProperty(value="IDFUNCION") int idfuncion,
+			@JsonProperty(value="ID_USUARIO") int idUsuario) 
 	{
 		super();
 		this.id = id;
@@ -88,4 +88,12 @@ public class Boleta
 		this.idfuncion = name;
 	}
 	
+	public int getIdUsuario() {
+		return id;
+	}
+
+	
+	public void setIdUsuario(int name) {
+		this.idUsuario = name;
+	}
 }
