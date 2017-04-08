@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import vos.Boleta;
 import vos.BoletaGet;
@@ -128,22 +129,28 @@ public class DAOTablaBoleta {
 	
 	
 	public void venderVariasBoleta(ListaBoletasVendidas boleta) throws SQLException, Exception {
-//		String sql = "UPDATE BOLETA SET ";
-//		sql += "NOMBRE='" + actor.getNombre() + "',";
-//		sql += "ID_COMPAÑIA='" + actor.getIdCompania() + "',";
-//		sql += "NACIONALIDAD='" + actor.getNacionalidad()+ "'";
-//		sql += " WHERE CEDULA = " + actor.getCedula();
-//
-//		System.out.println("SQL stmt:" + sql);
-//
-//		PreparedStatement prepStmt = conn.prepareStatement(sql);
-//		recursos.add(prepStmt);
-//		prepStmt.executeQuery();
+		
+		List<BoletasVendidas> boletasVendidas = boleta.getBoletasVendidas();
+		BoletasVendidas[] arrBoletas = (BoletasVendidas[]) boletasVendidas.toArray();
+		for (int i = 0; i < arrBoletas.length; i++) {
+			
+			
+			String sql = "UPDATE BOLETA SET ";
+			sql += "ID_USUARIO='" + arrBoletas[i].getIdCliente();
+			
+			sql += " WHERE ID = " + arrBoletas[i].getIdBoleta();
+			
+			System.out.println("SQL stmt:" + sql);
+			
+			PreparedStatement prepStmt = conn.prepareStatement(sql);
+			recursos.add(prepStmt);
+			prepStmt.executeQuery();
+		}
 	}
 	
 	
 	public void devolverBoleta(BoletasVendidas boleta) throws SQLException, Exception {
-		String sql = "UPDATE ACTOR SET ID_USUARIO='null'";
+		String sql = "UPDATE BOLETAS SET ID_USUARIO='null'";
 		sql += " WHERE ID = " + boleta.getIdBoleta();
 
 		System.out.println("SQL stmt:" + sql);
