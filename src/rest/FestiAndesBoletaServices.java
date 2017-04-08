@@ -155,7 +155,7 @@ public class FestiAndesBoletaServices {
 	@Path("/boleta/devolver")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response devolverBoleta(BoletasVendidas boletasVendidas) {
+	public Response devolverBoleta(Boleta boletasVendidas) {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
 		try {
 			tm.devolverBoleta(boletasVendidas);

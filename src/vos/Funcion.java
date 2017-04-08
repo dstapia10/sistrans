@@ -24,6 +24,9 @@ public class Funcion {
 	
 	@JsonProperty(value="TRADUCCION")
 	private String traduccion;
+	
+	@JsonProperty(value="ESTADO")
+	private String estado;
 
 
 
@@ -31,7 +34,8 @@ public class Funcion {
 	public Funcion(@JsonProperty(value="ID")int id,
 			@JsonProperty(value="FECHAINICIO")Date fechaInicio,
 			@JsonProperty(value="IDTEATRO")int idTeatro,
-			@JsonProperty(value="IDOBRA") int idObra) 
+			@JsonProperty(value="IDOBRA") int idObra,
+			@JsonProperty(value="ESTADO") String estado) 
 	{
 		super();
 		this.id = id;
@@ -39,6 +43,7 @@ public class Funcion {
 		this.idTeatro = idTeatro;
 		this.idObra = idObra;
 		this.traduccion = traduccion;
+		this.estado = estado;
 	}
 	
 
@@ -87,6 +92,17 @@ public class Funcion {
 	
 	public void setTraduccion(String name) {
 		this.traduccion = name;
+	}
+
+
+	public String getEstado() {
+		// TODO Auto-generated method stub
+		return estado;
+	}
+	
+	
+	public void setEstado(String name) {
+		this.estado = name;
 	}
 
 }

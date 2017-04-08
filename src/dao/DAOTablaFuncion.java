@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.sql.Date;
 
 import vos.Actor;
+import vos.Boleta;
 import vos.Categoria;
 import vos.Funcion;
 import vos.ParametrosGetFunciones;
@@ -118,6 +119,64 @@ public class DAOTablaFuncion {
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		prepStmt.executeQuery();
+	}
+	
+	public void cancelarFuncion(Funcion funcion) throws SQLException, Exception {
+
+		if (sePuedeCancelar(funcion)) {
+			String sql = "UPDATE ISIS2304A261720.FUNCION SET ";
+			sql += "ESTADO='" + funcion.getEstado();
+			sql += "' WHERE ID = " + funcion.getId();
+			
+			System.out.println("SQL stmt:" + sql);
+			
+			PreparedStatement prepStmt = conn.prepareStatement(sql);
+			recursos.add(prepStmt);
+			prepStmt.executeQuery();
+			ArrayList<Boleta> bol = darBoletasFuncion(funcion);
+			DAOTablaBoleta tablaBoleta = new DAOTablaBoleta();
+			for (int i = 0; i < bol.size(); i++) {
+				
+				tablaBoleta.devolverBoleta2(bol.get(i));
+			}
+		}
+	}
+	
+	public ArrayList<Boleta> darBoletasFuncion( Funcion funcion) throws SQLException
+	{
+
+		ArrayList<Boleta> boletas = new ArrayList<>();
+		String sql = "SELECT * FROM ISIS2304A261720.BOLETA ";
+		sql += " WHERE IDFUNCION = " + funcion.getId();
+		
+		System.out.println("SQL stmt:" + sql);
+		
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+
+		while (rs.next()) {
+			int id = Integer.parseInt(rs.getString("ID"));
+			String letrafila = rs.getString ("LETRAFILA");
+			int numerosilla = Integer.parseInt(rs.getString("NUMEROSILLA"));
+			int idBoleta = Integer.parseInt(rs.getString("IDBOLETA"));
+			int precio = Integer.parseInt(rs.getString("PRECIO"));
+			int idUsuario = Integer.parseInt(rs.getString("IDUSUARIO"));
+			
+			boletas.add(new Boleta(id, letrafila, numerosilla, precio, funcion.getId(), idUsuario));
+		}
+		
+		return boletas;
+	}
+	public boolean sePuedeCancelar(Funcion funcion)
+	{
+		Date date = (Date) new java.util.Date();
+		if (date.before(funcion.getFechaInicio()) ) {
+			 return true;
+		}
+		else
+		return false;
+		
 	}
 
 

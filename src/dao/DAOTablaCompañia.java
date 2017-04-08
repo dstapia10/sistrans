@@ -52,7 +52,7 @@ public class DAOTablaCompañia {
 	}
 
 
-	public ArrayList<Compañia> darCompañias() throws SQLException, Exception {
+	public ArrayList<Compañia> darCompañia() throws SQLException, Exception {
 //		ArrayList<Actor> actores = new ArrayList<Actor>();
 //
 //		String sql = "SELECT * FROM ACTOR";

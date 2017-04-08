@@ -193,6 +193,21 @@ public class DAOTablaBoleta {
 		}
 	}
 	
+public void devolverBoleta2(Boleta boleta) throws SQLException, Exception {
+			
+			String sql = "UPDATE BOLETA SET ID_USUARIO='null'";
+			sql += " WHERE ID = " + boleta.getId();
+			
+			System.out.println("SQL stmt:" + sql);
+			
+			PreparedStatement prepStmt = conn.prepareStatement(sql);
+			recursos.add(prepStmt);
+			prepStmt.executeQuery();
+			System.out.println("La Funcion ha sido cancelada, puede proceder a la entidad bancaria FestivAndes para la devolucion de su dinero.");
+		
+		
+	}
+	
 	
 	public int daysBetween(Date d1, Date d2)
 	{
@@ -215,11 +230,12 @@ public class DAOTablaBoleta {
 			Date fechaInicio = rs.getDate("FECHAINICIO");
 			int idTeatro = Integer.parseInt(rs.getString("IDTEATRO"));
 			int idObra = Integer.parseInt(rs.getString("IDOBRA"));
+			String estado = rs.getString("ESTADO");
 			
 			
 			
 			
-			Funcion Funcion = new Funcion(id, fechaInicio, idTeatro, idObra);
+			Funcion Funcion = new Funcion(id, fechaInicio, idTeatro, idObra, estado);
 		
 		return Funcion;
 	}
