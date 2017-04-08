@@ -14,7 +14,9 @@ import javax.ws.rs.core.Response;
 
 import tm.FestiAndesMaster;
 import vos.Boleta;
+import vos.BoletasVendidas;
 import vos.ListaBoletas;
+import vos.ListaBoletasVendidas;
 
 @Path("boleta")
 public class FestiAndesBoletaServices {
@@ -114,6 +116,56 @@ public class FestiAndesBoletaServices {
 	public Response updateBoletaAnonimo(Boleta boleta) {
 		return Response.status(500).entity("No puede editar la infomacion").build();
 	}
+	
+	
+	// --------------------------------------------------------------------------------------------------------------------------------------
+	// otrosServciosBoletaVendida ------------------------------------------------------------------------------------------------------------------
+	// --------------------------------------------------------------------------------------------------------------------------------------
+	@PUT
+	@Path("/boleta/vender")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response venderBoleta(BoletasVendidas boletaVendida) {
+		FestiAndesMaster tm = new FestiAndesMaster(getPath());
+		try {
+			tm.venderBoleta(boletaVendida);
+		} 
+		catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(boletaVendida).build();
+	}
+	
+	@PUT
+	@Path("/boleta/venderVarias")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response venderVariasBoleta(ListaBoletasVendidas boletasVendidas) {
+		FestiAndesMaster tm = new FestiAndesMaster(getPath());
+		try {
+			tm.venderVariasBoleta(boletasVendidas);
+		} 
+		catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(boletasVendidas).build();
+	}
+	
+	@PUT
+	@Path("/boleta/devolver")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response devolverBoleta(BoletasVendidas boletasVendidas) {
+		FestiAndesMaster tm = new FestiAndesMaster(getPath());
+		try {
+			tm.devolverBoleta(boletasVendidas);
+		} 
+		catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(boletasVendidas).build();
+	}
+	
 	
 	// --------------------------------------------------------------------------------------------------------------------------------------
 	// deleteBoleta -------------------------------------------------------------------------------------------------------------------------

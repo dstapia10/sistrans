@@ -8,6 +8,8 @@ import java.util.ArrayList;
 
 import vos.Boleta;
 import vos.BoletaGet;
+import vos.BoletasVendidas;
+import vos.ListaBoletasVendidas;
 
 public class DAOTablaBoleta {
 	
@@ -110,8 +112,49 @@ public class DAOTablaBoleta {
 //		recursos.add(prepStmt);
 //		prepStmt.executeQuery();
 	}
+	
+	
+	public void venderBoleta(BoletasVendidas boleta) throws SQLException, Exception {
+		String sql = "UPDATE ACTOR SET ";
+		sql += "ID_USUARIO='" + boleta.getIdCliente() + "',";
+		sql += " WHERE ID = " + boleta.getIdBoleta();
 
+		System.out.println("SQL stmt:" + sql);
 
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		prepStmt.executeQuery();
+	}
+	
+	
+	public void venderVariasBoleta(ListaBoletasVendidas boleta) throws SQLException, Exception {
+//		String sql = "UPDATE ACTOR SET ";
+//		sql += "NOMBRE='" + actor.getNombre() + "',";
+//		sql += "ID_COMPAÑIA='" + actor.getIdCompania() + "',";
+//		sql += "NACIONALIDAD='" + actor.getNacionalidad()+ "'";
+//		sql += " WHERE CEDULA = " + actor.getCedula();
+//
+//		System.out.println("SQL stmt:" + sql);
+//
+//		PreparedStatement prepStmt = conn.prepareStatement(sql);
+//		recursos.add(prepStmt);
+//		prepStmt.executeQuery();
+	}
+	
+	
+	public void devolverBoleta(BoletasVendidas boleta) throws SQLException, Exception {
+		String sql = "UPDATE ACTOR SET ID_USUARIO='null'";
+		sql += " WHERE ID = " + boleta.getIdBoleta();
+
+		System.out.println("SQL stmt:" + sql);
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		prepStmt.executeQuery();
+	}
+	
+	
+	
 	public void deleteBoleta(Boleta boleta) throws SQLException, Exception {
 		String sql = "DELETE FROM ISIS2304A261720.BOLETA";
 		sql += " WHERE ID = " + boleta.getId();
