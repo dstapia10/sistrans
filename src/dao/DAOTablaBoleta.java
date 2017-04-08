@@ -115,7 +115,7 @@ public class DAOTablaBoleta {
 	
 	
 	public void venderBoleta(BoletasVendidas boleta) throws SQLException, Exception {
-		String sql = "UPDATE ACTOR SET ";
+		String sql = "UPDATE BOLETA SET ";
 		sql += "ID_USUARIO='" + boleta.getIdCliente() + "',";
 		sql += " WHERE ID = " + boleta.getIdBoleta();
 
@@ -128,7 +128,7 @@ public class DAOTablaBoleta {
 	
 	
 	public void venderVariasBoleta(ListaBoletasVendidas boleta) throws SQLException, Exception {
-//		String sql = "UPDATE ACTOR SET ";
+//		String sql = "UPDATE BOLETA SET ";
 //		sql += "NOMBRE='" + actor.getNombre() + "',";
 //		sql += "ID_COMPAÑIA='" + actor.getIdCompania() + "',";
 //		sql += "NACIONALIDAD='" + actor.getNacionalidad()+ "'";
