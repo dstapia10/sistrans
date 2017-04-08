@@ -1,16 +1,21 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import vos.Actor;
 import vos.Boleta;
 import vos.BoletaGet;
 import vos.BoletasVendidas;
+import vos.Funcion;
 import vos.ListaBoletasVendidas;
 
 public class DAOTablaBoleta {
@@ -126,6 +131,8 @@ public class DAOTablaBoleta {
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		prepStmt.executeQuery();
+		
+		
 	}
 	
 	
@@ -149,16 +156,67 @@ public class DAOTablaBoleta {
 		}
 	}
 	
-	
-	public void devolverBoleta(BoletasVendidas boleta) throws SQLException, Exception {
-		String sql = "UPDATE BOLETAS SET ID_USUARIO='null'";
-		sql += " WHERE ID = " + boleta.getIdBoleta();
 
+
+		
+
+	
+	
+	public void devolverBoleta(Boleta boleta) throws SQLException, Exception {
+		
+		Funcion fun = obtenerFuncion(boleta.getIdFuncion());
+		
+		Date currentDate = (Date) new java.util.Date();
+		if (daysBetween(fun.getFechaInicio(), currentDate ) >= 5) 
+		{
+			
+			
+			String sql = "UPDATE BOLETA SET ID_USUARIO='null'";
+			sql += " WHERE ID = " + boleta.getId();
+			
+			System.out.println("SQL stmt:" + sql);
+			
+			PreparedStatement prepStmt = conn.prepareStatement(sql);
+			recursos.add(prepStmt);
+			prepStmt.executeQuery();
+			System.out.println("La reserva de la boleta ha sido cancelada, puede proceder a la entidad bancaria FestivAndes para la devolucion de su dinero.");
+		}
+		
+		else 
+		{
+			throw new Exception("es imposible cancelar esta reserva");
+		}
+	}
+	
+	
+	public int daysBetween(Date d1, Date d2)
+	{
+        return (int)( (d2.getTime() - d1.getTime()) / (1000 * 60 * 60 * 24));
+
+	}
+	
+	public Funcion obtenerFuncion(int idFuncion) throws SQLException
+	{
+		
+		String sql = "SELECT * FROM FUNCION WHERE ID =" + idFuncion; 
+		
 		System.out.println("SQL stmt:" + sql);
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
-		prepStmt.executeQuery();
+		ResultSet rs = prepStmt.executeQuery();
+
+			int id = Integer.parseInt(rs.getString("ID"));
+			Date fechaInicio = rs.getDate("FECHAINICIO");
+			int idTeatro = Integer.parseInt(rs.getString("IDTEATRO"));
+			int idObra = Integer.parseInt(rs.getString("IDOBRA"));
+			
+			
+			
+			
+			Funcion Funcion = new Funcion(id, fechaInicio, idTeatro, idObra);
+		
+		return Funcion;
 	}
 	
 	

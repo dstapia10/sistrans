@@ -1639,7 +1639,7 @@ public class FestiAndesMaster {
 		}
 	}
 	
-	public void devolverBoleta(BoletasVendidas nBoleta) throws Exception {
+	public void devolverBoleta(Boleta nBoleta) throws Exception {
 		DAOTablaBoleta daoBoleta = new DAOTablaBoleta();
 		try 
 		{
