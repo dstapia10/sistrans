@@ -83,14 +83,6 @@ public class DAOTablaFuncion {
 		
 		return funciones;
 	}
-		
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	public void addFuncion(Funcion funcion) throws SQLException, Exception {

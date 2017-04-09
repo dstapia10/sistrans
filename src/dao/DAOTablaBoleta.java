@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import vos.Abono;
 import vos.Actor;
 import vos.Boleta;
 import vos.BoletaGet;
@@ -122,16 +123,19 @@ public class DAOTablaBoleta {
 	
 	
 	public void venderBoleta(BoletasVendidas boleta) throws SQLException, Exception {
-		String sql = "UPDATE BOLETA SET ";
-		sql += "ID_USUARIO='" + boleta.getIdCliente() + "',";
-		sql += " WHERE ID = " + boleta.getIdBoleta();
-
-		System.out.println("SQL stmt:" + sql);
-
-		PreparedStatement prepStmt = conn.prepareStatement(sql);
-		recursos.add(prepStmt);
-		prepStmt.executeQuery();
 		
+		if(!buscarSiYaEstaVendida(boleta.getIdBoleta()))
+		{
+			String sql = "UPDATE BOLETA SET ";
+			sql += "ID_USUARIO='" + boleta.getIdCliente() + "',";
+			sql += " WHERE ID = " + boleta.getIdBoleta();
+
+			System.out.println("SQL stmt:" + sql);
+
+			PreparedStatement prepStmt = conn.prepareStatement(sql);
+			recursos.add(prepStmt);
+			prepStmt.executeQuery();
+		}		
 		
 	}
 	
@@ -140,26 +144,27 @@ public class DAOTablaBoleta {
 		
 		List<BoletasVendidas> boletasVendidas = boleta.getBoletasVendidas();
 		BoletasVendidas[] arrBoletas = (BoletasVendidas[]) boletasVendidas.toArray();
-		for (int i = 0; i < arrBoletas.length; i++) {
-			
-			
-			String sql = "UPDATE BOLETA SET ";
-			sql += "ID_USUARIO='" + arrBoletas[i].getIdCliente();
-			
-			sql += " WHERE ID = " + arrBoletas[i].getIdBoleta();
-			
-			System.out.println("SQL stmt:" + sql);
-			
-			PreparedStatement prepStmt = conn.prepareStatement(sql);
-			recursos.add(prepStmt);
-			prepStmt.executeQuery();
+		
+		if(buscarSiYaEstanEnMismaFila(boletasVendidas))
+		{
+			for (int i = 0; i < arrBoletas.length; i++) {
+				
+				if(!buscarSiYaEstaVendida(arrBoletas[i].getIdBoleta()))
+				{
+					String sql = "UPDATE BOLETA SET ";
+					sql += "ID_USUARIO='" + arrBoletas[i].getIdCliente();
+					
+					sql += " WHERE ID = " + arrBoletas[i].getIdBoleta();
+					
+					System.out.println("SQL stmt:" + sql);
+					
+					PreparedStatement prepStmt = conn.prepareStatement(sql);
+					recursos.add(prepStmt);
+					prepStmt.executeQuery();
+				}
+			}
 		}
 	}
-	
-
-
-		
-
 	
 	
 	public void devolverBoleta(Boleta boleta) throws SQLException, Exception {
@@ -220,7 +225,6 @@ public class DAOTablaBoleta {
 	}
 	
 	
-	
 	public void deleteBoleta(Boleta boleta) throws SQLException, Exception {
 		String sql = "DELETE FROM ISIS2304A261720.BOLETA";
 		sql += " WHERE ID = " + boleta.getId();
@@ -230,6 +234,54 @@ public class DAOTablaBoleta {
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		prepStmt.executeQuery();
+	}
+	
+	
+	public void venderAbono(Abono abono) throws SQLException, Exception {
+		
+		String [] listaBoletas = abono.getIdBoletas().split(";"); 
+				
+		for (int i = 0; i < listaBoletas.length; i++) {
+			
+			if(!buscarSiYaEstaVendida(Integer.parseInt(listaBoletas[i])))
+			{
+				String sql = "UPDATE BOLETA SET ";
+				sql += "ID_USUARIO='" + abono.getIdCliente();
+				sql += "ID_ABONO='" + abono.getIdBoletas();
+				
+				sql += " WHERE ID = " + listaBoletas[i];
+				
+				System.out.println("SQL stmt:" + sql);
+				
+				PreparedStatement prepStmt = conn.prepareStatement(sql);
+				recursos.add(prepStmt);
+				prepStmt.executeQuery();
+			}
+		}
+	}
+	
+	
+	public void devolverAbono(Abono abono) throws SQLException, Exception {
+		
+//		String [] listaBoletas = abono.getIdBoletas().split(";"); 
+//				
+//		for (int i = 0; i < listaBoletas.length; i++) {
+//			
+//			if(!buscarSiYaEstaVendida(Integer.parseInt(listaBoletas[i])))
+//			{
+//				String sql = "UPDATE BOLETA SET ";
+//				sql += "ID_USUARIO='" + abono.getIdCliente();
+//				sql += "ID_ABONO='" + abono.getIdBoletas();
+//				
+//				sql += " WHERE ID = " + listaBoletas[i];
+//				
+//				System.out.println("SQL stmt:" + sql);
+//				
+//				PreparedStatement prepStmt = conn.prepareStatement(sql);
+//				recursos.add(prepStmt);
+//				prepStmt.executeQuery();
+//			}
+//		}
 	}
 	
 	
