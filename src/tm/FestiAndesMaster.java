@@ -709,6 +709,39 @@ public class FestiAndesMaster {
 //	}
 //	
 	
+	
+	public void cancelarFuncion(Funcion nFuncion) throws Exception {
+		DAOTablaFuncion daoFuncion = new DAOTablaFuncion();
+		try 
+		{
+			this.conn = darConexion();
+			daoFuncion.setConn(conn);
+			daoFuncion.cancelarFuncion(nFuncion);
+			conn.commit();
+		} 
+		catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		finally {
+			try {
+				daoFuncion.cerrarRecursos();
+				if(this.conn!=null) this.conn.close();
+			} 
+			catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
 	public void addFuncion(Funcion nFuncion) throws Exception {
 		DAOTablaFuncion daoFuncion = new DAOTablaFuncion();
 		try 
@@ -1355,7 +1388,7 @@ public class FestiAndesMaster {
 		{
 			this.conn = darConexion();
 			daoCompañia.setConn(conn);
-			compañias = daoCompañia.darCompañias();
+			compañias = daoCompañia.darCompañia();
 		} 
 		catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());
@@ -1678,7 +1711,7 @@ public class FestiAndesMaster {
 		{
 			this.conn = darConexion();
 			daoBoleta.setConn(conn);
-			daoBoleta.updateBoleta(nBoleta);
+			daoBoleta.devolverBoleta(nBoleta);
 		} 
 		catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());

@@ -121,26 +121,79 @@ public class DAOTablaFuncion {
 		prepStmt.executeQuery();
 	}
 	
+	public Funcion obtenerFuncion(int idFuncion) throws SQLException
+	{
+		Funcion funcion = null;
+		String sql = "SELECT * FROM FUNCION WHERE ID=" + idFuncion; 
+		
+		System.out.println("SQL stmt:" + sql);
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+		while (rs.next())
+		{
+			
+		System.out.println("llega aqui");
+			int id = Integer.parseInt(rs.getString("ID"));
+			Date fechaInicio = rs.getDate("FECHAINICIO");
+			int idTeatro = Integer.parseInt(rs.getString("IDTEATRO"));
+			int idObra = Integer.parseInt(rs.getString("IDOBRA"));
+			String estado = rs.getString("ESTADO");
+			
+			
+			
+			
+			funcion = new Funcion(id, fechaInicio, idTeatro, idObra, estado);
+		}
+		System.out.println("llega aqui 2");
+		return funcion;
+	}
+	
 	public void cancelarFuncion(Funcion funcion) throws SQLException, Exception {
 
-		if (sePuedeCancelar(funcion)) {
+		
+		Funcion fun = obtenerFuncion(funcion.getId());
+		System.out.println("entra a cancelar funcion");
+
+		
+		if (sePuedeCancelar(fun)) {
+			
+			System.out.println("entra a el if en se puede cancelar");
 			String sql = "UPDATE ISIS2304A261720.FUNCION SET ";
-			sql += "ESTADO='" + funcion.getEstado();
-			sql += "' WHERE ID = " + funcion.getId();
+			sql += "ESTADO='cancelado' " ;
+			sql += " WHERE ID = " + fun.getId();
 			
 			System.out.println("SQL stmt:" + sql);
 			
 			PreparedStatement prepStmt = conn.prepareStatement(sql);
 			recursos.add(prepStmt);
 			prepStmt.executeQuery();
-			ArrayList<Boleta> bol = darBoletasFuncion(funcion);
-			DAOTablaBoleta tablaBoleta = new DAOTablaBoleta();
+			ArrayList<Boleta> bol = darBoletasFuncion(fun);
+			
 			for (int i = 0; i < bol.size(); i++) {
 				
-				tablaBoleta.devolverBoleta2(bol.get(i));
+				devolverBoleta2(bol.get(i));
+				System.out.println("aqui x1-");
 			}
 		}
 	}
+	
+	public void devolverBoleta2(Boleta boleta) throws SQLException, Exception {
+		
+		String sql = "UPDATE ISIS2304A261720.BOLETA SET ID_USUARIO = NULL";
+		sql += " WHERE ID = " + boleta.getId();
+		
+		System.out.println("SQL stmt:" + sql);
+		
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		
+		recursos.add(prepStmt);
+		prepStmt.executeQuery();
+		System.out.println("La Funcion ha sido cancelada, puede proceder a la entidad bancaria FestivAndes para la devolucion de su dinero.");
+	
+	
+}
 	
 	public ArrayList<Boleta> darBoletasFuncion( Funcion funcion) throws SQLException
 	{
@@ -155,27 +208,43 @@ public class DAOTablaFuncion {
 		recursos.add(prepStmt);
 		ResultSet rs = prepStmt.executeQuery();
 
+		System.out.println("aqui en boletas");
 		while (rs.next()) {
+			System.out.println("entra al while");
 			int id = Integer.parseInt(rs.getString("ID"));
+			System.out.println(id);
 			String letrafila = rs.getString ("LETRAFILA");
+			System.out.println(letrafila);
 			int numerosilla = Integer.parseInt(rs.getString("NUMEROSILLA"));
-			int idBoleta = Integer.parseInt(rs.getString("IDBOLETA"));
+			System.out.println(numerosilla);
+			int idfuncion = Integer.parseInt(rs.getString("IDFUNCION"));
+			System.out.println(idfuncion);
 			int precio = Integer.parseInt(rs.getString("PRECIO"));
-			int idUsuario = Integer.parseInt(rs.getString("IDUSUARIO"));
-			
-			boletas.add(new Boleta(id, letrafila, numerosilla, precio, funcion.getId(), idUsuario));
+			System.out.println(precio);
+			int idUsuario = Integer.parseInt(rs.getString("ID_USUARIO"));
+			System.out.println(idUsuario);
+			System.out.println("aqui dentro del while");
+			boletas.add(new Boleta(id, letrafila, numerosilla, precio, idfuncion, idUsuario));
 		}
-		
+		System.out.println("retorna las boletas");
 		return boletas;
 	}
 	public boolean sePuedeCancelar(Funcion funcion)
 	{
-		Date date = (Date) new java.util.Date();
-		if (date.before(funcion.getFechaInicio()) ) {
+		System.out.println("entra a se puede cancelar");
+
+		java.util.Date utilDate = new java.sql.Date(funcion.getFechaInicio().getTime());
+		System.out.println("aqui");
+		java.util.Date date = new java.util.Date();
+		System.out.println(" aqui 2");
+		if (date.compareTo(utilDate) < 0) {
+			System.out.println("verdadero");
 			 return true;
 		}
 		else
+			System.out.println(" falso");
 		return false;
+		
 		
 	}
 

@@ -5,10 +5,12 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import vos.Abono;
@@ -66,8 +68,8 @@ public class DAOTablaBoleta {
 	public ArrayList<BoletaGet> darBoletas() throws SQLException, Exception {
 		ArrayList<BoletaGet> boletas = new ArrayList<BoletaGet>();
 
-		String sql = "SELECT f.ID as idFuncion, SUM(b.precio) as ganancia FROM ISIS2304A261720.FUNCION f, ISIS2304A261720.BOLETASVENDIDAS bv, ISIS2304A261720.BOLETA b"
-+" Where f.ID=b.IDFUNCION AND b.ID=bv.IDBOLETA GROUP BY f.ID";
+		String sql = "SELECT f.ID as idFuncion, SUM(b.precio) as ganancia FROM ISIS2304A261720.FUNCION f, ISIS2304A261720.BOLETA b"
++" Where f.ID=b.IDFUNCION GROUP BY f.ID";
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -107,19 +109,7 @@ public class DAOTablaBoleta {
 	}
 	
 
-	public void updateBoleta(Boleta boleta) throws SQLException, Exception {
-//		String sql = "UPDATE ACTOR SET ";
-//		sql += "NOMBRE='" + actor.getNombre() + "',";
-//		sql += "ID_COMPAÑIA='" + actor.getIdCompania() + "',";
-//		sql += "NACIONALIDAD='" + actor.getNacionalidad()+ "'";
-//		sql += " WHERE CEDULA = " + actor.getCedula();
-//
-//		System.out.println("SQL stmt:" + sql);
-//
-//		PreparedStatement prepStmt = conn.prepareStatement(sql);
-//		recursos.add(prepStmt);
-//		prepStmt.executeQuery();
-	}
+
 	
 	
 	public void venderBoleta(BoletasVendidas boleta) throws SQLException, Exception {
@@ -171,12 +161,22 @@ public class DAOTablaBoleta {
 		
 		Funcion fun = obtenerFuncion(boleta.getIdFuncion());
 		
-		Date currentDate = (Date) new java.util.Date();
-		if (daysBetween(fun.getFechaInicio(), currentDate ) >= 5) 
+		System.out.println(boleta.getId());
+		System.out.println("llega aqui 3");
+		
+		java.util.Date currentDate = new java.util.Date();
+
+	     
+		SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyy");
+
+		java.util.Date newDate = new java.sql.Date(fun.getFechaInicio().getTime());
+		System.out.println(newDate);
+	     
+		if (daysBetween(currentDate, newDate ) >= 5) 
 		{
+			System.out.println("llega aqui 5");
 			
-			
-			String sql = "UPDATE BOLETA SET ID_USUARIO='null'";
+			String sql = "UPDATE BOLETA SET ID_USUARIO = NULL";
 			sql += " WHERE ID = " + boleta.getId();
 			
 			System.out.println("SQL stmt:" + sql);
@@ -195,12 +195,13 @@ public class DAOTablaBoleta {
 	
 public void devolverBoleta2(Boleta boleta) throws SQLException, Exception {
 			
-			String sql = "UPDATE BOLETA SET ID_USUARIO='null'";
+			String sql = "UPDATE ISIS2304A261720.BOLETA SET ID_USUARIO = NULL";
 			sql += " WHERE ID = " + boleta.getId();
 			
 			System.out.println("SQL stmt:" + sql);
 			
 			PreparedStatement prepStmt = conn.prepareStatement(sql);
+			
 			recursos.add(prepStmt);
 			prepStmt.executeQuery();
 			System.out.println("La Funcion ha sido cancelada, puede proceder a la entidad bancaria FestivAndes para la devolucion de su dinero.");
@@ -209,23 +210,31 @@ public void devolverBoleta2(Boleta boleta) throws SQLException, Exception {
 	}
 	
 	
-	public int daysBetween(Date d1, Date d2)
+	public int daysBetween(java.util.Date d1, java.util.Date d2)
 	{
-        return (int)( (d2.getTime() - d1.getTime()) / (1000 * 60 * 60 * 24));
+		
+		System.out.println("llega aqui 4");
+		int res = (int)( (d2.getTime() - d1.getTime()) / (1000 * 60 * 60 * 24));
+		System.out.println(res);
+        return res;
 
+        
 	}
 	
 	public Funcion obtenerFuncion(int idFuncion) throws SQLException
 	{
-		
-		String sql = "SELECT * FROM FUNCION WHERE ID =" + idFuncion; 
+		Funcion funcion = null;
+		String sql = "SELECT * FROM FUNCION WHERE ID=" + idFuncion; 
 		
 		System.out.println("SQL stmt:" + sql);
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		ResultSet rs = prepStmt.executeQuery();
-
+		while (rs.next())
+		{
+			
+		System.out.println("llega aqui");
 			int id = Integer.parseInt(rs.getString("ID"));
 			Date fechaInicio = rs.getDate("FECHAINICIO");
 			int idTeatro = Integer.parseInt(rs.getString("IDTEATRO"));
@@ -235,9 +244,10 @@ public void devolverBoleta2(Boleta boleta) throws SQLException, Exception {
 			
 			
 			
-			Funcion Funcion = new Funcion(id, fechaInicio, idTeatro, idObra, estado);
-		
-		return Funcion;
+			funcion = new Funcion(id, fechaInicio, idTeatro, idObra, estado);
+		}
+		System.out.println("llega aqui 2");
+		return funcion;
 	}
 	
 	
