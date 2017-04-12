@@ -33,6 +33,7 @@ import vos.BoletasVendidas;
 import vos.Categoria;
 import vos.Ciudad;
 import vos.Compañia;
+import vos.ConsultaCompañia;
 import vos.ConsultarAsistenciaCliente;
 import vos.Festival;
 import vos.Festival_Cliente;
@@ -45,6 +46,7 @@ import vos.ListaBoletasVendidas;
 import vos.ListaCategoria;
 import vos.ListaCiudad;
 import vos.ListaCompañia;
+import vos.ListaConsultaCompañia;
 import vos.ListaConsultarAsistenciaCliente;
 import vos.ListaFestivales;
 import vos.ListaFestivales_Clientes;
@@ -1539,6 +1541,39 @@ public class FestiAndesMaster {
 				throw exception;
 			}
 		}
+	}
+	
+	public ListaConsultaCompañia darConsultaCompañia(int nId) throws Exception {
+		ArrayList<ConsultaCompañia> compañias;
+		DAOTablaCompañia daoCompañia = new DAOTablaCompañia();
+		try 
+		{
+			this.conn = darConexion();
+			daoCompañia.setConn(conn);
+			compañias = daoCompañia.darConsultaCompañia(nId);
+		} 
+		catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		finally {
+			try {
+				daoCompañia.cerrarRecursos();
+				if(this.conn!=null) this.conn.close();
+			} 
+			catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return new ListaConsultaCompañia(compañias);
 	}
 	
 	// -----------------------------------------------------------------------------------------------------------------------------

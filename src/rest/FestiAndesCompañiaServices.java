@@ -15,6 +15,7 @@ import javax.ws.rs.core.Response;
 import tm.FestiAndesMaster;
 import vos.Compañia;
 import vos.ListaCompañia;
+import vos.ListaConsultaCompañia;
 
 @Path("compañia")
 public class FestiAndesCompañiaServices {
@@ -136,4 +137,22 @@ public class FestiAndesCompañiaServices {
 		return Response.status(200).entity(compañia).build();
 	}
 	
+    // --------------------------------------------------------------------------------------------------------------------------------------
+ 	// ConsultaCompañia ---------------------------------------------------------------------------------------------------------------------
+ 	// --------------------------------------------------------------------------------------------------------------------------------------
+    @GET
+	@Path("/consComp/{id}")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getConsultaCompañia(@javax.ws.rs.PathParam("id") String id) {
+		FestiAndesMaster tm = new FestiAndesMaster(getPath());
+		ListaConsultaCompañia consulta;
+		try {
+			if (id == null || id.length() == 0) throw new Exception("id no valido");
+			consulta = tm.darConsultaCompañia(Integer.parseInt(id));
+		} 
+		catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(consulta).build();
+	}
 }

@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import vos.Compañia;
+import vos.ConsultaCompañia;
 
 public class DAOTablaCompañia {
 	
@@ -145,6 +146,27 @@ public class DAOTablaCompañia {
 //		PreparedStatement prepStmt = conn.prepareStatement(sql);
 //		recursos.add(prepStmt);
 //		prepStmt.executeQuery();
+	}
+	
+	public ArrayList<ConsultaCompañia> darConsultaCompañia(int nId) throws SQLException, Exception {
+//		ArrayList<Actor> actores = new ArrayList<Actor>();
+//
+//		String sql = "SELECT * FROM ACTOR";
+//
+//		PreparedStatement prepStmt = conn.prepareStatement(sql);
+//		recursos.add(prepStmt);
+//		ResultSet rs = prepStmt.executeQuery();
+//
+//		while (rs.next()) {
+//			int cedula = Integer.parseInt(rs.getString("CEDULA"));
+//			String nombre = rs.getString("NOMBRE");
+//			int compañia = Integer.parseInt(rs.getString("ID_COMPAÑIA"));
+//			String nacionalidad = rs.getString("NACIONALIDAD");
+//			actores.add(new Actor(cedula, compañia, nombre, nacionalidad));
+//		}
+//		return actores;
+		
+		return null;
 	}
 
 }
