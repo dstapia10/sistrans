@@ -278,9 +278,9 @@ public void devolverBoleta2(Boleta boleta) throws SQLException, Exception {
 			
 			if(!buscarSiYaEstaVendida(Integer.parseInt(listaBoletas[i])))
 			{
-				String sql = "UPDATE BOLETA SET";
-				sql += " ID_USUARIO='" + abono.getIdCliente() + "'";
-				sql += " ID_ABONO='" + abono.getIdBoletas() + "'";
+				String sql = "UPDATE ISIS2304A261720.BOLETA SET PRECIO=PRECIO*0.8,";
+				sql += " ID_USUARIO='" + abono.getIdCliente() + "',";
+				sql += " ABONO='" + abono.getIdBoletas() + "'";
 				
 				sql += " WHERE ID=" + listaBoletas[i];
 				
@@ -296,9 +296,9 @@ public void devolverBoleta2(Boleta boleta) throws SQLException, Exception {
 	
 	public void devolverAbono(Abono abono) throws SQLException, Exception {
 		
-		String sql = "UPDATE BOLETA SET";
-		sql += " ID_USUARIO='null'";
-		sql += " ID_ABONO='null'";
+		String sql = "UPDATE ISIS2304A261720.BOLETA SET PRECIO=PRECIO*1.25";
+		sql += " ID_USUARIO='null',";
+		sql += " ABONO='null'";
 		
 		sql += " WHERE ID_ABONO=" + abono.getIdAbono();
 		
@@ -313,40 +313,8 @@ public void devolverBoleta2(Boleta boleta) throws SQLException, Exception {
 	
 	private Boolean buscarSiYaEstanEnMismaFila(List<BoletasVendidas> boletasVendidas) throws Exception {
 		
-//		ArrayList<Boleta> boletasARevisar = new ArrayList<Boleta>();		
-//		ArrayList<Boleta> bo = darBoletasTodaInfo();		
-//		Boolean rpta = false;
-//		
-//		
-//		for (int i = 0; i < bo.size(); i++) 
-//		{
-//			for (int j = 0; j < boletasVendidas.size(); j++) 
-//			{
-//				if (bo.get(i).getId() == boletasVendidas.get(j).getIdBoleta())
-//				{
-//					boletasARevisar.add(bo.get(i));
-//				}
-//			}
-//		}
-//		
-//		
-//		if(boletasARevisar.isEmpty()==false)
-//		{
-//			rpta = true;
-//			String letraFilaIni=boletasARevisar.get(0).getLetraFila();
-//			for (int i = 0; i < boletasARevisar.size() && rpta; i++) 
-//			{
-//				if (!boletasARevisar.get(i).getLetraFila().equals(letraFilaIni))
-//				{
-//					rpta = false;
-//				}
-//			}
-//		}
-//			
-//		
-//		return rpta;
-		return null;
 		
+		return null;
 	}
 	
 	
