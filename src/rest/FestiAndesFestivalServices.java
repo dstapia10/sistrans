@@ -14,6 +14,7 @@ import javax.ws.rs.core.Response;
 
 import tm.FestiAndesMaster;
 import vos.Festival;
+import vos.ListaConsultarAsistenciaCliente;
 import vos.ListaFestivales;
 
 @Path("festival")
@@ -119,5 +120,25 @@ public class FestiAndesFestivalServices {
 		}
 		return Response.status(200).entity(festival).build();
 	}
+    
+    // --------------------------------------------------------------------------------------------------------------------------------------
+	// ConsultarAsistenciaCliente -----------------------------------------------------------------------------------------------------------
+	// --------------------------------------------------------------------------------------------------------------------------------------
+    @GET
+	@Path("/consAsist/{id}")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getConsultarAsistenciaCliente(@javax.ws.rs.PathParam("id") String id) {
+		FestiAndesMaster tm = new FestiAndesMaster(getPath());
+		ListaConsultarAsistenciaCliente cac;
+		try {
+			
+			cac = tm.darConsultarAsistenciaCliente(Integer.parseInt(id));
+		} 
+		catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(cac).build();
+	}
+ 	
 	
 }

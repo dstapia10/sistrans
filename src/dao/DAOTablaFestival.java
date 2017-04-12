@@ -9,13 +9,14 @@
  */
 package dao;
 
-
 import java.sql.Connection; 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
+
+import org.codehaus.jackson.annotate.JsonProperty;
 
 import vos.*;
 
@@ -156,7 +157,33 @@ public class DAOTablaFestival {
 		recursos.add(prepStmt);
 		prepStmt.executeQuery();
 	}
+	
+	
+	public ArrayList<ConsultarAsistenciaCliente> darConsultarAsistenciaCliente(int idCliente) throws SQLException, Exception {
+		ArrayList<ConsultarAsistenciaCliente> cac = new ArrayList<ConsultarAsistenciaCliente>();
 
+		String sql = "SELECT bl.ID_USUARIO, bl.LETRAFILA, bl.NUMEROSILLA, ob.ID as IDObra, fu.ID as IDFuncion, fu.FECHAINICIO "
+				+ "FROM ISIS2304A261720.FUNCION fu, ISIS2304A261720.OBRA ob, ISIS2304A261720.BOLETA bl"
+				+ "WHERE fu.IDOBRA=ob.ID and fu.ID=bl.IDFUNCION and bl.ID_USUARIO=";
+		sql+=idCliente;
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+
+		while (rs.next()) {			
+			int id_usuario=Integer.parseInt(rs.getString("ID_USUARIO"));			
+			String letrafila=rs.getString("LETRAFILA");						
+			int numeroSilla=Integer.parseInt(rs.getString("NUMEROSILLA"));
+			int idobra=Integer.parseInt(rs.getString("IDObra"));
+			int idfuncion=Integer.parseInt(rs.getString("IDFuncion"));			
+			Date fechainicio=rs.getDate("FECHAINICIO");
+
+			cac.add(new ConsultarAsistenciaCliente(id_usuario, letrafila, 
+					numeroSilla, idobra, idfuncion, fechainicio));
+		}
+		return cac;
+	}
 	
 
 }
