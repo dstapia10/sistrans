@@ -13,6 +13,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import tm.FestiAndesMaster;
+import vos.Abono;
 import vos.Boleta;
 import vos.BoletasVendidas;
 import vos.ListaBoletas;
@@ -172,6 +173,36 @@ public class FestiAndesBoletaServices {
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
 		return Response.status(200).entity(boletasVendidas).build();
+	}
+		
+	@PUT
+	@Path("/abono/vender")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response venderAbono(Abono abono) {
+		FestiAndesMaster tm = new FestiAndesMaster(getPath());
+		try {
+			tm.venderAbono(abono);
+		} 
+		catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(abono).build();
+	}
+	
+	@PUT
+	@Path("/abono/devolver")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response devolverAbono(Abono abono) {
+		FestiAndesMaster tm = new FestiAndesMaster(getPath());
+		try {
+			tm.devolverAbono(abono);
+		} 
+		catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(abono).build();
 	}
 	
 	

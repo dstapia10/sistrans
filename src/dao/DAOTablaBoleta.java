@@ -274,11 +274,11 @@ public void devolverBoleta2(Boleta boleta) throws SQLException, Exception {
 			
 			if(!buscarSiYaEstaVendida(Integer.parseInt(listaBoletas[i])))
 			{
-				String sql = "UPDATE BOLETA SET ";
-				sql += "ID_USUARIO='" + abono.getIdCliente();
-				sql += "ID_ABONO='" + abono.getIdBoletas();
+				String sql = "UPDATE BOLETA SET";
+				sql += " ID_USUARIO='" + abono.getIdCliente() + "'";
+				sql += " ID_ABONO='" + abono.getIdBoletas() + "'";
 				
-				sql += " WHERE ID = " + listaBoletas[i];
+				sql += " WHERE ID=" + listaBoletas[i];
 				
 				System.out.println("SQL stmt:" + sql);
 				
@@ -292,62 +292,56 @@ public void devolverBoleta2(Boleta boleta) throws SQLException, Exception {
 	
 	public void devolverAbono(Abono abono) throws SQLException, Exception {
 		
-//		String [] listaBoletas = abono.getIdBoletas().split(";"); 
-//				
-//		for (int i = 0; i < listaBoletas.length; i++) {
-//			
-//			if(!buscarSiYaEstaVendida(Integer.parseInt(listaBoletas[i])))
-//			{
-//				String sql = "UPDATE BOLETA SET ";
-//				sql += "ID_USUARIO='" + abono.getIdCliente();
-//				sql += "ID_ABONO='" + abono.getIdBoletas();
-//				
-//				sql += " WHERE ID = " + listaBoletas[i];
-//				
-//				System.out.println("SQL stmt:" + sql);
-//				
-//				PreparedStatement prepStmt = conn.prepareStatement(sql);
-//				recursos.add(prepStmt);
-//				prepStmt.executeQuery();
-//			}
-//		}
+		String sql = "UPDATE BOLETA SET";
+		sql += " ID_USUARIO='null'";
+		sql += " ID_ABONO='null'";
+		
+		sql += " WHERE ID_ABONO=" + abono.getIdAbono();
+		
+		System.out.println("SQL stmt:" + sql);
+		
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		prepStmt.executeQuery();
+		
 	}
 	
 	
 	private Boolean buscarSiYaEstanEnMismaFila(List<BoletasVendidas> boletasVendidas) throws Exception {
 		
-		ArrayList<Boleta> boletasARevisar = new ArrayList<Boleta>();		
-		ArrayList<Boleta> bo = darBoletasTodaInfo();		
-		Boolean rpta = false;
-		
-		
-		for (int i = 0; i < bo.size(); i++) 
-		{
-			for (int j = 0; j < boletasVendidas.size(); j++) 
-			{
-				if (bo.get(i).getId() == boletasVendidas.get(j).getIdBoleta())
-				{
-					boletasARevisar.add(bo.get(i));
-				}
-			}
-		}
-		
-		
-		if(boletasARevisar.isEmpty()==false)
-		{
-			rpta = true;
-			String letraFilaIni=boletasARevisar.get(0).getLetraFila();
-			for (int i = 0; i < boletasARevisar.size() && rpta; i++) 
-			{
-				if (!boletasARevisar.get(i).getLetraFila().equals(letraFilaIni))
-				{
-					rpta = false;
-				}
-			}
-		}
-			
-		
-		return rpta;
+//		ArrayList<Boleta> boletasARevisar = new ArrayList<Boleta>();		
+//		ArrayList<Boleta> bo = darBoletasTodaInfo();		
+//		Boolean rpta = false;
+//		
+//		
+//		for (int i = 0; i < bo.size(); i++) 
+//		{
+//			for (int j = 0; j < boletasVendidas.size(); j++) 
+//			{
+//				if (bo.get(i).getId() == boletasVendidas.get(j).getIdBoleta())
+//				{
+//					boletasARevisar.add(bo.get(i));
+//				}
+//			}
+//		}
+//		
+//		
+//		if(boletasARevisar.isEmpty()==false)
+//		{
+//			rpta = true;
+//			String letraFilaIni=boletasARevisar.get(0).getLetraFila();
+//			for (int i = 0; i < boletasARevisar.size() && rpta; i++) 
+//			{
+//				if (!boletasARevisar.get(i).getLetraFila().equals(letraFilaIni))
+//				{
+//					rpta = false;
+//				}
+//			}
+//		}
+//			
+//		
+//		return rpta;
+		return null;
 		
 	}
 	

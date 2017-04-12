@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.sql.Date;
 import java.util.Properties;
 
-import dao.DAOTablaAbonos;
 import dao.DAOTablaActor;
 import dao.DAOTablaBoleta;
 import dao.DAOTablaCategoria;
@@ -1740,6 +1739,68 @@ public class FestiAndesMaster {
 		}
 	}
 	
+	public void venderAbono(Abono nAbono) throws Exception {
+		DAOTablaBoleta daoBoleta = new DAOTablaBoleta();
+		try 
+		{
+			this.conn = darConexion();
+			daoBoleta.setConn(conn);
+			daoBoleta.venderAbono(nAbono);
+		} 
+		catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		finally {
+			try {
+				daoBoleta.cerrarRecursos();
+				if(this.conn!=null) this.conn.close();
+			} 
+			catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	public void devolverAbono(Abono nAbono) throws Exception {
+		DAOTablaBoleta daoBoleta = new DAOTablaBoleta();
+		try 
+		{
+			this.conn = darConexion();
+			daoBoleta.setConn(conn);
+			daoBoleta.devolverAbono(nAbono);
+		} 
+		catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		finally {
+			try {
+				daoBoleta.cerrarRecursos();
+				if(this.conn!=null) this.conn.close();
+			} 
+			catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
 	public void updateBoleta(Boleta nBoleta) throws Exception {
 		DAOTablaBoleta daoBoleta = new DAOTablaBoleta();
 		try 
@@ -3052,198 +3113,6 @@ public class FestiAndesMaster {
 			}
 		}
 	}
-	
-	
-	// -----------------------------------------------------------------------------------------------------------------------------
-	// Abono ---------------------------------------------------------------------------------------------------------------------
-	// -----------------------------------------------------------------------------------------------------------------------------
-	private void inicioAbono(){
-	}
-	
-	public ListaAbono darAbonos() throws Exception {
-		ArrayList<Abono> abonos;
-		DAOTablaAbonos daoAbonos = new DAOTablaAbonos();
-		try 
-		{
-			this.conn = darConexion();
-			daoAbonos.setConn(conn);
-			abonos = daoAbonos.darAbonos();
-		} 
-		catch (SQLException e) {
-			System.err.println("SQLException:" + e.getMessage());
-			e.printStackTrace();
-			throw e;
-		} 
-		catch (Exception e) {
-			System.err.println("GeneralException:" + e.getMessage());
-			e.printStackTrace();
-			throw e;
-		} 
-		finally {
-			try {
-				daoAbonos.cerrarRecursos();
-				if(this.conn!=null) this.conn.close();
-			} 
-			catch (SQLException exception) {
-				System.err.println("SQLException closing resources:" + exception.getMessage());
-				exception.printStackTrace();
-				throw exception;
-			}
-		}
-		return new ListaAbono(abonos);
-	}
 		
-	public void addAbono(Abono nAbono) throws Exception {
-		DAOTablaAbonos daoAbonos = new DAOTablaAbonos();
-		try 
-		{
-			this.conn = darConexion();
-			daoAbonos.setConn(conn);
-			daoAbonos.addAbono(nAbono);
-			conn.commit();
-		} 
-		catch (SQLException e) {
-			System.err.println("SQLException:" + e.getMessage());
-			e.printStackTrace();
-			throw e;
-		} 
-		catch (Exception e) {
-			System.err.println("GeneralException:" + e.getMessage());
-			e.printStackTrace();
-			throw e;
-		} 
-		finally {
-			try {
-				daoAbonos.cerrarRecursos();
-				if(this.conn!=null) this.conn.close();
-			} 
-			catch (SQLException exception) {
-				System.err.println("SQLException closing resources:" + exception.getMessage());
-				exception.printStackTrace();
-				throw exception;
-			}
-		}
-		
-		DAOTablaBoleta daoBoleta = new DAOTablaBoleta();
-		try 
-		{
-			this.conn = darConexion();
-			daoBoleta.setConn(conn);
-			daoBoleta.venderAbono(nAbono);
-			conn.commit();
-		} 
-		catch (SQLException e) {
-			System.err.println("SQLException:" + e.getMessage());
-			e.printStackTrace();
-			throw e;
-		} 
-		catch (Exception e) {
-			System.err.println("GeneralException:" + e.getMessage());
-			e.printStackTrace();
-			throw e;
-		} 
-		finally {
-			try {
-				daoBoleta.cerrarRecursos();
-				if(this.conn!=null) this.conn.close();
-			} 
-			catch (SQLException exception) {
-				System.err.println("SQLException closing resources:" + exception.getMessage());
-				exception.printStackTrace();
-				throw exception;
-			}
-		}
-	}
-	
-	public void updateAbono(Abono nAbono) throws Exception {
-		DAOTablaAbonos daoAbonos = new DAOTablaAbonos();
-		try 
-		{
-			this.conn = darConexion();
-			daoAbonos.setConn(conn);
-			daoAbonos.updateAbono(nAbono);
-		} 
-		catch (SQLException e) {
-			System.err.println("SQLException:" + e.getMessage());
-			e.printStackTrace();
-			throw e;
-		} 
-		catch (Exception e) {
-			System.err.println("GeneralException:" + e.getMessage());
-			e.printStackTrace();
-			throw e;
-		} 
-		finally {
-			try {
-				daoAbonos.cerrarRecursos();
-				if(this.conn!=null) this.conn.close();
-			} 
-			catch (SQLException exception) {
-				System.err.println("SQLException closing resources:" + exception.getMessage());
-				exception.printStackTrace();
-				throw exception;
-			}
-		}
-	}
-	
-	public void deleteAbono(Abono nAbono) throws Exception {
-		DAOTablaBoleta daoBoleta = new DAOTablaBoleta();
-		try 
-		{
-			this.conn = darConexion();
-			daoBoleta.setConn(conn);
-			daoBoleta.devolverAbono(nAbono);
-		} 
-		catch (SQLException e) {
-			System.err.println("SQLException:" + e.getMessage());
-			e.printStackTrace();
-			throw e;
-		} 
-		catch (Exception e) {
-			System.err.println("GeneralException:" + e.getMessage());
-			e.printStackTrace();
-			throw e;
-		} 
-		finally {
-			try {
-				daoBoleta.cerrarRecursos();
-				if(this.conn!=null) this.conn.close();
-			} catch (SQLException exception) 
-			{
-				System.err.println("SQLException closing resources:" + exception.getMessage());
-				exception.printStackTrace();
-				throw exception;
-			}
-		}
-		
-		DAOTablaAbonos daoAbono = new DAOTablaAbonos();
-		try 
-		{
-			this.conn = darConexion();
-			daoAbono.setConn(conn);
-			daoAbono.deleteAbono(nAbono);
-		} 
-		catch (SQLException e) {
-			System.err.println("SQLException:" + e.getMessage());
-			e.printStackTrace();
-			throw e;
-		} 
-		catch (Exception e) {
-			System.err.println("GeneralException:" + e.getMessage());
-			e.printStackTrace();
-			throw e;
-		} 
-		finally {
-			try {
-				daoAbono.cerrarRecursos();
-				if(this.conn!=null) this.conn.close();
-			} catch (SQLException exception) 
-			{
-				System.err.println("SQLException closing resources:" + exception.getMessage());
-				exception.printStackTrace();
-				throw exception;
-			}
-		}
-	}
 	
 }
