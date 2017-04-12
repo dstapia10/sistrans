@@ -128,7 +128,11 @@ public class DAOTablaBoleta {
 			PreparedStatement prepStmt = conn.prepareStatement(sql);
 			recursos.add(prepStmt);
 			prepStmt.executeQuery();
-		}		
+		}	
+		else
+		{
+			throw new Exception("La boleta que se desea comprar ya ha sido tomada, seleccione otra.");
+		}
 		
 	}
 	
