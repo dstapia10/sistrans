@@ -142,7 +142,7 @@ public class DAOTablaBoleta {
 		List<BoletasVendidas> boletasVendidas = boleta.getBoletasVendidas();
 		BoletasVendidas[] arrBoletas = (BoletasVendidas[]) boletasVendidas.toArray();
 		
-		if(buscarSiYaEstanEnMismaFila(boletasVendidas))
+		if(buscarSiEstanEnMismaFila(boletasVendidas))
 		{
 			for (int i = 0; i < arrBoletas.length; i++) {
 				
@@ -311,10 +311,37 @@ public void devolverBoleta2(Boleta boleta) throws SQLException, Exception {
 	}
 	
 	
-	private Boolean buscarSiYaEstanEnMismaFila(List<BoletasVendidas> boletasVendidas) throws Exception {
+	private Boolean buscarSiEstanEnMismaFila(List<BoletasVendidas> boletasVendidas) throws Exception {
 		
+		boolean resp=true;
+		String filaIni=darFilaBoleta(boletasVendidas.get(0).getIdBoleta());
 		
-		return null;
+		for(int i=1; i<boletasVendidas.size() && resp; i++)
+		{
+			String fila2 = darFilaBoleta(boletasVendidas.get(i).getIdBoleta());
+			
+			if(!filaIni.equals(fila2))resp=false;
+		}
+				
+		return resp;
+	}
+	
+	
+	private String darFilaBoleta(int nId) throws Exception {
+		
+		String sql = "SELECT * FROM BOLETA WHERE ID = " + nId;
+		
+		String fila="";
+		
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+		while (rs.next())
+		{
+			fila = rs.getString("LETRAFILA");
+		}
+				
+		return fila;
 	}
 	
 	
@@ -356,9 +383,6 @@ public void devolverBoleta2(Boleta boleta) throws SQLException, Exception {
 		return false;
 		
 	}
-	
-	
-
 		
 	
 }
