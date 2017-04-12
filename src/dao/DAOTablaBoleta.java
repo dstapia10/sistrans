@@ -114,12 +114,15 @@ public class DAOTablaBoleta {
 	
 	public void venderBoleta(BoletasVendidas boleta) throws SQLException, Exception {
 		
-		if(!buscarSiYaEstaVendida(boleta.getIdBoleta()))
+		System.out.println("aqui 1");
+		if(buscarSiYaEstaVendida(boleta.getIdBoleta()) != false)
 		{
+			System.out.println(" entra al if");
 			String sql = "UPDATE BOLETA SET ";
-			sql += "ID_USUARIO='" + boleta.getIdCliente() + "',";
+			sql += " ID_USUARIO = " + boleta.getIdCliente();
 			sql += " WHERE ID = " + boleta.getIdBoleta();
 
+			System.out.println("sql");
 			System.out.println("SQL stmt:" + sql);
 
 			PreparedStatement prepStmt = conn.prepareStatement(sql);
@@ -351,43 +354,45 @@ public void devolverBoleta2(Boleta boleta) throws SQLException, Exception {
 	
 	private Boolean buscarSiYaEstaVendida(int id) throws Exception {
 
-		ArrayList<Boleta> bo = darBoletasTodaInfo();
-		Boolean rpta = false;
-		for (int i = 0; i < bo.size() && !rpta; i++) 
-		{
-			if (bo.get(i).getId() == id)
-			{
-				rpta = true;
-			}
-		}
+		String sql = "SELECT * FROM BOLETA WHERE ID = " + id;
 		
-
-		return rpta;
+		Boleta boleta = null;
 		
-	}
-	
-	
-	private ArrayList<Boleta> darBoletasTodaInfo() throws SQLException, Exception {
-		ArrayList<Boleta> boletas = new ArrayList<Boleta>();
-
-		String sql = "SELECT * FROM ISIS2304A261720.BOLETA";
-
+		System.out.println("buscar si ya esta vendida");
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		ResultSet rs = prepStmt.executeQuery();
-
-		while (rs.next()) {
-			int id = Integer.parseInt(rs.getString("ID"));
-			String letrafila = rs.getString("LETRAFILA");
-			int numeroSilla = Integer.parseInt(rs.getString("NUMEROSILLA"));
-			int precio = Integer.parseInt(rs.getString("PRECIO"));
-			int idfuncion = Integer.parseInt(rs.getString("IDFUNCION"));
-			int idUsuario = Integer.parseInt(rs.getString("ID_USUARIO"));
+		while (rs.next())
+		{
 			
-			boletas.add(new Boleta(id,letrafila,numeroSilla,precio,idfuncion,idUsuario));
+			
+			String letrafila = rs.getString("LETRAFILA");
+			System.out.println(letrafila);
+			int numeroSilla = Integer.parseInt(rs.getString("NUMEROSILLA"));
+			System.out.println(numeroSilla);
+			int precio = Integer.parseInt(rs.getString("PRECIO"));
+			System.out.println(precio);
+			int idfuncion = Integer.parseInt(rs.getString("IDFUNCION"));
+			System.out.println(idfuncion);
+			int idUsuario = 0;
+			try {
+				idUsuario = Integer.parseInt(rs.getString("ID_USUARIO"));
+				System.out.println(idUsuario);
+				
+			} catch (Exception e) {
+				return true;
+			}
+			
+			boleta = new Boleta(id, letrafila, numeroSilla, precio, idfuncion, idUsuario);
 		}
-		return boletas;
+		
+		System.out.println("retorna");
+		return false;
+		
 	}
+	
+	
+
 		
 	
 }

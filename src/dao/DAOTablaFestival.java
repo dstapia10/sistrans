@@ -163,10 +163,11 @@ public class DAOTablaFestival {
 		ArrayList<ConsultarAsistenciaCliente> cac = new ArrayList<ConsultarAsistenciaCliente>();
 
 		String sql = "SELECT bl.ID_USUARIO, bl.LETRAFILA, bl.NUMEROSILLA, ob.ID as IDObra, fu.ID as IDFuncion, fu.FECHAINICIO "
-				+ "FROM ISIS2304A261720.FUNCION fu, ISIS2304A261720.OBRA ob, ISIS2304A261720.BOLETA bl"
-				+ "WHERE fu.IDOBRA=ob.ID and fu.ID=bl.IDFUNCION and bl.ID_USUARIO=";
+				+ " FROM ISIS2304A261720.FUNCION fu, ISIS2304A261720.OBRA ob, ISIS2304A261720.BOLETA bl"
+				+ " WHERE fu.IDOBRA=ob.ID and fu.ID=bl.IDFUNCION and bl.ID_USUARIO=";
 		sql+=idCliente;
 
+		System.out.println(sql);
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		ResultSet rs = prepStmt.executeQuery();
