@@ -80,7 +80,7 @@ public class Boleta
 	}
 	
 	public int getIdFuncion() {
-		return id;
+		return idfuncion;
 	}
 
 	

@@ -272,28 +272,82 @@ public void devolverBoleta2(Boleta boleta) throws SQLException, Exception {
 	
 	public void venderAbono(Abono abono) throws SQLException, Exception {
 		
-		String [] listaBoletas = abono.getIdBoletas().split(";"); 
+		String [] listaBoletas = abono.getIdBoletas();
 				
 		for (int i = 0; i < listaBoletas.length; i++) {
 			
-			if(!buscarSiYaEstaVendida(Integer.parseInt(listaBoletas[i])))
+			if(buscarSiYaEstaVendida(Integer.parseInt(listaBoletas[i])))
 			{
-				String sql = "UPDATE BOLETA SET";
-				sql += " ID_USUARIO='" + abono.getIdCliente() + "'";
-				sql += " ID_ABONO='" + abono.getIdBoletas() + "'";
+				Boleta bol = buscarBoleta(listaBoletas[i]);
+				System.out.println(bol.getIdFuncion());
+				Funcion fun = obtenerFuncion(bol.getIdFuncion());
+				System.out.println(fun.getId());
+				java.util.Date currentDate = new java.util.Date();
+
+			     
+				SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyy");
+
+				java.util.Date newDate = new java.sql.Date(fun.getFechaInicio().getTime());
 				
-				sql += " WHERE ID=" + listaBoletas[i];
-				
-				System.out.println("SQL stmt:" + sql);
-				
-				PreparedStatement prepStmt = conn.prepareStatement(sql);
-				recursos.add(prepStmt);
-				prepStmt.executeQuery();
+				if (daysBetween(currentDate, newDate) >= 21) 
+				{
+					
+					String sql = "UPDATE BOLETA SET";
+					sql += " ID_USUARIO=" + abono.getIdCliente() ;
+					sql += ", ABONO=" + abono.getIdAbono() ;
+					
+					sql += " WHERE ID=" + listaBoletas[i];
+					
+					System.out.println("SQL stmt:" + sql);
+					
+					PreparedStatement prepStmt = conn.prepareStatement(sql);
+					recursos.add(prepStmt);
+					prepStmt.executeQuery();
+				}
+				else
+				{
+					throw new Exception("imposible realizar el abono");
+				}
+			}
+			else 
+			{
+				throw new Exception("una de las boletas que desea comprar ya ha sido reservada,"
+						+ "id de la boleta:" + listaBoletas[i]);
 			}
 		}
 	}
 	
 	
+	private Boleta buscarBoleta(String string) throws SQLException 
+	{
+		Boleta bol = null;
+		String sql = "SELECT * FROM BOLETA WHERE ID = " + Integer.parseInt(string);
+		
+
+		
+		System.out.println("SQL stmt:" + sql);
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+		while (rs.next())
+		{
+	
+			int id = Integer.parseInt(rs.getString("ID"));
+			String letraFila = rs.getString("LETRAFILA");
+			int numeroSilla = Integer.parseInt(rs.getString("NUMEROSILLA"));
+			int precio = Integer.parseInt(rs.getString("PRECIO"));
+			int idFuncion = Integer.parseInt(rs.getString("IDFUNCION"));		
+			System.out.println(idFuncion);
+			
+			
+			
+			bol = new Boleta(id, letraFila, numeroSilla, precio, idFuncion, 0);
+		}
+		
+		return bol;
+	}
+
 	public void devolverAbono(Abono abono) throws SQLException, Exception {
 		
 		String sql = "UPDATE BOLETA SET";
@@ -357,6 +411,7 @@ public void devolverBoleta2(Boleta boleta) throws SQLException, Exception {
 		Boleta boleta = null;
 		
 		System.out.println("buscar si ya esta vendida");
+		System.out.println(sql);
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		ResultSet rs = prepStmt.executeQuery();

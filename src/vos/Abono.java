@@ -12,12 +12,12 @@ public class Abono {
 	private int idCliente;
 	
 	@JsonProperty(value="IDBOLETAS")
-	private String idBoletas;
+	private String[] idBoletas;
 
 	
 	public Abono(@JsonProperty(value="IDABONO")int idAbono,
 			@JsonProperty(value="IDCLIENTE")int idCliente,
-			@JsonProperty(value="IDBOLETAS")String idBoletas)
+			@JsonProperty(value="IDBOLETAS")String[] idBoletas)
 			
 	{
 		super();
@@ -43,11 +43,11 @@ public class Abono {
 		this.idCliente = duration;
 	}
 	
-	public String getIdBoletas() {
+	public String[] getIdBoletas() {
 		return idBoletas;
 	}
 	
-	public void setIdBoletas(String nBoletas) {
+	public void setIdBoletas(String[] nBoletas) {
 		this.idBoletas = nBoletas;
 	}
 	
