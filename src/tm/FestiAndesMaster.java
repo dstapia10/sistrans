@@ -719,6 +719,7 @@ public class FestiAndesMaster {
 			daoFuncion.setConn(conn);
 			daoFuncion.cancelarFuncion(nFuncion);
 			conn.commit();
+			conn.commit();
 		} 
 		catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());

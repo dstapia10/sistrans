@@ -181,14 +181,15 @@ public class DAOTablaFuncion {
 	
 	public void devolverBoleta2(Boleta boleta) throws SQLException, Exception {
 		
-		String sql = "UPDATE ISIS2304A261720.BOLETA SET ID_USUARIO = NULL";
+		String sql = "UPDATE BOLETA SET ID_USUARIO = NULL";
 		sql += " WHERE ID = " + boleta.getId();
 		
 		System.out.println("SQL stmt:" + sql);
 		
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
-		
+		System.out.println("aqui");
 		recursos.add(prepStmt);
+		System.out.println("aqui");
 		prepStmt.executeQuery();
 		System.out.println("La Funcion ha sido cancelada, puede proceder a la entidad bancaria FestivAndes para la devolucion de su dinero.");
 	
@@ -221,8 +222,7 @@ public class DAOTablaFuncion {
 			System.out.println(idfuncion);
 			int precio = Integer.parseInt(rs.getString("PRECIO"));
 			System.out.println(precio);
-			int idUsuario = Integer.parseInt(rs.getString("ID_USUARIO"));
-			System.out.println(idUsuario);
+			int idUsuario = 0;
 			System.out.println("aqui dentro del while");
 			boletas.add(new Boleta(id, letrafila, numerosilla, precio, idfuncion, idUsuario));
 		}
