@@ -149,24 +149,160 @@ public class DAOTablaCompañia {
 	}
 	
 	public ArrayList<ConsultaCompañia> darConsultaCompañia(int nId) throws SQLException, Exception {
-//		ArrayList<Actor> actores = new ArrayList<Actor>();
-//
-//		String sql = "SELECT * FROM ACTOR";
-//
-//		PreparedStatement prepStmt = conn.prepareStatement(sql);
-//		recursos.add(prepStmt);
-//		ResultSet rs = prepStmt.executeQuery();
-//
-//		while (rs.next()) {
-//			int cedula = Integer.parseInt(rs.getString("CEDULA"));
-//			String nombre = rs.getString("NOMBRE");
-//			int compañia = Integer.parseInt(rs.getString("ID_COMPAÑIA"));
-//			String nacionalidad = rs.getString("NACIONALIDAD");
-//			actores.add(new Actor(cedula, compañia, nombre, nacionalidad));
-//		}
-//		return actores;
 		
-		return null;
+		ArrayList<ConsultaCompañia> consultaCompañia = darConsultaCompañiaFunciones(nId);
+				
+		consultaCompañia = cambiarConsultaCompañiaGananciaPosible(consultaCompañia, nId);
+		
+		consultaCompañia = cambiarConsultaCompañiaGananciaReal(consultaCompañia, nId);
+		
+		consultaCompañia = cambiarConsultaCompañiaTotalBoletas(consultaCompañia, nId);
+		
+		consultaCompañia = cambiarConsultaCompañiaTotalBoletasVendidas(consultaCompañia, nId);
+		
+		return consultaCompañia;
+	}
+	
+	
+	private ArrayList<ConsultaCompañia> darConsultaCompañiaFunciones(int nId) throws SQLException, Exception {
+		ArrayList<ConsultaCompañia> consultaCompañia = new ArrayList<ConsultaCompañia>();
+
+		String sql = "SELECT fn.ID as IDFUNCION"
+				+ " FROM ISIS2304A261720.COMPAÑIA cm, ISIS2304A261720.PRODUCCION pr,"
+				+ " ISIS2304A261720.OBRA ob, ISIS2304A261720.FUNCION fn"
+				+ " WHERE cm.ID=pr.ID_COMPAÑIA and pr.ID_OBRA=ob.ID and ob.ID=fn.IDOBRA and cm.ID=";
+		sql += nId;
+		sql += " GROUP BY fn.ID";
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+
+		while (rs.next()) {
+			int idFuncion = Integer.parseInt(rs.getString("IDFUNCION"));
+			consultaCompañia.add(new ConsultaCompañia(nId, idFuncion, 0, 0, 0, 0));
+		}
+		return consultaCompañia;
+	}
+	
+	
+	private ArrayList<ConsultaCompañia> cambiarConsultaCompañiaGananciaPosible(ArrayList<ConsultaCompañia> listaConsulta, int nId) throws SQLException, Exception {
+		
+		String sql = "SELECT fn.ID as IDFUNCION, SUM(bl.precio) as GANANCIAPOSIBLE"
+				+ " FROM ISIS2304A261720.COMPAÑIA cm, ISIS2304A261720.PRODUCCION pr,"
+				+ " ISIS2304A261720.OBRA ob, ISIS2304A261720.FUNCION fn, ISIS2304A261720.BOLETA bl"
+				+ " WHERE cm.ID=pr.ID_COMPAÑIA and pr.ID_OBRA=ob.ID and ob.ID=fn.IDOBRA and fn.ID=bl.IDFUNCION and cm.ID=";
+		sql += nId;
+		sql += " GROUP BY fn.ID";
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+
+		while (rs.next()) {
+			int idFuncion = Integer.parseInt(rs.getString("IDFUNCION"));
+			int gananciaPosible = Integer.parseInt(rs.getString("GANANCIAPOSIBLE"));
+			
+			boolean encontro = false;
+			for(int i=0; i<listaConsulta.size() && !encontro; i++)
+			{
+				if(listaConsulta.get(i).getIdFuncion()==idFuncion){
+					listaConsulta.get(i).setGananciaPosible(gananciaPosible);
+					encontro=true;
+				}
+			}
+		}
+		return listaConsulta;
+	}
+	
+	
+	private ArrayList<ConsultaCompañia> cambiarConsultaCompañiaGananciaReal(ArrayList<ConsultaCompañia> listaConsulta, int nId) throws SQLException, Exception {
+		
+		String sql = "SELECT fn.ID as IDFUNCION, SUM(bl.precio) as GANANCIAPOSIBLE"
+				+ " FROM ISIS2304A261720.COMPAÑIA cm, ISIS2304A261720.PRODUCCION pr,"
+				+ " ISIS2304A261720.OBRA ob, ISIS2304A261720.FUNCION fn, ISIS2304A261720.BOLETA bl"
+				+ " WHERE cm.ID=pr.ID_COMPAÑIA and pr.ID_OBRA=ob.ID and ob.ID=fn.IDOBRA and fn.ID=bl.IDFUNCION and bl.ID_USUARIO IS NOT NULL and cm.ID=";
+		sql += nId;
+		sql += " GROUP BY fn.ID";
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+
+		while (rs.next()) {
+			int idFuncion = Integer.parseInt(rs.getString("IDFUNCION"));
+			int gananciaReal = Integer.parseInt(rs.getString("GANANCIAREAL"));
+			
+			boolean encontro = false;
+			for(int i=0; i<listaConsulta.size() && !encontro; i++)
+			{
+				if(listaConsulta.get(i).getIdFuncion()==idFuncion){
+					listaConsulta.get(i).setGananciaReal(gananciaReal);
+					encontro=true;
+				}
+			}
+		}
+		return listaConsulta;
+	}
+	
+	
+	private ArrayList<ConsultaCompañia> cambiarConsultaCompañiaTotalBoletas(ArrayList<ConsultaCompañia> listaConsulta, int nId) throws SQLException, Exception {
+		
+		String sql = "SELECT fn.ID as IDFUNCION, COUNT(*) as TOTALBOLETAS"
+				+ " FROM ISIS2304A261720.COMPAÑIA cm, ISIS2304A261720.PRODUCCION pr,"
+				+ " ISIS2304A261720.OBRA ob, ISIS2304A261720.FUNCION fn, ISIS2304A261720.BOLETA bl"
+				+ " WHERE cm.ID=pr.ID_COMPAÑIA and pr.ID_OBRA=ob.ID and ob.ID=fn.IDOBRA and fn.ID=bl.IDFUNCION and cm.ID=";
+		sql += nId;
+		sql += " GROUP BY fn.ID";
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+
+		while (rs.next()) {
+			int idFuncion = Integer.parseInt(rs.getString("IDFUNCION"));
+			int totalBoletas = Integer.parseInt(rs.getString("TOTALBOLETAS"));
+			
+			boolean encontro = false;
+			for(int i=0; i<listaConsulta.size() && !encontro; i++)
+			{
+				if(listaConsulta.get(i).getIdFuncion()==idFuncion){
+					listaConsulta.get(i).setTotalBoletas(totalBoletas);
+					encontro=true;
+				}
+			}
+		}
+		return listaConsulta;
+	}
+	
+	
+	private ArrayList<ConsultaCompañia> cambiarConsultaCompañiaTotalBoletasVendidas(ArrayList<ConsultaCompañia> listaConsulta, int nId) throws SQLException, Exception {
+		
+		String sql = "SELECT fn.ID as IDFUNCION, COUNT(*) as TOTALBOLETASVENDIDAS"
+				+ " FROM ISIS2304A261720.COMPAÑIA cm, ISIS2304A261720.PRODUCCION pr,"
+				+ " ISIS2304A261720.OBRA ob, ISIS2304A261720.FUNCION fn, ISIS2304A261720.BOLETA bl"
+				+ " WHERE cm.ID=pr.ID_COMPAÑIA and pr.ID_OBRA=ob.ID and ob.ID=fn.IDOBRA and fn.ID=bl.IDFUNCION and bl.ID_USUARIO IS NOT NULL and cm.ID=";
+		sql += nId;
+		sql += " GROUP BY fn.ID";
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+
+		while (rs.next()) {
+			int idFuncion = Integer.parseInt(rs.getString("IDFUNCION"));
+			int totalBoletasVendidas = Integer.parseInt(rs.getString("TOTALBOLETASVENDIDAS"));
+			
+			boolean encontro = false;
+			for(int i=0; i<listaConsulta.size() && !encontro; i++)
+			{
+				if(listaConsulta.get(i).getIdFuncion()==idFuncion){
+					listaConsulta.get(i).setTotalBoletasVendidas(totalBoletasVendidas);
+					encontro=true;
+				}
+			}
+		}
+		return listaConsulta;
 	}
 
 }
