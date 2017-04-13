@@ -142,7 +142,7 @@ public class DAOTablaBoleta {
 		List<BoletasVendidas> boletasVendidas = boleta.getBoletasVendidas();
 		BoletasVendidas[] arrBoletas = (BoletasVendidas[]) boletasVendidas.toArray();
 		
-		if(buscarSiEstanEnMismaFila(boletasVendidas))
+		if(buscarSiYaEstanEnMismaFila(boletasVendidas))
 		{
 			for (int i = 0; i < arrBoletas.length; i++) {
 				
@@ -278,7 +278,6 @@ public void devolverBoleta2(Boleta boleta) throws SQLException, Exception {
 			
 			if(buscarSiYaEstaVendida(Integer.parseInt(listaBoletas[i])))
 			{
-<<<<<<< HEAD
 				Boleta bol = buscarBoleta(listaBoletas[i]);
 				System.out.println(bol.getIdFuncion());
 				Funcion fun = obtenerFuncion(bol.getIdFuncion());
@@ -289,15 +288,6 @@ public void devolverBoleta2(Boleta boleta) throws SQLException, Exception {
 				SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyy");
 
 				java.util.Date newDate = new java.sql.Date(fun.getFechaInicio().getTime());
-=======
-				String sql = "UPDATE ISIS2304A261720.BOLETA SET PRECIO=PRECIO*0.8,";
-				sql += " ID_USUARIO='" + abono.getIdCliente() + "',";
-				sql += " ABONO='" + abono.getIdBoletas() + "'";
-				
-				sql += " WHERE ID=" + listaBoletas[i];
-				
-				System.out.println("SQL stmt:" + sql);
->>>>>>> origin/master
 				
 				if (daysBetween(currentDate, newDate) >= 21) 
 				{
@@ -360,11 +350,11 @@ public void devolverBoleta2(Boleta boleta) throws SQLException, Exception {
 
 	public void devolverAbono(Abono abono) throws SQLException, Exception {
 		
-		String sql = "UPDATE ISIS2304A261720.BOLETA SET PRECIO=PRECIO*1.25";
-		sql += " ID_USUARIO='null',";
-		sql += " ABONO='null'";
+		String sql = "UPDATE BOLETA SET";
+		sql += " ID_USUARIO=NULL, ";
+		sql += " ABONO=NULL";
 		
-		sql += " WHERE ID_ABONO=" + abono.getIdAbono();
+		sql += " WHERE ABONO=" + abono.getIdAbono();
 		
 		System.out.println("SQL stmt:" + sql);
 		
@@ -375,37 +365,42 @@ public void devolverBoleta2(Boleta boleta) throws SQLException, Exception {
 	}
 	
 	
-	private Boolean buscarSiEstanEnMismaFila(List<BoletasVendidas> boletasVendidas) throws Exception {
+	private Boolean buscarSiYaEstanEnMismaFila(List<BoletasVendidas> boletasVendidas) throws Exception {
 		
-		boolean resp=true;
-		String filaIni=darFilaBoleta(boletasVendidas.get(0).getIdBoleta());
+//		ArrayList<Boleta> boletasARevisar = new ArrayList<Boleta>();		
+//		ArrayList<Boleta> bo = darBoletasTodaInfo();		
+//		Boolean rpta = false;
+//		
+//		
+//		for (int i = 0; i < bo.size(); i++) 
+//		{
+//			for (int j = 0; j < boletasVendidas.size(); j++) 
+//			{
+//				if (bo.get(i).getId() == boletasVendidas.get(j).getIdBoleta())
+//				{
+//					boletasARevisar.add(bo.get(i));
+//				}
+//			}
+//		}
+//		
+//		
+//		if(boletasARevisar.isEmpty()==false)
+//		{
+//			rpta = true;
+//			String letraFilaIni=boletasARevisar.get(0).getLetraFila();
+//			for (int i = 0; i < boletasARevisar.size() && rpta; i++) 
+//			{
+//				if (!boletasARevisar.get(i).getLetraFila().equals(letraFilaIni))
+//				{
+//					rpta = false;
+//				}
+//			}
+//		}
+//			
+//		
+//		return rpta;
+		return null;
 		
-		for(int i=1; i<boletasVendidas.size() && resp; i++)
-		{
-			String fila2 = darFilaBoleta(boletasVendidas.get(i).getIdBoleta());
-			
-			if(!filaIni.equals(fila2))resp=false;
-		}
-				
-		return resp;
-	}
-	
-	
-	private String darFilaBoleta(int nId) throws Exception {
-		
-		String sql = "SELECT * FROM BOLETA WHERE ID = " + nId;
-		
-		String fila="";
-		
-		PreparedStatement prepStmt = conn.prepareStatement(sql);
-		recursos.add(prepStmt);
-		ResultSet rs = prepStmt.executeQuery();
-		while (rs.next())
-		{
-			fila = rs.getString("LETRAFILA");
-		}
-				
-		return fila;
 	}
 	
 	
@@ -448,6 +443,9 @@ public void devolverBoleta2(Boleta boleta) throws SQLException, Exception {
 		return false;
 		
 	}
+	
+	
+
 		
 	
 }
