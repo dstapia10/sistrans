@@ -10,19 +10,19 @@ public class ListaBoletasVendidas {
 	 * List con los videos
 	 */
 	@JsonProperty(value="boletasVendidas")
-	private List<BoletasVendidas > boletasVendidas ;
+	private BoletasVendidas []  boletasVendidas ;
 	
 
-	public ListaBoletasVendidas ( @JsonProperty(value="boletasVendidas ")List<BoletasVendidas > boletasVendidas ){
+	public ListaBoletasVendidas ( @JsonProperty(value="boletasVendidas ")BoletasVendidas[] boletasVendidas ){
 		this.boletasVendidas  = boletasVendidas ;
 	}
 
 
-	public List<BoletasVendidas> getBoletasVendidas () {
+	public BoletasVendidas[] getBoletasVendidas () {
 		return boletasVendidas ;
 	}
 
-	public void setBoletasVendidas (List<BoletasVendidas > b) {
+	public void setBoletasVendidas (BoletasVendidas[] b) {
 		this.boletasVendidas  = b;
 	}
 	

@@ -1716,6 +1716,7 @@ public class FestiAndesMaster {
 			this.conn = darConexion();
 			daoBoleta.setConn(conn);
 			daoBoleta.devolverBoleta(nBoleta);
+			conn.commit();
 		} 
 		catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());

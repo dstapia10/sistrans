@@ -138,12 +138,11 @@ public class DAOTablaBoleta {
 	
 	
 	public void venderVariasBoleta(ListaBoletasVendidas boleta) throws SQLException, Exception {
+
+		BoletasVendidas[] arrBoletas = boleta.getBoletasVendidas();
 		
-		List<BoletasVendidas> boletasVendidas = boleta.getBoletasVendidas();
-		BoletasVendidas[] arrBoletas = (BoletasVendidas[]) boletasVendidas.toArray();
 		
-		if(buscarSiYaEstanEnMismaFila(boletasVendidas))
-		{
+		
 			for (int i = 0; i < arrBoletas.length; i++) {
 				
 				if(!buscarSiYaEstaVendida(arrBoletas[i].getIdBoleta()))
@@ -159,13 +158,16 @@ public class DAOTablaBoleta {
 					recursos.add(prepStmt);
 					prepStmt.executeQuery();
 				}
-			}
+			
 		}
 	}
 	
 	
-	public void devolverBoleta(Boleta boleta) throws SQLException, Exception {
+	public void devolverBoleta(Boleta bol) throws SQLException, Exception {
 		
+		String as = String.valueOf(bol.getId());
+		Boleta boleta = buscarBoleta(as);
+		System.out.println(boleta.getIdFuncion());
 		Funcion fun = obtenerFuncion(boleta.getIdFuncion());
 		
 		System.out.println(boleta.getId());
@@ -176,6 +178,7 @@ public class DAOTablaBoleta {
 	     
 		SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyy");
 
+		System.out.println(fun.getId());
 		java.util.Date newDate = new java.sql.Date(fun.getFechaInicio().getTime());
 		System.out.println(newDate);
 	     
@@ -231,7 +234,7 @@ public void devolverBoleta2(Boleta boleta) throws SQLException, Exception {
 	public Funcion obtenerFuncion(int idFuncion) throws SQLException
 	{
 		Funcion funcion = null;
-		String sql = "SELECT * FROM FUNCION WHERE ID=" + idFuncion; 
+		String sql = "SELECT * FROM FUNCION WHERE ID = " + idFuncion; 
 		
 		System.out.println("SQL stmt:" + sql);
 
@@ -243,10 +246,15 @@ public void devolverBoleta2(Boleta boleta) throws SQLException, Exception {
 			
 		System.out.println("llega aqui");
 			int id = Integer.parseInt(rs.getString("ID"));
+			System.out.println(id);
 			Date fechaInicio = rs.getDate("FECHAINICIO");
+			System.out.println(fechaInicio);
 			int idTeatro = Integer.parseInt(rs.getString("IDTEATRO"));
+			System.out.println(idTeatro);
 			int idObra = Integer.parseInt(rs.getString("IDOBRA"));
+			System.out.println(idObra);
 			String estado = rs.getString("ESTADO");
+			System.out.println(estado);
 			
 			
 			
