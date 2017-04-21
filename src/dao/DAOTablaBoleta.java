@@ -145,10 +145,10 @@ public class DAOTablaBoleta {
 		
 			for (int i = 0; i < arrBoletas.length; i++) {
 				
-				if(!buscarSiYaEstaVendida(arrBoletas[i].getIdBoleta()))
+				if(buscarSiYaEstaVendida(arrBoletas[i].getIdBoleta()))
 				{
 					String sql = "UPDATE BOLETA SET ";
-					sql += "ID_USUARIO='" + arrBoletas[i].getIdCliente();
+					sql += "ID_USUARIO=" + arrBoletas[i].getIdCliente();
 					
 					sql += " WHERE ID = " + arrBoletas[i].getIdBoleta();
 					

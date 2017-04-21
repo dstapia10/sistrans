@@ -149,7 +149,7 @@ public class DAOTablaCompañia {
 	}
 	
 	public ArrayList<ConsultaCompañia> darConsultaCompañia(int nId) throws SQLException, Exception {
-		
+		System.out.println("entro 1");
 		ArrayList<ConsultaCompañia> consultaCompañia = darConsultaCompañiaFunciones(nId);
 				
 		consultaCompañia = cambiarConsultaCompañiaGananciaPosible(consultaCompañia, nId);
@@ -165,8 +165,10 @@ public class DAOTablaCompañia {
 	
 	
 	private ArrayList<ConsultaCompañia> darConsultaCompañiaFunciones(int nId) throws SQLException, Exception {
+		System.out.println("entro 2");
+		
 		ArrayList<ConsultaCompañia> consultaCompañia = new ArrayList<ConsultaCompañia>();
-
+		
 		String sql = "SELECT fn.ID as IDFUNCION"
 				+ " FROM ISIS2304A261720.COMPAÑIA cm, ISIS2304A261720.PRODUCCION pr,"
 				+ " ISIS2304A261720.OBRA ob, ISIS2304A261720.FUNCION fn"
@@ -177,9 +179,12 @@ public class DAOTablaCompañia {
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		ResultSet rs = prepStmt.executeQuery();
-
+		System.out.println(sql);
+		
 		while (rs.next()) {
+			System.out.println("entro al while");
 			int idFuncion = Integer.parseInt(rs.getString("IDFUNCION"));
+			//System.out.println("id funcion=" + idFuncion);
 			consultaCompañia.add(new ConsultaCompañia(nId, idFuncion, 0, 0, 0, 0));
 		}
 		return consultaCompañia;
@@ -187,6 +192,8 @@ public class DAOTablaCompañia {
 	
 	
 	private ArrayList<ConsultaCompañia> cambiarConsultaCompañiaGananciaPosible(ArrayList<ConsultaCompañia> listaConsulta, int nId) throws SQLException, Exception {
+		
+		System.out.println("entro 3");
 		
 		String sql = "SELECT fn.ID as IDFUNCION, SUM(bl.precio) as GANANCIAPOSIBLE"
 				+ " FROM ISIS2304A261720.COMPAÑIA cm, ISIS2304A261720.PRODUCCION pr,"
@@ -218,7 +225,9 @@ public class DAOTablaCompañia {
 	
 	private ArrayList<ConsultaCompañia> cambiarConsultaCompañiaGananciaReal(ArrayList<ConsultaCompañia> listaConsulta, int nId) throws SQLException, Exception {
 		
-		String sql = "SELECT fn.ID as IDFUNCION, SUM(bl.precio) as GANANCIAPOSIBLE"
+		System.out.println("entro 4");
+		
+		String sql = "SELECT fn.ID as IDFUNCION, SUM(bl.precio) as GANANCIAREAL"
 				+ " FROM ISIS2304A261720.COMPAÑIA cm, ISIS2304A261720.PRODUCCION pr,"
 				+ " ISIS2304A261720.OBRA ob, ISIS2304A261720.FUNCION fn, ISIS2304A261720.BOLETA bl"
 				+ " WHERE cm.ID=pr.ID_COMPAÑIA and pr.ID_OBRA=ob.ID and ob.ID=fn.IDOBRA and fn.ID=bl.IDFUNCION and bl.ID_USUARIO IS NOT NULL and cm.ID=";
@@ -228,6 +237,7 @@ public class DAOTablaCompañia {
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		ResultSet rs = prepStmt.executeQuery();
+		System.out.println(sql);
 
 		while (rs.next()) {
 			int idFuncion = Integer.parseInt(rs.getString("IDFUNCION"));
@@ -247,6 +257,8 @@ public class DAOTablaCompañia {
 	
 	
 	private ArrayList<ConsultaCompañia> cambiarConsultaCompañiaTotalBoletas(ArrayList<ConsultaCompañia> listaConsulta, int nId) throws SQLException, Exception {
+		
+		System.out.println("entro 5");
 		
 		String sql = "SELECT fn.ID as IDFUNCION, COUNT(*) as TOTALBOLETAS"
 				+ " FROM ISIS2304A261720.COMPAÑIA cm, ISIS2304A261720.PRODUCCION pr,"
@@ -277,6 +289,8 @@ public class DAOTablaCompañia {
 	
 	
 	private ArrayList<ConsultaCompañia> cambiarConsultaCompañiaTotalBoletasVendidas(ArrayList<ConsultaCompañia> listaConsulta, int nId) throws SQLException, Exception {
+		
+		System.out.println("entro 6");
 		
 		String sql = "SELECT fn.ID as IDFUNCION, COUNT(*) as TOTALBOLETASVENDIDAS"
 				+ " FROM ISIS2304A261720.COMPAÑIA cm, ISIS2304A261720.PRODUCCION pr,"
