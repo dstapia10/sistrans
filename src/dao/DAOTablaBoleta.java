@@ -301,7 +301,7 @@ public void devolverBoleta2(Boleta boleta) throws SQLException, Exception {
 				{
 					
 					String sql = "UPDATE BOLETA SET PRECIO=PRECIO*0.8";
-					sql += " ID_USUARIO=" + abono.getIdCliente() ;
+					sql += ", ID_USUARIO=" + abono.getIdCliente() ;
 					sql += ", ABONO=" + abono.getIdAbono() ;
 					
 					sql += " WHERE ID=" + listaBoletas[i];
@@ -359,7 +359,7 @@ public void devolverBoleta2(Boleta boleta) throws SQLException, Exception {
 	public void devolverAbono(Abono abono) throws SQLException, Exception {
 		
 		String sql = "UPDATE BOLETA SET PRECIO=PRECIO*1.25";
-		sql += " ID_USUARIO=NULL, ";
+		sql += ", ID_USUARIO=NULL, ";
 		sql += " ABONO=NULL";
 		
 		sql += " WHERE ABONO=" + abono.getIdAbono();

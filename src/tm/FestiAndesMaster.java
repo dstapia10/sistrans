@@ -1684,7 +1684,11 @@ public class FestiAndesMaster {
 		{
 			this.conn = darConexion();
 			daoBoleta.setConn(conn);
+			conn.setAutoCommit(false);
+			
 			daoBoleta.venderVariasBoleta(nBoleta);
+			
+			
 		} 
 		catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());
@@ -1702,6 +1706,7 @@ public class FestiAndesMaster {
 				if(this.conn!=null) this.conn.close();
 			} 
 			catch (SQLException exception) {
+				conn.rollback();
 				System.err.println("SQLException closing resources:" + exception.getMessage());
 				exception.printStackTrace();
 				throw exception;
