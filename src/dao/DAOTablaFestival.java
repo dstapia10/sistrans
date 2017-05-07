@@ -199,6 +199,7 @@ public class DAOTablaFestival {
 		sql += fin;
 		sql += "' GROUP BY us.CEDULA, us.APELLIDO, us.NOMBRE, us.EDAD, us.ROL";
 
+		System.out.println(sql);
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		ResultSet rs = prepStmt.executeQuery();
@@ -224,13 +225,15 @@ public class DAOTablaFestival {
 				+ "FROM ISIS2304A261720.USUARIO us,ISIS2304A261720.BOLETA bl,ISIS2304A261720.FUNCION fn, ISIS2304A261720.OBRA ob, ISIS2304A261720.PRODUCCION pr "
 				+ "WHERE us.CEDULA=bl.ID_USUARIO and bl.IDFUNCION=fn.ID and fn.IDOBRA=ob.ID and ob.ID=pr.ID_OBRA and pr.ID_COMPAÑIA=";
 		sql += id;
-		sql += " and fn.FECHAINICIO>='";
+		sql += " and fn.FECHAINICIO BETWEEN '";
 		sql += ini;
-		sql += "' and fn.FECHAINICIO<'";
+		sql += "' and '";
 		sql += fin;
 		sql += "' GROUP BY us.CEDULA, us.APELLIDO, us.NOMBRE, us.EDAD, us.ROL)b ";
 		sql += "ON a.CEDULA=b.CEDULA ";
 		sql += "WHERE b.CEDULA IS null";
+		System.out.println(sql);
+		System.out.println("aqui");
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -242,8 +245,10 @@ public class DAOTablaFestival {
 			String apellido = rs.getString("APELLIDO");
 			int edad = Integer.parseInt(rs.getString("EDAD"));
 			String rol = rs.getString("ROL");
+			System.out.println("aqui 2");
 			ca10.add(new Usuario(cedula, nombre, apellido, edad, rol));
 		}
+		System.out.println("aqui 3");
 		return ca10;
 	}
 	

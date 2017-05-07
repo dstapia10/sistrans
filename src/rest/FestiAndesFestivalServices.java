@@ -153,25 +153,7 @@ public class FestiAndesFestivalServices {
    		ListaUsuario ca9;
    		try {
    			
-   			String [] ini1 = ini.split("-");
-   			String ini2 = ini1[0];
-   			ini2 += "/";
-   			ini2 = ini1[0];
-   			ini2 += "/";
-   			ini2 = ini1[1];
-   			ini2 += "/";
-   			ini2 = ini1[2];
-   			
-   			String [] fin1 = fin.split("-");
-   			String fin2 = fin1[0];
-   			fin2 += "/";
-   			fin2 = fin1[0];
-   			fin2 += "/";
-   			fin2 = fin1[1];
-   			fin2 += "/";
-   			fin2 = fin1[2];
-   			
-   			ca9 = tm.darConsultarAsistencia9(id, ini2, fin2);
+   			ca9 = tm.darConsultarAsistencia9(id, ini, fin);
    		} 
    		catch (Exception e) {
    			return Response.status(500).entity(doErrorMessage(e)).build();
@@ -190,25 +172,7 @@ public class FestiAndesFestivalServices {
    		ListaUsuario ca10;
    		try {
    			
-   			String [] ini1 = ini.split("-");
-   			String ini2 = ini1[0];
-   			ini2 += "/";
-   			ini2 = ini1[0];
-   			ini2 += "/";
-   			ini2 = ini1[1];
-   			ini2 += "/";
-   			ini2 = ini1[2];
-   			
-   			String [] fin1 = fin.split("-");
-   			String fin2 = fin1[0];
-   			fin2 += "/";
-   			fin2 = fin1[0];
-   			fin2 += "/";
-   			fin2 = fin1[1];
-   			fin2 += "/";
-   			fin2 = fin1[2];
-   			
-   			ca10 = tm.darConsultarAsistencia10(id, ini2, fin2);
+   			ca10 = tm.darConsultarAsistencia10(id, ini, fin);
    		} 
    		catch (Exception e) {
    			return Response.status(500).entity(doErrorMessage(e)).build();
@@ -228,25 +192,9 @@ public class FestiAndesFestivalServices {
    		ListaConsultaBoletasFuncion cbf;
    		try {
    			
-   			String [] ini1 = ini.split("-");
-   			String ini2 = ini1[0];
-   			ini2 += "/";
-   			ini2 = ini1[0];
-   			ini2 += "/";
-   			ini2 = ini1[1];
-   			ini2 += "/";
-   			ini2 = ini1[2];
    			
-   			String [] fin1 = fin.split("-");
-   			String fin2 = fin1[0];
-   			fin2 += "/";
-   			fin2 = fin1[0];
-   			fin2 += "/";
-   			fin2 = fin1[1];
-   			fin2 += "/";
-   			fin2 = fin1[2];
    			
-   			cbf = tm.darConsultaBoletasFuncion(ini2, fin2);
+   			cbf = tm.darConsultaBoletasFuncion(ini, fin);
    		} 
    		catch (Exception e) {
    			return Response.status(500).entity(doErrorMessage(e)).build();
