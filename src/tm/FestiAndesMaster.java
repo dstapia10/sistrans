@@ -2304,6 +2304,40 @@ public class FestiAndesMaster {
 	}
 	
 	
+	public ListaUsuario darConsultarAsistencia9(String id, String ini, String fin) throws Exception {
+		ArrayList<Usuario> ca9;
+		DAOTablaFestival daoFestival = new DAOTablaFestival();
+		try 
+		{
+			this.conn = darConexion();
+			daoFestival.setConn(conn);
+			ca9 = daoFestival.darConsultarAsistencia9(id, ini, fin);
+		} 
+		catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		finally {
+			try {
+				daoFestival.cerrarRecursos();
+				if(this.conn!=null) this.conn.close();
+			} 
+			catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return new ListaUsuario(ca9);
+	}
+	
+	
 	
 	// -----------------------------------------------------------------------------------------------------------------------------
 	// Representante -----------------------------------------------------------------------------------------------------------------------

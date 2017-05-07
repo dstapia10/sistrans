@@ -186,5 +186,33 @@ public class DAOTablaFestival {
 		return cac;
 	}
 	
+	public ArrayList<Usuario> darConsultarAsistencia9(String id, String ini, String fin) throws SQLException, Exception {
+		ArrayList<Usuario> ca9 = new ArrayList<Usuario>();
+
+		String sql = "SELECT us.CEDULA, us.APELLIDO, us.NOMBRE, us.EDAD, us.ROL "
+				+ "FROM ISIS2304A261720.USUARIO us,ISIS2304A261720.BOLETA bl,ISIS2304A261720.FUNCION fn, ISIS2304A261720.OBRA ob, ISIS2304A261720.PRODUCCION pr "
+				+ "WHERE us.CEDULA=bl.ID_USUARIO and bl.IDFUNCION=fn.ID and fn.IDOBRA=ob.ID and ob.ID=pr.ID_OBRA and pr.ID_COMPAÑIA=";
+		sql += id;
+		sql += " and fn.FECHAINICIO>='";
+		sql += ini;
+		sql += "' and fn.FECHAINICIO<'";
+		sql += fin;
+		sql += "' GROUP BY us.CEDULA, us.APELLIDO, us.NOMBRE, us.EDAD, us.ROL";
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+
+		while (rs.next()) {
+			int cedula = Integer.parseInt(rs.getString("CEDULA"));
+			String nombre = rs.getString("NOMBRE");
+			String apellido = rs.getString("APELLIDO");
+			int edad = Integer.parseInt(rs.getString("EDAD"));
+			String rol = rs.getString("ROL");
+			ca9.add(new Usuario(cedula, nombre, apellido, edad, rol));
+		}
+		return ca9;
+	}
+	
 
 }

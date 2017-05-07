@@ -16,6 +16,7 @@ import tm.FestiAndesMaster;
 import vos.Festival;
 import vos.ListaConsultarAsistenciaCliente;
 import vos.ListaFestivales;
+import vos.ListaUsuario;
 
 @Path("festival")
 public class FestiAndesFestivalServices {
@@ -139,6 +140,27 @@ public class FestiAndesFestivalServices {
 		}
 		return Response.status(200).entity(cac).build();
 	}
+    
+    // --------------------------------------------------------------------------------------------------------------------------------------
+   	// ConsultarAsistencia9 -----------------------------------------------------------------------------------------------------------
+   	// --------------------------------------------------------------------------------------------------------------------------------------
+    @GET
+   	@Path("/consAsist9/{id}/{ini}/{fin}")
+   	@Produces({ MediaType.APPLICATION_JSON })
+   	public Response getConsultarAsistencia9(@javax.ws.rs.PathParam("id") String id, @javax.ws.rs.PathParam("ini") String ini, @javax.ws.rs.PathParam("fin") String fin) {
+   		FestiAndesMaster tm = new FestiAndesMaster(getPath());
+   		ListaUsuario ca9;
+   		try {
+   			
+   			ca9 = tm.darConsultarAsistencia9(id, ini, fin);
+   		} 
+   		catch (Exception e) {
+   			return Response.status(500).entity(doErrorMessage(e)).build();
+   		}
+   		return Response.status(200).entity(ca9).build();
+   	}
+    
+ 
  	
 	
 }
