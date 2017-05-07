@@ -5,9 +5,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Random;
 
 import vos.Actor;
 import vos.Representante;
+import vos.Usuario;
 
 public class DAOTablaRepresentante {
 	
@@ -154,5 +156,46 @@ public class DAOTablaRepresentante {
 		recursos.add(prepStmt);
 		prepStmt.executeQuery();
 	}
+	
+	public void llenarTabla() throws SQLException, Exception
+	{
+		Random rand = new Random();
+
+		int cedula = rand.nextInt(99999999) + 10000000 ;
+		
+		
+		
+		for (int i = 0; i < 15000; i++) {
+			
+			
+
+			String nombre = getSaltString();
+			
+			
+			Representante rep = new Representante(cedula, nombre);
+			cedula++;
+			
+			addRepresentante(rep);
+		 
+			nombre = nombre + i;
+			
+		
+			
+		}
+		
+	}
+	
+	protected String getSaltString() {
+        String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        StringBuilder salt = new StringBuilder();
+        Random rnd = new Random();
+        while (salt.length() < 10) { // length of the random string.
+            int index = (int) (rnd.nextFloat() * SALTCHARS.length());
+            salt.append(SALTCHARS.charAt(index));
+        }
+        String saltStr = salt.toString();
+        return saltStr;
+
+    }
 	
 }

@@ -136,5 +136,21 @@ public class FestiAndesRepresentanteServices {
 		}
 		return Response.status(200).entity(representante).build();
 	}
+    
+ // --------------------------------------------------------------------------------------------------------------------------------------
+  	// llenarTablas ------------------------------------------------------------------------------------------------------------------------
+  	// --------------------------------------------------------------------------------------------------------------------------------------
+  	@GET
+  	@Path("/llenar")
+  	public Response llenarTabla() {
+  		FestiAndesMaster tm = new FestiAndesMaster(getPath());
+  		try {
+  			tm.llenarTablaRepresentante();
+  		} 
+  		catch (Exception e) {
+  			return Response.status(500).entity(doErrorMessage(e)).build();
+  		}
+  		return Response.status(200).build();
+  	}
 
 }

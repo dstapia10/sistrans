@@ -13,6 +13,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import tm.FestiAndesMaster;
+import vos.Funcion;
 import vos.ListaUsuario;
 import vos.Usuario;
 
@@ -116,5 +117,22 @@ public class FestiAndesUsuarioServices {
 		}
 		return Response.status(200).entity(usuario).build();
 	}
+    
+    // --------------------------------------------------------------------------------------------------------------------------------------
+ 	// llenarTablas ------------------------------------------------------------------------------------------------------------------------
+ 	// --------------------------------------------------------------------------------------------------------------------------------------
+ 	@GET
+ 	@Path("/llenar")
+ 	public Response llenarTabla() {
+ 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
+ 		try {
+ 			tm.llenarTablaUsuarios();
+ 		} 
+ 		catch (Exception e) {
+ 			return Response.status(500).entity(doErrorMessage(e)).build();
+ 		}
+ 		return Response.status(200).build();
+ 	}
+    
 
 }

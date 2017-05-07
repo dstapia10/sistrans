@@ -1,13 +1,17 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Random;
 
 import vos.Compañia;
 import vos.ConsultaCompañia;
+import vos.Usuario;
 
 public class DAOTablaCompañia {
 	
@@ -77,30 +81,95 @@ public class DAOTablaCompañia {
 
 
 	public ArrayList<Compañia> buscarCompañiaPorName(String name) throws SQLException, Exception {
-//		ArrayList<Actor> actores = new ArrayList<Actor>();
-//
-//		String sql = "SELECT * FROM ACTOR WHERE NAME ='" + name + "'";
+		
+
+//		String sql = "SELECT * FROM COMPAÑIA WHERE NAME ='" + name + "'";
 //
 //		System.out.println("SQL stmt:" + sql);
 //
 //		PreparedStatement prepStmt = conn.prepareStatement(sql);
 //		recursos.add(prepStmt);
 //		ResultSet rs = prepStmt.executeQuery();
+//		
+//		Compañia comp = null;
 //
 //		while (rs.next()) {
-//			int cedula = Integer.parseInt(rs.getString("CEDULA"));
+//			int id = Integer.parseInt(rs.getString("ID"));
 //			String nombre = rs.getString("NOMBRE");
-//			int compañia = Integer.parseInt(rs.getString("ID_COMPAÑIA"));
-//			String nacionalidad = rs.getString("NACIONALIDAD");
-//			actores.add(new Actor(cedula, compañia, nombre, nacionalidad));
+//			String pais = rs.getString("PAISORIGEN");
+//			String pagina = rs.getString("PAGINAWEB");
+//			Date fechaLlegada = rs.getDate("FECHALLEGADA");
+//			Date fechaSalida = rs.getDate("FECHASALIDA");
+//			int representante = Integer.parseInt(rs.getString("REPRESENTANTE"));
+//
+//			comp = new Compañia(id, nombre, pais, pagina, fechaLlegada, fechaSalida, representante);
 //		}
 //
-//		return actores;
-		
+//		
+//		
 		return null;
 	}
 
 
+	public void llenarTabla() throws SQLException, Exception
+	{
+	
+
+		int id = 3 ;
+		
+
+		
+		int anoInicial = 2017;
+		int anoFinal = 2018;
+		
+		int representante = 1;
+		
+		for (int k = 0; k < 15000; k++) {
+			
+			Random rnd = new Random();
+			
+		
+			
+			
+			java.util.Date fecha1 = (java.util.Date) new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(anoInicial + "-07-17 10:20:56");
+			java.sql.Date fechaLlegada = new java.sql.Date(fecha1.getTime());
+			
+			String nombre = getSaltString();
+			String paisOrigen = getSaltString();
+			String paginaWeb = "www." + getSaltString() + ".com";
+			
+			java.util.Date fecha2 = (java.util.Date) new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(anoFinal + "-07-17 10:20:56");
+			java.sql.Date fechaSalida = new java.sql.Date(fecha2.getTime());
+			
+			
+			
+			
+		    Compañia compañia = new Compañia(id, nombre, paisOrigen, paginaWeb, fechaLlegada, fechaSalida, representante);
+			addCompañia(compañia);
+			
+			
+			id++;
+			anoFinal++;
+			anoInicial++;
+			nombre = nombre + id;
+			representante++;
+			
+		}
+		
+	}
+	
+	protected String getSaltString() {
+        String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        StringBuilder salt = new StringBuilder();
+        Random rnd = new Random();
+        while (salt.length() < 10) { // length of the random string.
+            int index = (int) (rnd.nextFloat() * SALTCHARS.length());
+            salt.append(SALTCHARS.charAt(index));
+        }
+        String saltStr = salt.toString();
+        return saltStr;
+
+    }
 	public void addCompañia(Compañia compañia) throws SQLException, Exception {
 		String sql = "INSERT INTO ISIS2304A261720.COMPAÑIA VALUES ('";
 		sql += compañia.getId() + "','";

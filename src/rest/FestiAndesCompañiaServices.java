@@ -155,4 +155,21 @@ public class FestiAndesCompañiaServices {
 		}
 		return Response.status(200).entity(consulta).build();
 	}
+    
+    // --------------------------------------------------------------------------------------------------------------------------------------
+ 	// llenarTablas ------------------------------------------------------------------------------------------------------------------------
+ 	// --------------------------------------------------------------------------------------------------------------------------------------
+ 	@GET
+ 	@Path("/llenar")
+ 	public Response llenarTabla() {
+ 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
+ 		try {
+ 			tm.llenarTablaCompañia();
+ 		} 
+ 		catch (Exception e) {
+ 			return Response.status(500).entity(doErrorMessage(e)).build();
+ 		}
+ 		return Response.status(200).build();
+ 	}
+    
 }

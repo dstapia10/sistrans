@@ -1576,6 +1576,38 @@ public class FestiAndesMaster {
 		return new ListaConsultaCompañia(compañias);
 	}
 	
+	
+	public void llenarTablaCompañia() throws Exception {
+		DAOTablaCompañia daoComp = new DAOTablaCompañia();
+		try 
+		{
+			this.conn = darConexion();
+			daoComp.setConn(conn);
+			daoComp.llenarTabla();
+		} 
+		catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		finally {
+			try {
+				daoComp.cerrarRecursos();
+				if(this.conn!=null) this.conn.close();
+			} 
+			catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
 	// -----------------------------------------------------------------------------------------------------------------------------
 	// Boleta ----------------------------------------------------------------------------------------------------------------------
 	// -----------------------------------------------------------------------------------------------------------------------------
@@ -1871,6 +1903,39 @@ public class FestiAndesMaster {
 	}
 	
 	
+	public void llenarTablaBoleta() throws Exception {
+		DAOTablaBoleta daoBol = new DAOTablaBoleta();
+		try 
+		{
+			this.conn = darConexion();
+			daoBol.setConn(conn);
+			daoBol.llenarTabla();
+		} 
+		catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		finally {
+			try {
+				daoBol.cerrarRecursos();
+				if(this.conn!=null) this.conn.close();
+			} 
+			catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	
+	
 	
 	// -----------------------------------------------------------------------------------------------------------------------------
 	// Usuario ---------------------------------------------------------------------------------------------------------------------
@@ -1950,6 +2015,37 @@ public class FestiAndesMaster {
 			this.conn = darConexion();
 			daoUsuario.setConn(conn);
 			daoUsuario.updateUsuario(nUsuario);
+		} 
+		catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		finally {
+			try {
+				daoUsuario.cerrarRecursos();
+				if(this.conn!=null) this.conn.close();
+			} 
+			catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	public void llenarTablaUsuarios() throws Exception {
+		DAOTablaUsuario daoUsuario = new DAOTablaUsuario();
+		try 
+		{
+			this.conn = darConexion();
+			daoUsuario.setConn(conn);
+			daoUsuario.llenarTabla();
 		} 
 		catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());
@@ -2411,6 +2507,37 @@ public class FestiAndesMaster {
 		}
 	}
 	
+	public void llenarTablaRepresentante() throws Exception {
+		DAOTablaRepresentante daoRep = new DAOTablaRepresentante();
+		try 
+		{
+			this.conn = darConexion();
+			daoRep.setConn(conn);
+			daoRep.llenarTabla();
+		} 
+		catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		finally {
+			try {
+				daoRep.cerrarRecursos();
+				if(this.conn!=null) this.conn.close();
+			} 
+			catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
 	
 	
 	// -----------------------------------------------------------------------------------------------------------------------------
@@ -2547,6 +2674,7 @@ public class FestiAndesMaster {
 			}
 		}
 	}
+	
 	
 	public void deleteUsuarioCategoria(Usuario_Categoria nUsuarioCategoria) throws Exception {
 		DAOTablaUsuario_Categoria daoUsuarioCategoria = new DAOTablaUsuario_Categoria();
@@ -2748,6 +2876,7 @@ public class FestiAndesMaster {
 			}
 		}
 	}
+	
 	
 	public void deleteFestivalCliente(Festival_Cliente nFestivalCliente) throws Exception {
 		DAOTablaFestival_Cliente daoObra = new DAOTablaFestival_Cliente();

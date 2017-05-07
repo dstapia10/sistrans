@@ -1,5 +1,6 @@
 package dao;
 
+import java.lang.reflect.Array;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -12,12 +13,14 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Random;
 
 import vos.Abono;
 import vos.Actor;
 import vos.Boleta;
 import vos.BoletaGet;
 import vos.BoletasVendidas;
+import vos.Compañia;
 import vos.Funcion;
 import vos.ListaBoletasVendidas;
 
@@ -99,7 +102,14 @@ public class DAOTablaBoleta {
 		sql += boleta.getNumeroSilla() + "','";
 	
 		sql += boleta.getPrecio() + "','";
-		sql += boleta.getIdFuncion() + "')";
+		
+		sql += boleta.getIdFuncion() + "',";
+		
+		sql += null + ",";
+		
+		sql += null + ",";
+		
+		sql += null + ")";
 
 		System.out.println("SQL stmt:" + sql);
 
@@ -218,6 +228,22 @@ public void devolverBoleta2(Boleta boleta) throws SQLException, Exception {
 		
 		
 	}
+
+	public void confirmarAsistencia(Boleta boleta) throws SQLException
+	{
+		String sql = "UPDATE ISIS2304A261720.BOLETA SET ASISTENCIA = 'si'";
+		sql += " WHERE ID = " + boleta.getId();
+		
+		System.out.println("SQL stmt:" + sql);
+		
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		
+		recursos.add(prepStmt);
+		prepStmt.executeQuery();
+		System.out.println("Se ha confirmado la asistencia del usuario a la obra.");
+	
+	
+	}
 	
 	
 	public int daysBetween(java.util.Date d1, java.util.Date d2)
@@ -324,6 +350,103 @@ public void devolverBoleta2(Boleta boleta) throws SQLException, Exception {
 			}
 		}
 	}
+	
+	
+	public void llenarTabla() throws SQLException, Exception
+	{
+	
+
+		int id = 1200;
+		
+		for (int i = 5; i < 6; i++) 
+		{
+			
+			
+			int idfuncion = i;
+			
+			for (int k = 1; k < 16; k++) {
+				
+				
+				
+				char[] abecedario = returnAlphabet();
+				
+				int numerosilla = k;
+				
+				for (int j = 0; j < abecedario.length; j++) {
+					
+					int precio = 15000;
+					String letrafila = Character.toString(abecedario[j]); 
+					
+					
+					
+					
+					Boleta boleta = new Boleta(id, letrafila, numerosilla, precio, idfuncion, 15478756);
+					addBoleta(boleta);
+					
+					id++;
+				}
+				
+				
+				
+			}
+		}
+		
+	}
+	
+	
+	public char[] returnAlphabet()
+	{
+		char[] alphabet = new char[26]; // new array
+        
+        
+        for(char ch = 'a'; ch <= 'z'; ++ch)// fills alphabet array with the alphabet
+        {
+            alphabet[ch-'a']=ch;
+        } 
+        return alphabet;
+	}
+	
+
+	
+	
+	protected String getSaltString1() {
+        String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        StringBuilder salt = new StringBuilder();
+        Random rnd = new Random();
+        while (salt.length() < 1) { // length of the random string.
+            int index = (int) (rnd.nextFloat() * SALTCHARS.length());
+            salt.append(SALTCHARS.charAt(index));
+        }
+        String saltStr = salt.toString();
+        return saltStr;
+
+    }
+	
+	protected String getSaltString2() {
+        String SALTCHARS = "123456789";
+        StringBuilder salt = new StringBuilder();
+        Random rnd = new Random();
+        while (salt.length() < 1) { // length of the random string.
+            int index = (int) (rnd.nextFloat() * SALTCHARS.length());
+            salt.append(SALTCHARS.charAt(index));
+        }
+        String saltStr = salt.toString();
+        return saltStr;
+
+    }
+	
+	protected String getSaltString3() {
+        String SALTCHARS = "12345";
+        StringBuilder salt = new StringBuilder();
+        Random rnd = new Random();
+        while (salt.length() < 1) { // length of the random string.
+            int index = (int) (rnd.nextFloat() * SALTCHARS.length());
+            salt.append(SALTCHARS.charAt(index));
+        }
+        String saltStr = salt.toString();
+        return saltStr;
+
+    }
 	
 	
 	private Boleta buscarBoleta(String string) throws SQLException 

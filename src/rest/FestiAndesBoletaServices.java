@@ -239,5 +239,21 @@ public class FestiAndesBoletaServices {
    	public Response deleteBoletaAnonimo(Boleta boleta) {
     	return Response.status(500).entity("No puede borrar la infomacion").build();
    	}
+    
+    // --------------------------------------------------------------------------------------------------------------------------------------
+ 	// llenarTablas ------------------------------------------------------------------------------------------------------------------------
+ 	// --------------------------------------------------------------------------------------------------------------------------------------
+ 	@GET
+ 	@Path("/llenar")
+ 	public Response llenarTabla() {
+ 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
+ 		try {
+ 			tm.llenarTablaBoleta();
+ 		} 
+ 		catch (Exception e) {
+ 			return Response.status(500).entity(doErrorMessage(e)).build();
+ 		}
+ 		return Response.status(200).build();
+ 	}
 
 }
