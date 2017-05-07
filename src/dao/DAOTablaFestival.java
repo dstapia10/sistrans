@@ -186,18 +186,51 @@ public class DAOTablaFestival {
 		return cac;
 	}
 	
-	public ArrayList<Usuario> darConsultarAsistencia9(String id, String ini, String fin) throws SQLException, Exception {
+	public ArrayList<Usuario> darConsultarAsistencia9(String id, String ini, String fin, String orden, String agrupar) throws SQLException, Exception {
 		ArrayList<Usuario> ca9 = new ArrayList<Usuario>();
 
 		String sql = "SELECT us.CEDULA, us.APELLIDO, us.NOMBRE, us.EDAD, us.ROL "
 				+ "FROM ISIS2304A261720.USUARIO us,ISIS2304A261720.BOLETA bl,ISIS2304A261720.FUNCION fn, ISIS2304A261720.OBRA ob, ISIS2304A261720.PRODUCCION pr "
 				+ "WHERE us.CEDULA=bl.ID_USUARIO and bl.IDFUNCION=fn.ID and fn.IDOBRA=ob.ID and ob.ID=pr.ID_OBRA and pr.ID_COMPAÑIA=";
 		sql += id;
-		sql += " and fn.FECHAINICIO>='";
+		sql += " and fn.FECHAINICIO BETWEEN '";
 		sql += ini;
-		sql += "' and fn.FECHAINICIO<'";
+		sql += "' and '";
 		sql += fin;
-		sql += "' GROUP BY us.CEDULA, us.APELLIDO, us.NOMBRE, us.EDAD, us.ROL";
+		
+		 if (agrupar != null)
+			{
+				
+					sql += "' GROUP BY us.CEDULA, us.APELLIDO, us.NOMBRE, us.EDAD, us.ROL";
+				
+			}
+		
+		if (orden != null) 
+		{
+			if (orden.equals("cedula"))
+			{
+				sql += " ORDER BY us.CEDULA";
+			}
+			if (orden.equals("apellido"))
+			{
+				sql += " ORDER BY us.APELLIDO";
+			}
+			if (orden.equals("nombre"))
+			{
+				sql += " ORDER BY us.NOMBRE";
+			}
+			if (orden.equals("edad"))
+			{
+				sql += " ORDER BY  us.EDAD";
+			}
+			if (orden.equals("rol"))
+			{
+				sql += " ORDER BY  us.ROL";
+			}
+			
+			
+		}
+		
 
 		System.out.println(sql);
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
@@ -215,7 +248,7 @@ public class DAOTablaFestival {
 		return ca9;
 	}
 	
-	public ArrayList<Usuario> darConsultarAsistencia10(String id, String ini, String fin) throws SQLException, Exception {
+	public ArrayList<Usuario> darConsultarAsistencia10(String id, String ini, String fin, String orden, String agrupar) throws SQLException, Exception {
 		ArrayList<Usuario> ca10 = new ArrayList<Usuario>();
 
 		String sql = "SELECT a.CEDULA, a.APELLIDO, a.NOMBRE, a.EDAD, a.ROL "
@@ -229,11 +262,42 @@ public class DAOTablaFestival {
 		sql += ini;
 		sql += "' and '";
 		sql += fin;
-		sql += "' GROUP BY us.CEDULA, us.APELLIDO, us.NOMBRE, us.EDAD, us.ROL)b ";
-		sql += "ON a.CEDULA=b.CEDULA ";
-		sql += "WHERE b.CEDULA IS null";
+		
+		sql+= "' )b on a.CEDULA = b.CEDULA WHERE b.CEDULA is NULL";
+		if (agrupar != null)
+		{
+			
+				sql += " GROUP BY a.CEDULA, a.APELLIDO, a.NOMBRE, a.EDAD, a.ROL";
+			
+		}
+	
+	if (orden != null) 
+	{
+		if (orden.equals("cedula"))
+		{
+			sql += " ORDER BY a.CEDULA";
+		}
+		if (orden.equals("apellido"))
+		{
+			sql += " ORDER BY a.APELLIDO";
+		}
+		if (orden.equals("nombre"))
+		{
+			sql += " ORDER BY a.NOMBRE";
+		}
+		if (orden.equals("edad"))
+		{
+			sql += " ORDER BY  a.EDAD";
+		}
+		if (orden.equals("rol"))
+		{
+			sql += " ORDER BY  a.ROL";
+		}
+		
+		
+	
 		System.out.println(sql);
-		System.out.println("aqui");
+	}
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -245,16 +309,16 @@ public class DAOTablaFestival {
 			String apellido = rs.getString("APELLIDO");
 			int edad = Integer.parseInt(rs.getString("EDAD"));
 			String rol = rs.getString("ROL");
-			System.out.println("aqui 2");
+			
 			ca10.add(new Usuario(cedula, nombre, apellido, edad, rol));
 		}
-		System.out.println("aqui 3");
+	
 		return ca10;
 	}
 	
 	
 	public ArrayList<ConsultaBoletasFuncion> darConsultaBoletasFuncion(String letraFila, String ini, String fin) throws SQLException, Exception {
-		System.out.println("Entro 1 ConsultaBoletasFuncion");
+		
 		
 		ArrayList<ConsultaBoletasFuncion> consultaBoletasFuncion = consultaBoletasFuncion1(ini, fin);
 				
@@ -269,7 +333,7 @@ public class DAOTablaFestival {
 	
 	
 	private ArrayList<ConsultaBoletasFuncion> consultaBoletasFuncion1(String ini, String fin) throws SQLException, Exception {
-		System.out.println("Entro 2 ConsultaBoletasFuncion");
+		
 		
 		ArrayList<ConsultaBoletasFuncion> consultaBoletasFuncion = new ArrayList<ConsultaBoletasFuncion>();
 		
@@ -287,7 +351,7 @@ public class DAOTablaFestival {
 		System.out.println(sql);
 		
 		while (rs.next()) {
-			System.out.println("Entro al while consultaBoletasFuncion1");
+			
 			
 			int idFuncion = Integer.parseInt(rs.getString("IDFUNCION"));
 			String nombreobra = rs.getString("NOMBREOBRA");
@@ -303,7 +367,7 @@ public class DAOTablaFestival {
 	
 	private ArrayList<ConsultaBoletasFuncion> consultaBoletasFuncion2(ArrayList<ConsultaBoletasFuncion> listaConsulta, String letraFila, String ini, String fin) throws SQLException, Exception {
 		
-		System.out.println("Entro 3 ConsultaBoletasFuncion");
+		
 		
 		String sql = "SELECT fn.ID as IDFUNCION, COUNT(*) as BOLETASDISPONIBLESLOCALIDAD "
 				+ "FROM ISIS2304A261720.BOLETA bl, ISIS2304A261720.FUNCION fn, ISIS2304A261720.OBRA ob, ISIS2304A261720.TEATRO tr "
@@ -338,8 +402,7 @@ public class DAOTablaFestival {
 	
 	private ArrayList<ConsultaBoletasFuncion> consultaBoletasFuncion3(ArrayList<ConsultaBoletasFuncion> listaConsulta, String letraFila, String ini, String fin) throws SQLException, Exception {
 		
-		System.out.println("Entro 4 ConsultaBoletasFuncion");
-		
+	
 		String sql = "SELECT fn.ID as IDFUNCION, COUNT(*) as BOLETASVENDIDASLOCALIDAD "
 				+ "FROM ISIS2304A261720.BOLETA bl, ISIS2304A261720.FUNCION fn, ISIS2304A261720.OBRA ob, ISIS2304A261720.TEATRO tr "
 				+ "WHERE bl.IDFUNCION=fn.ID and fn.IDOBRA=ob.ID and fn.IDTEATRO=tr.ID and bl.ID_USUARIO IS NOT NULL and "
@@ -374,7 +437,6 @@ public class DAOTablaFestival {
 	
 	private ArrayList<ConsultaBoletasFuncion> consultaBoletasFuncion4(ArrayList<ConsultaBoletasFuncion> listaConsulta) throws SQLException, Exception {
 		
-		System.out.println("Entro 5 ConsultaBoletasFuncion");
 		
 		for(int i=0; i<listaConsulta.size(); i++)
 		{
@@ -421,7 +483,7 @@ public class DAOTablaFestival {
 			String apellido = rs.getString("APELLIDO");
 			int edad = Integer.parseInt(rs.getString("EDAD"));
 			String rol = rs.getString("ROL");
-			System.out.println("aqui 2");
+			
 			cbc.add(new Usuario(cedula, nombre, apellido, edad, rol));
 		}
 		System.out.println("aqui 3");

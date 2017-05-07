@@ -2306,14 +2306,14 @@ public class FestiAndesMaster {
 	}
 	
 	
-	public ListaUsuario darConsultarAsistencia9(String id, String ini, String fin) throws Exception {
+	public ListaUsuario darConsultarAsistencia9(String id, String ini, String fin, String orden, String agrupar) throws Exception {
 		ArrayList<Usuario> ca9;
 		DAOTablaFestival daoFestival = new DAOTablaFestival();
 		try 
 		{
 			this.conn = darConexion();
 			daoFestival.setConn(conn);
-			ca9 = daoFestival.darConsultarAsistencia9(id, ini, fin);
+			ca9 = daoFestival.darConsultarAsistencia9(id, ini, fin, orden, agrupar);
 		} 
 		catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());
@@ -2339,14 +2339,14 @@ public class FestiAndesMaster {
 		return new ListaUsuario(ca9);
 	}
 	
-	public ListaUsuario darConsultarAsistencia10(String id, String ini, String fin) throws Exception {
+	public ListaUsuario darConsultarAsistencia10(String id, String ini, String fin, String orden, String agrupar) throws Exception {
 		ArrayList<Usuario> ca10;
 		DAOTablaFestival daoFestival = new DAOTablaFestival();
 		try 
 		{
 			this.conn = darConexion();
 			daoFestival.setConn(conn);
-			ca10 = daoFestival.darConsultarAsistencia10(id, ini, fin);
+			ca10 = daoFestival.darConsultarAsistencia10(id, ini, fin, orden, agrupar);
 		} 
 		catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());

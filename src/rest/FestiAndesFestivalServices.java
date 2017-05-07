@@ -146,14 +146,15 @@ public class FestiAndesFestivalServices {
    	// ConsultarAsistencia9 -----------------------------------------------------------------------------------------------------------
    	// --------------------------------------------------------------------------------------------------------------------------------------
     @GET
-   	@Path("/consAsist9/{id}/{ini}/{fin}")
+   	@Path("/consAsist9/{id}/{ini}/{fin}/{ordenamiento}/{agrupar}")
    	@Produces({ MediaType.APPLICATION_JSON })
-   	public Response getConsultarAsistencia9(@javax.ws.rs.PathParam("id") String id, @javax.ws.rs.PathParam("ini") String ini, @javax.ws.rs.PathParam("fin") String fin) {
+   	public Response getConsultarAsistencia9(@javax.ws.rs.PathParam("id") String id, @javax.ws.rs.PathParam("ini") String ini, 
+   			@javax.ws.rs.PathParam("fin") String fin, @javax.ws.rs.PathParam("ordenamiento") String orden , @javax.ws.rs.PathParam("agrupar") String agrupar) {
    		FestiAndesMaster tm = new FestiAndesMaster(getPath());
    		ListaUsuario ca9;
    		try {
    			
-   			ca9 = tm.darConsultarAsistencia9(id, ini, fin);
+   			ca9 = tm.darConsultarAsistencia9(id, ini, fin, orden, agrupar);
    		} 
    		catch (Exception e) {
    			return Response.status(500).entity(doErrorMessage(e)).build();
@@ -165,14 +166,16 @@ public class FestiAndesFestivalServices {
    	// ConsultarAsistencia10 -----------------------------------------------------------------------------------------------------------
    	// --------------------------------------------------------------------------------------------------------------------------------------
     @GET
-   	@Path("/consAsist10/{id}/{ini}/{fin}")
+   	@Path("/consAsist10/{id}/{ini}/{fin}/{ordenamiento}/{agrupar}")
    	@Produces({ MediaType.APPLICATION_JSON })
-   	public Response getConsultarAsistencia10(@javax.ws.rs.PathParam("id") String id, @javax.ws.rs.PathParam("ini") String ini, @javax.ws.rs.PathParam("fin") String fin) {
+   	public Response getConsultarAsistencia10(@javax.ws.rs.PathParam("id") String id,
+   			@javax.ws.rs.PathParam("ini") String ini, @javax.ws.rs.PathParam("fin") String fin,
+   			@javax.ws.rs.PathParam("ordenamiento") String orden, @javax.ws.rs.PathParam("agrupar") String agrupar) {
    		FestiAndesMaster tm = new FestiAndesMaster(getPath());
    		ListaUsuario ca10;
    		try {
    			
-   			ca10 = tm.darConsultarAsistencia10(id, ini, fin);
+   			ca10 = tm.darConsultarAsistencia10(id, ini, fin, orden, agrupar);
    		} 
    		catch (Exception e) {
    			return Response.status(500).entity(doErrorMessage(e)).build();
