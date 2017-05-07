@@ -14,6 +14,7 @@ import javax.ws.rs.core.Response;
 
 import tm.FestiAndesMaster;
 import vos.Festival;
+import vos.ListaConsultaBoletasFuncion;
 import vos.ListaConsultarAsistenciaCliente;
 import vos.ListaFestivales;
 import vos.ListaUsuario;
@@ -160,7 +161,7 @@ public class FestiAndesFestivalServices {
    		return Response.status(200).entity(ca9).build();
    	}
     
- // --------------------------------------------------------------------------------------------------------------------------------------
+    // --------------------------------------------------------------------------------------------------------------------------------------
    	// ConsultarAsistencia10 -----------------------------------------------------------------------------------------------------------
    	// --------------------------------------------------------------------------------------------------------------------------------------
     @GET
@@ -177,6 +178,26 @@ public class FestiAndesFestivalServices {
    			return Response.status(500).entity(doErrorMessage(e)).build();
    		}
    		return Response.status(200).entity(ca10).build();
+   	}
+ 	
+    
+    // --------------------------------------------------------------------------------------------------------------------------------------
+   	// ConsultaBoletasFuncion -----------------------------------------------------------------------------------------------------------
+   	// --------------------------------------------------------------------------------------------------------------------------------------
+    @GET
+   	@Path("/consAsist10/{ini}/{fin}")
+   	@Produces({ MediaType.APPLICATION_JSON })
+   	public Response getConsultaBoletasFuncion(@javax.ws.rs.PathParam("ini") String ini, @javax.ws.rs.PathParam("fin") String fin) {
+   		FestiAndesMaster tm = new FestiAndesMaster(getPath());
+   		ListaConsultaBoletasFuncion cbf;
+   		try {
+   			
+   			cbf = tm.darConsultaBoletasFuncion(ini, fin);
+   		} 
+   		catch (Exception e) {
+   			return Response.status(500).entity(doErrorMessage(e)).build();
+   		}
+   		return Response.status(200).entity(cbf).build();
    	}
  	
 	

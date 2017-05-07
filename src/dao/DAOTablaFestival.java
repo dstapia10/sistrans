@@ -247,5 +247,135 @@ public class DAOTablaFestival {
 		return ca10;
 	}
 	
+	
+	public ArrayList<ConsultaBoletasFuncion> darConsultaBoletasFuncion(String ini, String fin) throws SQLException, Exception {
+		System.out.println("Entro 1 ConsultaBoletasFuncion");
+		
+		ArrayList<ConsultaBoletasFuncion> consultaBoletasFuncion = consultaBoletasFuncion1(ini, fin);
+				
+		consultaBoletasFuncion = consultaBoletasFuncion2(consultaBoletasFuncion, ini, fin);
+		
+		consultaBoletasFuncion = consultaBoletasFuncion3(consultaBoletasFuncion, ini, fin);
+		
+		consultaBoletasFuncion = consultaBoletasFuncion4(consultaBoletasFuncion);
+				
+		return consultaBoletasFuncion;
+	}
+	
+	
+	private ArrayList<ConsultaBoletasFuncion> consultaBoletasFuncion1(String ini, String fin) throws SQLException, Exception {
+		System.out.println("Entro 2 ConsultaBoletasFuncion");
+		
+		ArrayList<ConsultaBoletasFuncion> consultaBoletasFuncion = new ArrayList<ConsultaBoletasFuncion>();
+		
+		String sql = "SELECT fn.ID as IDFUNCION, ob.NOMBRE as NOMBREOBRA, fn.FECHAINICIO, tr.NOMBRE as NOMBRETEATRO, fn.ESTADO "
+				+ "FROM ISIS2304A261720.FUNCION fn, ISIS2304A261720.OBRA ob, ISIS2304A261720.TEATRO tr "
+				+ "WHERE fn.IDOBRA=ob.ID and fn.IDTEATRO=tr.ID and fn.FECHAINICIO>='";
+		sql += ini;
+		sql += "' and fn.FECHAINICIO<'";
+		sql += fin;
+		sql += "'GROUP BY fn.ID, ob.NOMBRE, fn.FECHAINICIO, tr.NOMBRE, fn.ESTADO";
 
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+		System.out.println(sql);
+		
+		while (rs.next()) {
+			System.out.println("Entro al while consultaBoletasFuncion1");
+			
+			int idFuncion = Integer.parseInt(rs.getString("IDFUNCION"));
+			String nombreobra = rs.getString("NOMBREOBRA");
+			Date fechainicio=rs.getDate("FECHAINICIO");
+			String nombreteatro = rs.getString("NOMBRETEATRO");
+			String estado = rs.getString("ESTADO");
+			
+			consultaBoletasFuncion.add(new ConsultaBoletasFuncion(idFuncion, nombreobra, fechainicio, nombreteatro, estado, 0, 0, 0));
+		}
+		return consultaBoletasFuncion;
+	}
+	
+	
+	private ArrayList<ConsultaBoletasFuncion> consultaBoletasFuncion2(ArrayList<ConsultaBoletasFuncion> listaConsulta, String ini, String fin) throws SQLException, Exception {
+		
+		System.out.println("Entro 3 ConsultaBoletasFuncion");
+		
+		String sql = "SELECT fn.ID as IDFUNCION, COUNT(*) as TOTALBOLETASDISPONIBLES "
+				+ "FROM ISIS2304A261720.BOLETA bl, ISIS2304A261720.FUNCION fn, ISIS2304A261720.OBRA ob, ISIS2304A261720.TEATRO tr "
+				+ "WHERE bl.IDFUNCION=fn.ID and fn.IDOBRA=ob.ID and fn.IDTEATRO=tr.ID and fn.FECHAINICIO>='";
+		sql += ini;
+		sql += "' and fn.FECHAINICIO<'";
+		sql += fin;
+		sql += "' GROUP BY fn.ID";
+		
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+
+		while (rs.next()) {
+			int idFuncion = Integer.parseInt(rs.getString("IDFUNCION"));
+			int totalboletasdisponibles = Integer.parseInt(rs.getString("TOTALBOLETASDISPONIBLES"));
+			
+			boolean encontro = false;
+			for(int i=0; i<listaConsulta.size() && !encontro; i++)
+			{
+				if(listaConsulta.get(i).getIDFUNCION()==idFuncion){
+					listaConsulta.get(i).setTOTALBOLETASDISPONIBLES(totalboletasdisponibles);
+					encontro=true;
+				}
+			}
+		}
+		return listaConsulta;
+	}
+	
+	
+	private ArrayList<ConsultaBoletasFuncion> consultaBoletasFuncion3(ArrayList<ConsultaBoletasFuncion> listaConsulta, String ini, String fin) throws SQLException, Exception {
+		
+		System.out.println("Entro 4 ConsultaBoletasFuncion");
+		
+		String sql = "SELECT fn.ID as IDFUNCION, COUNT(*) as TOTALBOLETASVENDIDAS "
+				+ "FROM ISIS2304A261720.BOLETA bl, ISIS2304A261720.FUNCION fn, ISIS2304A261720.OBRA ob, ISIS2304A261720.TEATRO tr "
+				+ "WHERE bl.IDFUNCION=fn.ID and fn.IDOBRA=ob.ID and fn.IDTEATRO=tr.ID and bl.ID_USUARIO IS NOT NULL and "
+				+ " fn.FECHAINICIO>='";
+		sql += ini;
+		sql += "' and fn.FECHAINICIO<'";
+		sql += fin;
+		sql += "' GROUP BY fn.ID";
+		
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+
+		while (rs.next()) {
+			int idFuncion = Integer.parseInt(rs.getString("IDFUNCION"));
+			int totalboletasvendidas = Integer.parseInt(rs.getString("TOTALBOLETASVENDIDAS"));
+			
+			boolean encontro = false;
+			for(int i=0; i<listaConsulta.size() && !encontro; i++)
+			{
+				if(listaConsulta.get(i).getIDFUNCION()==idFuncion){
+					listaConsulta.get(i).setTOTALBOLETASVENDIDAS(totalboletasvendidas);
+					encontro=true;
+				}
+			}
+		}
+		return listaConsulta;
+	}
+	
+	
+	private ArrayList<ConsultaBoletasFuncion> consultaBoletasFuncion4(ArrayList<ConsultaBoletasFuncion> listaConsulta) throws SQLException, Exception {
+		
+		System.out.println("Entro 5 ConsultaBoletasFuncion");
+		
+		for(int i=0; i<listaConsulta.size(); i++)
+		{
+			if(listaConsulta.get(i).getTOTALBOLETASDISPONIBLES()!=0){
+				int totalboletasnovendidas = listaConsulta.get(i).getTOTALBOLETASDISPONIBLES()-listaConsulta.get(i).getTOTALBOLETASVENDIDAS();
+				listaConsulta.get(i).setTOTALBOLETASNOVENDIDAS(totalboletasnovendidas);
+			}
+		}
+		
+		return listaConsulta;
+		
+	}
 }

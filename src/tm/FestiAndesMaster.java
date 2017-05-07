@@ -32,6 +32,7 @@ import vos.BoletasVendidas;
 import vos.Categoria;
 import vos.Ciudad;
 import vos.Compañia;
+import vos.ConsultaBoletasFuncion;
 import vos.ConsultaCompañia;
 import vos.ConsultarAsistenciaCliente;
 import vos.Festival;
@@ -45,6 +46,7 @@ import vos.ListaBoletasVendidas;
 import vos.ListaCategoria;
 import vos.ListaCiudad;
 import vos.ListaCompañia;
+import vos.ListaConsultaBoletasFuncion;
 import vos.ListaConsultaCompañia;
 import vos.ListaConsultarAsistenciaCliente;
 import vos.ListaFestivales;
@@ -2368,6 +2370,40 @@ public class FestiAndesMaster {
 			}
 		}
 		return new ListaUsuario(ca10);
+	}
+	
+	
+	public ListaConsultaBoletasFuncion darConsultaBoletasFuncion(String ini, String fin) throws Exception {
+		ArrayList<ConsultaBoletasFuncion> cbf;
+		DAOTablaFestival daoFestival = new DAOTablaFestival();
+		try 
+		{
+			this.conn = darConexion();
+			daoFestival.setConn(conn);
+			cbf = daoFestival.darConsultaBoletasFuncion(ini, fin);
+		} 
+		catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		finally {
+			try {
+				daoFestival.cerrarRecursos();
+				if(this.conn!=null) this.conn.close();
+			} 
+			catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return new ListaConsultaBoletasFuncion(cbf);
 	}
 	
 	
