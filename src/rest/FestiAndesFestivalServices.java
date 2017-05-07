@@ -185,16 +185,16 @@ public class FestiAndesFestivalServices {
    	// ConsultaBoletasFuncion -----------------------------------------------------------------------------------------------------------
    	// --------------------------------------------------------------------------------------------------------------------------------------
     @GET
-   	@Path("/consBolFun/{ini}/{fin}")
+   	@Path("/consBolFun/{letraFila}/{ini}/{fin}")
    	@Produces({ MediaType.APPLICATION_JSON })
-   	public Response getConsultaBoletasFuncion(@javax.ws.rs.PathParam("ini") String ini, @javax.ws.rs.PathParam("fin") String fin) {
+   	public Response getConsultaBoletasFuncion(@javax.ws.rs.PathParam("letraFila") String letraFila, @javax.ws.rs.PathParam("ini") String ini, @javax.ws.rs.PathParam("fin") String fin) {
    		FestiAndesMaster tm = new FestiAndesMaster(getPath());
    		ListaConsultaBoletasFuncion cbf;
    		try {
    			
    			
    			
-   			cbf = tm.darConsultaBoletasFuncion(ini, fin);
+   			cbf = tm.darConsultaBoletasFuncion(letraFila, ini, fin);
    		} 
    		catch (Exception e) {
    			return Response.status(500).entity(doErrorMessage(e)).build();
@@ -202,5 +202,23 @@ public class FestiAndesFestivalServices {
    		return Response.status(200).entity(cbf).build();
    	}
  	
+    
+    // --------------------------------------------------------------------------------------------------------------------------------------
+   	// ConsultaBuenosClientes -----------------------------------------------------------------------------------------------------------
+   	// --------------------------------------------------------------------------------------------------------------------------------------
+    @GET
+   	@Path("/consBuenCliente/{nBoletas}")
+   	@Produces({ MediaType.APPLICATION_JSON })
+   	public Response getConsultaBoletasFuncion(@javax.ws.rs.PathParam("nBoletas") String nBoletas) {
+   		FestiAndesMaster tm = new FestiAndesMaster(getPath());
+   		ListaUsuario cbc;
+   		try {
+   			cbc = tm.darConsultarBuenosClientes(Integer.parseInt(nBoletas));
+   		} 
+   		catch (Exception e) {
+   			return Response.status(500).entity(doErrorMessage(e)).build();
+   		}
+   		return Response.status(200).entity(cbc).build();
+   	}
 	
 }

@@ -21,23 +21,23 @@ public class ConsultaBoletasFuncion {
 	@JsonProperty(value="ESTADO")
 	private String estado;
 	
-	@JsonProperty(value="TOTALBOLETASDISPONIBLES")
-	private int totalboletasdisponibles;
+	@JsonProperty(value="BOLETASDISPONIBLESLOCALIDAD")
+	private int boletasdisponibleslocalidad;
 	
-	@JsonProperty(value="TOTALBOLETASVENDIDAS")
-	private int totalboletasvendidas;
+	@JsonProperty(value="BOLETASVENDIDASLOCALIDAD")
+	private int boletasvendidaslocalidad;
 	
-	@JsonProperty(value="TOTALBOLETASNOVENDIDAS")
-	private int totalboletasnovendidas;
+	@JsonProperty(value="BOLETASNOVENDIDASLOCALIDAD")
+	private int boletasnovendidaslocalidad;
 	
 	public ConsultaBoletasFuncion(@JsonProperty(value="IDFUNCION")int idfuncion,
 		@JsonProperty(value="NOMBREOBRA")String nombreobra,
 		@JsonProperty(value="FECHAINICIO")Date fechainicio,
 		@JsonProperty(value="NOMBRETEATRO")String nombreteatro,
 		@JsonProperty(value="ESTADO")String estado,
-		@JsonProperty(value="TOTALBOLETASDISPONIBLES")int totalboletasdisponibles,	
-		@JsonProperty(value="TOTALBOLETASVENDIDAS")int totalboletasvendidas,	
-		@JsonProperty(value="TOTALBOLETASNOVENDIDAS")int totalboletasnovendidas) 
+		@JsonProperty(value="BOLETASDISPONIBLESLOCALIDAD")int boletasdisponibleslocalidad,	
+		@JsonProperty(value="BOLETASVENDIDASLOCALIDAD")int totalboletasvendidaslocalidad,	
+		@JsonProperty(value="BOLETASNOVENDIDASLOCALIDAD")int totalboletasnovendidaslocalidad) 
 	{
 		super();
 		this.idfuncion = idfuncion;
@@ -45,9 +45,9 @@ public class ConsultaBoletasFuncion {
 		this.fechainicio = fechainicio;		
 		this.nombreteatro = nombreteatro;
 		this.estado = estado;
-		this.totalboletasdisponibles = totalboletasdisponibles;
-		this.totalboletasvendidas = totalboletasvendidas;
-		this.totalboletasnovendidas = totalboletasnovendidas;
+		this.boletasdisponibleslocalidad = boletasdisponibleslocalidad;
+		this.boletasvendidaslocalidad = totalboletasvendidaslocalidad;
+		this.boletasnovendidaslocalidad = totalboletasnovendidaslocalidad;
 	}
 	
 	
@@ -102,32 +102,32 @@ public class ConsultaBoletasFuncion {
 	
 	
 	
-	public int getTOTALBOLETASDISPONIBLES() {
-		return totalboletasdisponibles;
+	public int getBOLETASDISPONIBLESLOCALIDAD() {
+		return boletasdisponibleslocalidad;
 	}
 	
-	public void setTOTALBOLETASDISPONIBLES(int name) {
-		this.totalboletasdisponibles = name;
-	}
-	
-	
-	
-	public int getTOTALBOLETASVENDIDAS() {
-		return totalboletasvendidas;
-	}
-		
-	public void setTOTALBOLETASVENDIDAS(int name) {
-		this.totalboletasvendidas = name;
+	public void setBOLETASDISPONIBLESLOCALIDAD(int name) {
+		this.boletasdisponibleslocalidad = name;
 	}
 	
 	
 	
-	public int getTOTALBOLETASNOVENDIDAS() {
-		return totalboletasnovendidas;
+	public int getBOLETASVENDIDASLOCALIDAD() {
+		return boletasvendidaslocalidad;
 	}
 		
-	public void setTOTALBOLETASNOVENDIDAS(int name) {
-		this.totalboletasnovendidas = name;
+	public void setBOLETASVENDIDASLOCALIDAD(int name) {
+		this.boletasvendidaslocalidad = name;
+	}
+	
+	
+	
+	public int getTOTALBOLETASNOVENDIDASLOCALIDAD() {
+		return boletasnovendidaslocalidad;
+	}
+		
+	public void setBOLETASNOVENDIDASLOCALIDAD(int name) {
+		this.boletasnovendidaslocalidad = name;
 	}
 	
 }

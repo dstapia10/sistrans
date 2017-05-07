@@ -2373,14 +2373,14 @@ public class FestiAndesMaster {
 	}
 	
 	
-	public ListaConsultaBoletasFuncion darConsultaBoletasFuncion(String ini, String fin) throws Exception {
+	public ListaConsultaBoletasFuncion darConsultaBoletasFuncion(String letraFila, String ini, String fin) throws Exception {
 		ArrayList<ConsultaBoletasFuncion> cbf;
 		DAOTablaFestival daoFestival = new DAOTablaFestival();
 		try 
 		{
 			this.conn = darConexion();
 			daoFestival.setConn(conn);
-			cbf = daoFestival.darConsultaBoletasFuncion(ini, fin);
+			cbf = daoFestival.darConsultaBoletasFuncion(letraFila, ini, fin);
 		} 
 		catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());
@@ -2406,6 +2406,38 @@ public class FestiAndesMaster {
 		return new ListaConsultaBoletasFuncion(cbf);
 	}
 	
+	public ListaUsuario darConsultarBuenosClientes(int nBoletas) throws Exception {
+		ArrayList<Usuario> cbc;
+		DAOTablaFestival daoFestival = new DAOTablaFestival();
+		try 
+		{
+			this.conn = darConexion();
+			daoFestival.setConn(conn);
+			cbc = daoFestival.darConsultarBuenosClientes(nBoletas);
+		} 
+		catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} 
+		finally {
+			try {
+				daoFestival.cerrarRecursos();
+				if(this.conn!=null) this.conn.close();
+			} 
+			catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return new ListaUsuario(cbc);
+	}
 	
 	
 	// -----------------------------------------------------------------------------------------------------------------------------

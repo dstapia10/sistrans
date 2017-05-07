@@ -253,14 +253,14 @@ public class DAOTablaFestival {
 	}
 	
 	
-	public ArrayList<ConsultaBoletasFuncion> darConsultaBoletasFuncion(String ini, String fin) throws SQLException, Exception {
+	public ArrayList<ConsultaBoletasFuncion> darConsultaBoletasFuncion(String letraFila, String ini, String fin) throws SQLException, Exception {
 		System.out.println("Entro 1 ConsultaBoletasFuncion");
 		
 		ArrayList<ConsultaBoletasFuncion> consultaBoletasFuncion = consultaBoletasFuncion1(ini, fin);
 				
-		consultaBoletasFuncion = consultaBoletasFuncion2(consultaBoletasFuncion, ini, fin);
+		consultaBoletasFuncion = consultaBoletasFuncion2(consultaBoletasFuncion, letraFila, ini, fin);
 		
-		consultaBoletasFuncion = consultaBoletasFuncion3(consultaBoletasFuncion, ini, fin);
+		consultaBoletasFuncion = consultaBoletasFuncion3(consultaBoletasFuncion, letraFila, ini, fin);
 		
 		consultaBoletasFuncion = consultaBoletasFuncion4(consultaBoletasFuncion);
 				
@@ -301,16 +301,18 @@ public class DAOTablaFestival {
 	}
 	
 	
-	private ArrayList<ConsultaBoletasFuncion> consultaBoletasFuncion2(ArrayList<ConsultaBoletasFuncion> listaConsulta, String ini, String fin) throws SQLException, Exception {
+	private ArrayList<ConsultaBoletasFuncion> consultaBoletasFuncion2(ArrayList<ConsultaBoletasFuncion> listaConsulta, String letraFila, String ini, String fin) throws SQLException, Exception {
 		
 		System.out.println("Entro 3 ConsultaBoletasFuncion");
 		
-		String sql = "SELECT fn.ID as IDFUNCION, COUNT(*) as TOTALBOLETASDISPONIBLES "
+		String sql = "SELECT fn.ID as IDFUNCION, COUNT(*) as BOLETASDISPONIBLESLOCALIDAD "
 				+ "FROM ISIS2304A261720.BOLETA bl, ISIS2304A261720.FUNCION fn, ISIS2304A261720.OBRA ob, ISIS2304A261720.TEATRO tr "
 				+ "WHERE bl.IDFUNCION=fn.ID and fn.IDOBRA=ob.ID and fn.IDTEATRO=tr.ID and fn.FECHAINICIO>='";
 		sql += ini;
 		sql += "' and fn.FECHAINICIO<'";
 		sql += fin;
+		sql += "' and bl.LETRAFILA='";
+		sql += letraFila;
 		sql += "' GROUP BY fn.ID";
 		
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
@@ -319,13 +321,13 @@ public class DAOTablaFestival {
 
 		while (rs.next()) {
 			int idFuncion = Integer.parseInt(rs.getString("IDFUNCION"));
-			int totalboletasdisponibles = Integer.parseInt(rs.getString("TOTALBOLETASDISPONIBLES"));
+			int boletasdisponibleslocalidad = Integer.parseInt(rs.getString("BOLETASDISPONIBLESLOCALIDAD"));
 			
 			boolean encontro = false;
 			for(int i=0; i<listaConsulta.size() && !encontro; i++)
 			{
 				if(listaConsulta.get(i).getIDFUNCION()==idFuncion){
-					listaConsulta.get(i).setTOTALBOLETASDISPONIBLES(totalboletasdisponibles);
+					listaConsulta.get(i).setBOLETASDISPONIBLESLOCALIDAD(boletasdisponibleslocalidad);
 					encontro=true;
 				}
 			}
@@ -334,17 +336,19 @@ public class DAOTablaFestival {
 	}
 	
 	
-	private ArrayList<ConsultaBoletasFuncion> consultaBoletasFuncion3(ArrayList<ConsultaBoletasFuncion> listaConsulta, String ini, String fin) throws SQLException, Exception {
+	private ArrayList<ConsultaBoletasFuncion> consultaBoletasFuncion3(ArrayList<ConsultaBoletasFuncion> listaConsulta, String letraFila, String ini, String fin) throws SQLException, Exception {
 		
 		System.out.println("Entro 4 ConsultaBoletasFuncion");
 		
-		String sql = "SELECT fn.ID as IDFUNCION, COUNT(*) as TOTALBOLETASVENDIDAS "
+		String sql = "SELECT fn.ID as IDFUNCION, COUNT(*) as BOLETASVENDIDASLOCALIDAD "
 				+ "FROM ISIS2304A261720.BOLETA bl, ISIS2304A261720.FUNCION fn, ISIS2304A261720.OBRA ob, ISIS2304A261720.TEATRO tr "
 				+ "WHERE bl.IDFUNCION=fn.ID and fn.IDOBRA=ob.ID and fn.IDTEATRO=tr.ID and bl.ID_USUARIO IS NOT NULL and "
 				+ " fn.FECHAINICIO>='";
 		sql += ini;
 		sql += "' and fn.FECHAINICIO<'";
 		sql += fin;
+		sql += "' and bl.LETRAFILA='";
+		sql += letraFila;
 		sql += "' GROUP BY fn.ID";
 		
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
@@ -353,13 +357,13 @@ public class DAOTablaFestival {
 
 		while (rs.next()) {
 			int idFuncion = Integer.parseInt(rs.getString("IDFUNCION"));
-			int totalboletasvendidas = Integer.parseInt(rs.getString("TOTALBOLETASVENDIDAS"));
+			int boletasvendidaslocalidad = Integer.parseInt(rs.getString("BOLETASVENDIDASLOCALIDAD"));
 			
 			boolean encontro = false;
 			for(int i=0; i<listaConsulta.size() && !encontro; i++)
 			{
 				if(listaConsulta.get(i).getIDFUNCION()==idFuncion){
-					listaConsulta.get(i).setTOTALBOLETASVENDIDAS(totalboletasvendidas);
+					listaConsulta.get(i).setBOLETASVENDIDASLOCALIDAD(boletasvendidaslocalidad);
 					encontro=true;
 				}
 			}
@@ -374,13 +378,54 @@ public class DAOTablaFestival {
 		
 		for(int i=0; i<listaConsulta.size(); i++)
 		{
-			if(listaConsulta.get(i).getTOTALBOLETASDISPONIBLES()!=0){
-				int totalboletasnovendidas = listaConsulta.get(i).getTOTALBOLETASDISPONIBLES()-listaConsulta.get(i).getTOTALBOLETASVENDIDAS();
-				listaConsulta.get(i).setTOTALBOLETASNOVENDIDAS(totalboletasnovendidas);
+			if(listaConsulta.get(i).getBOLETASDISPONIBLESLOCALIDAD()!=0){
+				int boletasnovendidaslocalidad = listaConsulta.get(i).getBOLETASDISPONIBLESLOCALIDAD()-listaConsulta.get(i).getBOLETASVENDIDASLOCALIDAD();
+				listaConsulta.get(i).setBOLETASNOVENDIDASLOCALIDAD(boletasnovendidaslocalidad);
 			}
 		}
 		
-		return listaConsulta;
-		
+		return listaConsulta;		
 	}
+	
+	
+	
+	public ArrayList<Usuario> darConsultarBuenosClientes(int nBoletas) throws SQLException, Exception {
+		ArrayList<Usuario> cbc = new ArrayList<Usuario>();
+
+		String sql = "SELECT a.CEDULA, a.APELLIDO, a.NOMBRE, a.EDAD, a.ROL "
+				+ "FROM (SELECT us.CEDULA, us.APELLIDO, us.NOMBRE, us.EDAD, us.ROL, COUNT(*) as BOLETASCOMPRADASTOTAL "
+				+ "FROM ISIS2304A261720.USUARIO us,ISIS2304A261720.BOLETA bl,ISIS2304A261720.FUNCION fn, ISIS2304A261720.OBRA ob "
+				+ "WHERE us.CEDULA=bl.ID_USUARIO and bl.IDFUNCION=fn.ID and fn.IDOBRA=ob.ID "
+				+ "GROUP BY us.CEDULA, us.APELLIDO, us.NOMBRE, us.EDAD, us.ROL)a "
+				+ "INNER JOIN "
+				+ "(SELECT us.CEDULA, us.APELLIDO, us.NOMBRE, us.EDAD, us.ROL, COUNT(*) as BOLETASCOMPRADASLOCALIDAD "
+				+ "FROM ISIS2304A261720.USUARIO us,ISIS2304A261720.BOLETA bl,ISIS2304A261720.FUNCION fn, ISIS2304A261720.OBRA ob "
+				+ "WHERE us.CEDULA=bl.ID_USUARIO and bl.IDFUNCION=fn.ID and fn.IDOBRA=ob.ID and "
+				+ "(bl.LETRAFILA='a' or bl.LETRAFILA='b' or bl.LETRAFILA='c' or bl.LETRAFILA='d' or bl.LETRAFILA='e') "
+				+ "GROUP BY us.CEDULA, us.APELLIDO, us.NOMBRE, us.EDAD, us.ROL)b "
+				+ "ON a.CEDULA=b.CEDULA "
+				+ "WHERE (a.BOLETASCOMPRADASTOTAL-b.BOLETASCOMPRADASLOCALIDAD)=0 and b.BOLETASCOMPRADASLOCALIDAD>=";
+		sql += nBoletas;
+				
+		
+		System.out.println(sql);
+		System.out.println("aqui");
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+
+		while (rs.next()) {
+			int cedula = Integer.parseInt(rs.getString("CEDULA"));
+			String nombre = rs.getString("NOMBRE");
+			String apellido = rs.getString("APELLIDO");
+			int edad = Integer.parseInt(rs.getString("EDAD"));
+			String rol = rs.getString("ROL");
+			System.out.println("aqui 2");
+			cbc.add(new Usuario(cedula, nombre, apellido, edad, rol));
+		}
+		System.out.println("aqui 3");
+		return cbc;
+	}
+	
 }
