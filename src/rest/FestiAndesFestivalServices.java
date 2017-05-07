@@ -208,7 +208,7 @@ public class FestiAndesFestivalServices {
    			fin2 += "/";
    			fin2 = fin1[2];
    			
-   			ca10 = tm.darConsultarAsistencia9(id, ini2, fin2);
+   			ca10 = tm.darConsultarAsistencia10(id, ini2, fin2);
    		} 
    		catch (Exception e) {
    			return Response.status(500).entity(doErrorMessage(e)).build();
@@ -221,7 +221,7 @@ public class FestiAndesFestivalServices {
    	// ConsultaBoletasFuncion -----------------------------------------------------------------------------------------------------------
    	// --------------------------------------------------------------------------------------------------------------------------------------
     @GET
-   	@Path("/consAsist10/{ini}/{fin}")
+   	@Path("/consBolFun/{ini}/{fin}")
    	@Produces({ MediaType.APPLICATION_JSON })
    	public Response getConsultaBoletasFuncion(@javax.ws.rs.PathParam("ini") String ini, @javax.ws.rs.PathParam("fin") String fin) {
    		FestiAndesMaster tm = new FestiAndesMaster(getPath());
