@@ -16,6 +16,7 @@ import tm.FestiAndesMaster;
 import vos.Compañia;
 import vos.ListaCompañia;
 import vos.ListaConsultaCompañia;
+import vos.ListaFuncion2;
 
 @Path("compañia")
 public class FestiAndesCompañiaServices {
@@ -34,18 +35,19 @@ public class FestiAndesCompañiaServices {
 	// --------------------------------------------------------------------------------------------------------------------------------------
 	// getCompañia --------------------------------------------------------------------------------------------------------------------------
 	// --------------------------------------------------------------------------------------------------------------------------------------
-	@GET
+	@PUT
+	@Path("/cancelarComp/{id}")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response getCompañia() {
+	public Response getCompañia(@javax.ws.rs.PathParam("id") String id) {
 		FestiAndesMaster tm = new FestiAndesMaster(getPath());
-		ListaCompañia compañia;
+		ListaFuncion2 compañia;
 		try {
-			compañia = tm.darCompañias();
+			 tm.darCompañias(Integer.parseInt(id));
 		} 
 		catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
-		return Response.status(200).entity(compañia).build();
+		return Response.status(200).build();
 	}
 	
 	// --------------------------------------------------------------------------------------------------------------------------------------

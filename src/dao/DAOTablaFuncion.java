@@ -150,6 +150,8 @@ public class DAOTablaFuncion {
 		return funcion;
 	}
 	
+	
+	
 	public void cancelarFuncion(Funcion funcion) throws SQLException, Exception {
 
 		
@@ -178,11 +180,40 @@ public class DAOTablaFuncion {
 			}
 		}
 	}
-	
+public void cancelarFuncion2(Funcion funcion) throws SQLException, Exception {
+
+		
+		
+
+		
+		if (sePuedeCancelar2(funcion)) {
+			
+			System.out.println("entra a el if en se puede cancelar");
+			String sql = "UPDATE ISIS2304A261720.FUNCION SET ";
+			sql += "ESTADO='cancelado' " ;
+			sql += " WHERE ID = " + funcion.getId();
+			
+			System.out.println("SQL stmt:" + sql);
+			
+			
+			
+			PreparedStatement prepStmt = conn.prepareStatement(sql);
+			recursos.add(prepStmt);
+			prepStmt.executeQuery();
+			ArrayList<Boleta> bol = darBoletasFuncion(funcion);
+			
+			for (int i = 0; i < bol.size(); i++) {
+				
+				devolverBoleta2(bol.get(i));
+				System.out.println("aqui x1-");
+			}
+		}
+	}
 	public void devolverBoleta2(Boleta boleta) throws SQLException, Exception {
 		
 		String sql = "UPDATE BOLETA SET ID_USUARIO = NULL";
 		sql += " WHERE ID = " + boleta.getId();
+		
 		
 		System.out.println("SQL stmt:" + sql);
 		
@@ -245,6 +276,15 @@ public class DAOTablaFuncion {
 			System.out.println(" falso");
 		return false;
 		
+		
+	}
+	
+	
+	public boolean sePuedeCancelar2(Funcion funcion)
+	{
+		System.out.println("entra a se puede cancelar");
+
+		return true;
 		
 	}
 

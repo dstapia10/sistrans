@@ -17,6 +17,7 @@ import vos.Abono;
 import vos.Boleta;
 import vos.BoletasVendidas;
 import vos.ListaBoletas;
+import vos.ListaBoletasFestival;
 import vos.ListaBoletasVendidas;
 
 @Path("boleta")
@@ -255,5 +256,25 @@ public class FestiAndesBoletaServices {
  		}
  		return Response.status(200).build();
  	}
+ 	
+
+
+	//-------------------------------------------------------------------------------------------------------------
+	// ITERACIÓN 5
+	//-------------------------------------------------------------------------------------------------------------
+	@POST
+	@Path("/{rol_cliente}/{identificacion}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response hacerAbono(@javax.ws.rs.PathParam("identificacion") int id, ListaBoletasFestival lista) {
+		FestiAndesMaster tm = new FestiAndesMaster(getPath());
+		ListaBoletasFestival listaBoletasFestival;
+		try {
+			listaBoletasFestival = tm.hacerAbono(id, lista);
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(listaBoletasFestival).build();
+	}
 
 }

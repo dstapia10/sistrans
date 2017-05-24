@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.sql.Date;
 import java.util.Properties;
 
+import dao.DAOAbono;
 import dao.DAOTablaActor;
 import dao.DAOTablaBoleta;
 import dao.DAOTablaCategoria;
@@ -24,9 +25,12 @@ import dao.DAOTablaRepresentante;
 import dao.DAOTablaTeatro;
 import dao.DAOTablaUsuario;
 import dao.DAOTablaUsuario_Categoria;
+import dtm.FestivAndesDistributed;
+import jms.NonReplyException;
 import vos.Abono;
 import vos.Actor;
 import vos.Boleta;
+import vos.BoletaFestival;
 import vos.BoletaGet;
 import vos.BoletasVendidas;
 import vos.Categoria;
@@ -42,6 +46,7 @@ import vos.FuncionRealizada;
 import vos.ListaAbono;
 import vos.ListaActores;
 import vos.ListaBoletas;
+import vos.ListaBoletasFestival;
 import vos.ListaBoletasVendidas;
 import vos.ListaCategoria;
 import vos.ListaCiudad;
@@ -52,6 +57,7 @@ import vos.ListaConsultarAsistenciaCliente;
 import vos.ListaFestivales;
 import vos.ListaFestivales_Clientes;
 import vos.ListaFuncion;
+import vos.ListaFuncion2;
 import vos.ListaFuncionesRealizadas;
 import vos.ListaObra;
 import vos.ListaObras_Categorias;
@@ -118,6 +124,8 @@ public class FestiAndesMaster {
 	public FestiAndesMaster(String contextPathP) {
 		connectionDataPath = contextPathP + CONNECTION_DATA_FILE_NAME_REMOTE;
 		initConnectionData();
+		dtm = FestivAndesDistributed.getInstance(this);
+		
 	}
 
 	/**
@@ -1385,14 +1393,17 @@ public class FestiAndesMaster {
 	private void inicioCompañia(){
 	}
 	
-	public ListaCompañia darCompañias() throws Exception {
-		ArrayList<Compañia> compañias;
+	public String darCompañias(int id) throws Exception {
+		ArrayList<Funcion> compañias;
 		DAOTablaCompañia daoCompañia = new DAOTablaCompañia();
+		DAOTablaFuncion daoFuncion = new DAOTablaFuncion();
+		
 		try 
 		{
 			this.conn = darConexion();
 			daoCompañia.setConn(conn);
-			compañias = daoCompañia.darCompañia();
+			
+			daoCompañia.retirarCompañia(id);
 		} 
 		catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());
@@ -1415,7 +1426,9 @@ public class FestiAndesMaster {
 				throw exception;
 			}
 		}
-		return new ListaCompañia(compañias);
+		
+		return "Existoso";
+	
 	}
 	
 	public ListaCompañia buscarCompañiaPorNombre(String nNombre) throws Exception {
@@ -3384,6 +3397,56 @@ public class FestiAndesMaster {
 			}
 		}
 	}
+	
+	private FestivAndesDistributed dtm; //INICIALIZAR EN EL CONSTRUCTOR
+
+	public ListaBoletasFestival hacerAbonoLocal(int idCliente, ListaBoletasFestival lista) throws Exception
+	{
+		ArrayList<BoletaFestival> boletas;
+		DAOAbono dao = new DAOAbono();
+		try 
+		{
+			//////TransacciÃ³n
+			this.conn = darConexion();
+			dao.setConn(conn);
+			boletas = dao.hacerAbono(idCliente, lista);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				dao.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return new ListaBoletasFestival(boletas);
+	}
+	
+	public ListaBoletasFestival hacerAbono(int idCliente, ListaBoletasFestival lista) throws Exception {
+		ListaBoletasFestival remL = hacerAbonoLocal(idCliente, lista);
+		try
+		{
+			ListaBoletasFestival resp = dtm.hacerAbonoRemoto(idCliente, lista);
+			remL.getBoletasFestivales().addAll(resp.getBoletasFestivales());
+		}
+		catch(NonReplyException e)
+		{
+			
+		}
+		return remL;
+	}
+	
 		
 	
 }

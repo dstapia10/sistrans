@@ -9,8 +9,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Random;
 
+import vos.Boleta;
+import vos.BoletaGet;
 import vos.Compañia;
 import vos.ConsultaCompañia;
+import vos.Funcion;
 import vos.Usuario;
 
 public class DAOTablaCompañia {
@@ -57,26 +60,41 @@ public class DAOTablaCompañia {
 	}
 
 
-	public ArrayList<Compañia> darCompañia() throws SQLException, Exception {
-//		ArrayList<Actor> actores = new ArrayList<Actor>();
-//
-//		String sql = "SELECT * FROM ACTOR";
-//
-//		PreparedStatement prepStmt = conn.prepareStatement(sql);
-//		recursos.add(prepStmt);
-//		ResultSet rs = prepStmt.executeQuery();
-//
-//		while (rs.next()) {
-//			int cedula = Integer.parseInt(rs.getString("CEDULA"));
-//			String nombre = rs.getString("NOMBRE");
-//			int compañia = Integer.parseInt(rs.getString("ID_COMPAÑIA"));
-//			String nacionalidad = rs.getString("NACIONALIDAD");
-//			actores.add(new Actor(cedula, compañia, nombre, nacionalidad));
-//		}
-//		return actores;
+	public ArrayList<Funcion> darFunciones(int id) throws SQLException, Exception {
 		
-		return null;
+
+		ArrayList<Funcion> funciones = new ArrayList<Funcion>();
+		String sql = "SELECT fn.ID as IDFUNCION  "
+				+ "FROM ISIS2304A261720.FUNCION fn, ISIS2304A261720.OBRA ob, ISIS2304A261720.PRODUCCION pr "
+				+ "WHERE pr.ID_COMPAÑIA= "+ id + " and pr.ID_OBRA=ob.ID and ob.ID=fn.IDOBRA "
+				+ "ORDER BY ob.ID " ;
+		
+		System.out.println(sql);
+
+						PreparedStatement prepStmt = conn.prepareStatement(sql);
+						recursos.add(prepStmt);
+						ResultSet rs = prepStmt.executeQuery();
+
+						
+						while (rs.next()) {
+							int idCom = Integer.parseInt(rs.getString("IDFUNCION"));
+							System.out.println(idCom);
+							
+							java.util.Date now = new java.util.Date();
+							java.sql.Date sqlDate = new java.sql.Date(now.getTime());
+							funciones.add( new Funcion(idCom, sqlDate , 1, 1, "ok"));
+							
+							System.out.println("aqui 1");
+							
+						}
+						
+						System.out.println("termina el while");
+						
+						return funciones;
+		
 	}
+	
+	
 
 
 
@@ -233,6 +251,120 @@ public class DAOTablaCompañia {
 	}
 	
 	
+	public void retirarCompañia(int id) throws SQLException, Exception
+	{
+		ArrayList<Funcion> func = darFunciones(id);
+		
+		System.out.println("Aqui 2");
+		for (int i = 0; i < func.size(); i++) 
+		{
+			
+			System.out.println(func.size());
+			
+			Funcion fun = func.get(i);
+			
+			System.out.println(fun.getId()+ "este");
+			
+			
+			cancelarFuncion2(fun);
+			
+		}
+		
+		
+		
+	}
+	
+public void cancelarFuncion2(Funcion funcion) throws SQLException, Exception {
+
+		
+		
+
+		
+		if (sePuedeCancelar2(funcion)) {
+			
+			System.out.println("entra a el if en se puede cancelar");
+			String sql = "UPDATE ISIS2304A261720.FUNCION SET ";
+			sql += "ESTADO='cancelado' " ;
+			sql += " WHERE ID = " + funcion.getId();
+			
+			System.out.println("SQL stmt:" + sql);
+			
+			
+			
+			PreparedStatement prepStmt = conn.prepareStatement(sql);
+			recursos.add(prepStmt);
+			prepStmt.executeQuery();
+			ArrayList<Boleta> bol = darBoletasFuncion(funcion);
+			
+			for (int i = 0; i < bol.size(); i++) {
+				
+				devolverBoleta2(bol.get(i));
+				System.out.println("aqui x1-");
+			}
+		}
+	}
+
+public void devolverBoleta2(Boleta boleta) throws SQLException, Exception {
+	
+	String sql = "UPDATE BOLETA SET ID_USUARIO = NULL ";
+	sql += " WHERE ID = " + boleta.getId() + " AND ID_USUARIO IS NOT NULL";
+	
+	
+	System.out.println("SQL stmt:" + sql);
+	
+	PreparedStatement prepStmt = conn.prepareStatement(sql);
+	System.out.println("aqui");
+	recursos.add(prepStmt);
+	System.out.println("aqui");
+	prepStmt.executeQuery();
+	System.out.println("La Funcion ha sido cancelada, puede proceder a la entidad bancaria FestivAndes para la devolucion de su dinero.");
+
+
+}
+	
+	
+	
+public boolean sePuedeCancelar2(Funcion funcion)
+{
+	System.out.println("entra a se puede cancelar");
+
+	return true;
+	
+}
+
+public ArrayList<Boleta> darBoletasFuncion( Funcion funcion) throws SQLException
+{
+
+	ArrayList<Boleta> boletas = new ArrayList<>();
+	String sql = "SELECT * FROM ISIS2304A261720.BOLETA ";
+	sql += " WHERE IDFUNCION = " + funcion.getId() + " AND ID_USUARIO IS NOT NULL";
+	
+	System.out.println("SQL stmt:" + sql);
+	
+	PreparedStatement prepStmt = conn.prepareStatement(sql);
+	recursos.add(prepStmt);
+	ResultSet rs = prepStmt.executeQuery();
+
+	System.out.println("aqui en boletas");
+	while (rs.next()) {
+		System.out.println("entra al while");
+		int id = Integer.parseInt(rs.getString("ID"));
+		System.out.println(id);
+		String letrafila = rs.getString ("LETRAFILA");
+		System.out.println(letrafila);
+		int numerosilla = Integer.parseInt(rs.getString("NUMEROSILLA"));
+		System.out.println(numerosilla);
+		int idfuncion = Integer.parseInt(rs.getString("IDFUNCION"));
+		System.out.println(idfuncion);
+		int precio = Integer.parseInt(rs.getString("PRECIO"));
+		System.out.println(precio);
+		int idUsuario = 0;
+		System.out.println("aqui dentro del while");
+		boletas.add(new Boleta(id, letrafila, numerosilla, precio, idfuncion, idUsuario));
+	}
+	System.out.println("retorna las boletas");
+	return boletas;
+}
 	private ArrayList<ConsultaCompañia> darConsultaCompañiaFunciones(int nId) throws SQLException, Exception {
 		System.out.println("entro 2");
 		
